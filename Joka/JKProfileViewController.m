@@ -24,7 +24,7 @@
     //_anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
     _nameLabel.text = [_friendInfo objectForKey:@"username"];
     
-    
+    [self getUserInfo];
 
     [self checkIfAlreadyIsFriend];
     
@@ -103,6 +103,30 @@
                      //_addToFriendButton.titleLabel.text = @"Already a Friend";
                  }
              }
+         });
+         
+         
+     } failure:^(NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+     }];
+}
+
+- (void)getUserInfo{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[_friendInfo objectForKey:@"username"] forKey:@"username"];
+    
+    [[JKLightspeedManager manager] sendRequest:@"objects/User/search.json" method:AnSocialManagerGET params:params success:^
+     (NSDictionary *response) {
+         
+         NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
+         dispatch_async(dispatch_get_main_queue(), ^{
+             _experienceLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0]objectForKey:@"experience"];
+             _awardLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"award"];
+             _levelLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"level"];
+             _locationLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"location"];
          });
          
          

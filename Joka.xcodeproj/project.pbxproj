@@ -28,6 +28,7 @@
 		67E12F2A1B32598600761D69 /* JKChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F291B32598600761D69 /* JKChatViewController.m */; };
 		67E12F2E1B32677200761D69 /* JKProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F2D1B32677200761D69 /* JKProfileViewController.m */; };
 		67E12F321B32BA9400761D69 /* JKLightspeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F311B32BA9400761D69 /* JKLightspeedManager.m */; };
+		67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67F7C7B41B37FF3E0026E344 /* JKEnterUserInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,8 @@
 		67E12F2D1B32677200761D69 /* JKProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKProfileViewController.m; sourceTree = "<group>"; };
 		67E12F301B32BA9400761D69 /* JKLightspeedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKLightspeedManager.h; sourceTree = "<group>"; };
 		67E12F311B32BA9400761D69 /* JKLightspeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKLightspeedManager.m; sourceTree = "<group>"; };
+		67F7C7B31B37FF3E0026E344 /* JKEnterUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEnterUserInfoViewController.h; sourceTree = "<group>"; };
+		67F7C7B41B37FF3E0026E344 /* JKEnterUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEnterUserInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +234,8 @@
 			children = (
 				67E12F1E1B315D6100761D69 /* JKPersonalProfileViewController.h */,
 				67E12F1F1B315D6100761D69 /* JKPersonalProfileViewController.m */,
+				67F7C7B31B37FF3E0026E344 /* JKEnterUserInfoViewController.h */,
+				67F7C7B41B37FF3E0026E344 /* JKEnterUserInfoViewController.m */,
 			);
 			name = PersonalProfileView;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 				67E12F241B3170B100761D69 /* JKFriendsViewController.m in Sources */,
 				67E12F321B32BA9400761D69 /* JKLightspeedManager.m in Sources */,
 				67E12EA41B31221700761D69 /* ViewController.m in Sources */,
+				67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */,
 				67E12EA11B31221700761D69 /* AppDelegate.m in Sources */,
 				67E12F2E1B32677200761D69 /* JKProfileViewController.m in Sources */,
 				67E12E9E1B31221700761D69 /* main.m in Sources */,
@@ -588,6 +594,7 @@
 				67E12EBD1B31221700761D69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		67E12EBE1B31221700761D69 /* Build configuration list for PBXNativeTarget "JokaTests" */ = {
 			isa = XCConfigurationList;
@@ -596,6 +603,7 @@
 				67E12EC01B31221700761D69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

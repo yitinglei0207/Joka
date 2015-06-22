@@ -14,6 +14,7 @@
 @interface JKLightspeedManager () <AnIMDelegate>
 @property (strong, nonatomic) AnIM *anIM;
 @property (strong, nonatomic) AnSocial *anSocial;
+@property BOOL imConnecting;
 @end
 
 @implementation JKLightspeedManager
@@ -130,7 +131,56 @@
 
 - (void)anIM:(AnIM *)anIM didUpdateStatus:(BOOL)status exception:(ArrownockException *)exception{
     NSLog(@"%@",status? @"yes":@"no");
+    NSLog(@"AnIM status changed: %i", status);
+    _imConnecting = NO;
+    _clientStatus = status;
+    //if (self.isAppEnterBackground)return;
+    
+    if (!status)
+    {
+//        UIWindow *displayWindow = [[[UIApplication sharedApplication] delegate] window];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [displayWindow makeImppToast:@"IM Disconnect" navigationBarHeight:0];
+//            [self performSelector:@selector(checkIMConnection) withObject:nil afterDelay:5.0];
+//        });
+        
+    }else{
+        
+//        UIWindow *displayWindow = [[[UIApplication sharedApplication] delegate] window];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [displayWindow makeImppToast:@"IM Connect" navigationBarHeight:0];
+//        });
+        /* just get topic once */
+//        if (!self.isGetTopicList) {
+//            [self.anIM getMyTopics];
+//            self.isGetTopicList = YES;
+//        }
+//        
+        //[MessageUtil getOfflineChatHistory];
+        //[MessageUtil getOfflineTopicHistory];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"connect" object:nil];
+    }
+    
+
 }
 
+- (void)checkIMConnection
+{
+    
+    if (!self.clientId.length) return;
+    
+    if (!_clientStatus )
+    {
+        NSLog(@"IM Connecting ...");
+        //_imConnecting = YES;
+        
+        [self.anIM connect:self.clientId];
+    }
+    else
+    {
+        NSLog(@"IM is connected");
+    }
+    
+}
 
 @end

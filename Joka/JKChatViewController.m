@@ -28,7 +28,9 @@
                                              selector:@selector(didReceiveMessageNotification)
                                                  name:@"co.herxun.Joka.didReceiveMessage"
                                                object:nil];
-    [[[JKLightspeedManager manager]anIM] connect:[JKLightspeedManager manager].clientId];
+    //[[[JKLightspeedManager manager]anIM] connect:[JKLightspeedManager manager].clientId];
+    
+    [[JKLightspeedManager manager] checkIMConnection];
     //_anIM = [[AnIM alloc] initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:YES];
     //[[JKLightspeedManager manager].anIM getClientId:[JKLightspeedManager manager].userId];
     //_anIM = [[JKLightspeedManager manager] anIM];

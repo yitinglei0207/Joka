@@ -7,6 +7,7 @@
 //
 
 #import "JKEnterUserInfoViewController.h"
+#import "JKLightspeedManager.h"
 
 @interface JKEnterUserInfoViewController ()
 
@@ -24,6 +25,33 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)doneEnteringInfo:(id)sender {
+    [self updateUserInfo];
+    [self performSegueWithIdentifier:@"doneEnteringSegue" sender:self];
+    
+}
+
+- (void)updateUserInfo {
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[JKLightspeedManager manager].username forKey:@"username"];
+    [params setObject:_experienceText.text forKey:@"experience"];
+    [params setObject:_levelText.text forKey:@"level"];
+    [params setObject:_awardText.text forKey:@"award"];
+    [params setObject:_locationText.text forKey:@"location"];
+    
+    [[JKLightspeedManager manager] sendRequest:@"objects/User/create.json" method:AnSocialManagerPOST params:params success:^
+     (NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+     } failure:^(NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+     }];
+}
 /*
 #pragma mark - Navigation
 

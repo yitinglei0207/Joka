@@ -101,7 +101,7 @@
                                                             @"userName": userName ? userName : @"",
                                                             @"clientId": clientId ? clientId : @""}
                                                    forKey:@"lastLoggedInUser"];
-         [self performSegueWithIdentifier:@"showTabBarController" sender:self];
+         [self performSegueWithIdentifier:@"SigninSegue" sender:self];
          
          
      } failure:^(NSDictionary *response) {
@@ -151,6 +151,10 @@
         [JKLightspeedManager manager].username = userName;
         [JKLightspeedManager manager].clientId = clientId;
         
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[JKLightspeedManager manager] checkIMConnection];
+//        });
+        //[[JKLightspeedManager manager].anIM connect:[JKLightspeedManager manager].clientId];
         //NSDictionary *user = [[response objectForKey:@"response"] objectForKey:@"user"];
         
 //        [[NSUserDefaults standardUserDefaults] setObject:@{@"userId": userId ? userId : @"",
@@ -159,7 +163,7 @@
 //                                                  forKey:@"lastLoggedInUser"];
         
         
-        [self performSegueWithIdentifier:@"showTabBarController" sender:self];
+        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
         
     } failure:^(NSDictionary *response) {
         NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);

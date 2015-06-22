@@ -11,5 +11,9 @@
 @interface JKPersonalProfileViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userIDLabel;
+@property (weak, nonatomic) IBOutlet UILabel *experienceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *levelLabel;
+@property (weak, nonatomic) IBOutlet UILabel *awardLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @end

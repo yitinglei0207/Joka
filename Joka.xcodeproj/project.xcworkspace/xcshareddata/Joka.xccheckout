@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D782734C-E94A-4CBC-89D2-182003633BDC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Joka</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C82BD825D70663EBC49D189ABB15E1559BFD6F5C</key>
+		<string>https://github.com/yitinglei0207/Joka.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Joka.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C82BD825D70663EBC49D189ABB15E1559BFD6F5C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/yitinglei0207/Joka.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C82BD825D70663EBC49D189ABB15E1559BFD6F5C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C82BD825D70663EBC49D189ABB15E1559BFD6F5C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Joka</string>
+		</dict>
+	</array>
+</dict>
+</plist>
