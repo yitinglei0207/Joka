@@ -45,16 +45,25 @@
     
     [[JKLightspeedManager manager] sendRequest:@"objects/User/search.json" method:AnSocialManagerGET params:params success:^
      (NSDictionary *response) {
+         if (![[response objectForKey:@"response"]objectForKey:@"Users"]) {
+             NSLog(@"no object");
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 _isNew = YES;
+             });
+         }
+         else{
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0];
+                 
+                 _getObjectID = [responseObject objectForKey:@"id"];
+                 _experienceText.text = [responseObject objectForKey:@"experience"]? [responseObject objectForKey:@"experience"]:@"";
+                 _awardText.text = [responseObject objectForKey:@"award"]? [responseObject objectForKey:@"award"]:@"";
+                 _levelText.text = [responseObject objectForKey:@"level"]? [responseObject objectForKey:@"level"]:@"";
+                 _locationText.text = [responseObject objectForKey:@"location"]? [responseObject objectForKey:@"location"]:@"";
+             });
+         }
          //NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
-         dispatch_async(dispatch_get_main_queue(), ^{
-             NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0];
-
-             _getObjectID = [responseObject objectForKey:@"id"];
-             _experienceText.text = [responseObject objectForKey:@"experience"]? [responseObject objectForKey:@"experience"]:@"";
-             _awardText.text = [responseObject objectForKey:@"award"]? [responseObject objectForKey:@"award"]:@"";
-             _levelText.text = [responseObject objectForKey:@"level"]? [responseObject objectForKey:@"level"]:@"";
-             _locationText.text = [responseObject objectForKey:@"location"]? [responseObject objectForKey:@"location"]:@"";
-         });
+         
          
          
      } failure:^(NSDictionary *response) {

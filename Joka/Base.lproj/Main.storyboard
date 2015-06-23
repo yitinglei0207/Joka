@@ -260,6 +260,15 @@
                                     <action selector="editProfileInfo:" destination="35j-9a-Z1R" eventType="touchUpInside" id="YlU-U0-owJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0O-xd-iPV">
+                                <rect key="frame" x="99" y="439" width="80" height="30"/>
+                                <state key="normal" title="Delete User">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteUser:" destination="35j-9a-Z1R" eventType="touchUpInside" id="axw-VG-N0g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration" label=""/>
@@ -795,7 +804,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2YG-Ck-zvw"/>
-        <segue reference="051-Vw-fOO"/>
+        <segue reference="nxP-gl-oXR"/>
+        <segue reference="CTg-qx-5n9"/>
     </inferredMetricsTieBreakers>
 </document>
