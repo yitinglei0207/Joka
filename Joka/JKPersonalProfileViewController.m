@@ -8,6 +8,7 @@
 
 #import "JKPersonalProfileViewController.h"
 #import "JKLightspeedManager.h"
+#import "JKEnterUserInfoViewController.h"
 @interface JKPersonalProfileViewController ()
 
 @end
@@ -32,16 +33,18 @@
 - (void)getUserInfo{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[JKLightspeedManager manager].username forKey:@"username"];
+    //[params setObject:@"4.0" forKey:@"level"];
     
     [[JKLightspeedManager manager] sendRequest:@"objects/User/search.json" method:AnSocialManagerGET params:params success:^
      (NSDictionary *response) {
          
-         //NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
+         NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
          dispatch_async(dispatch_get_main_queue(), ^{
-             _experienceLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0]objectForKey:@"experience"];
-             _awardLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"award"];
-             _levelLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"level"];
-             _locationLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"location"];
+             NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0];
+             _experienceLabel.text = [responseObject objectForKey:@"experience"]? [responseObject objectForKey:@"experience"]:@"";
+             _awardLabel.text = [responseObject objectForKey:@"award"]? [responseObject objectForKey:@"award"]:@"";
+             _levelLabel.text = [responseObject objectForKey:@"level"]? [responseObject objectForKey:@"level"]:@"";
+             _locationLabel.text = [responseObject objectForKey:@"location"]? [responseObject objectForKey:@"location"]:@"";
          });
          
          
@@ -53,6 +56,9 @@
      }];
 }
 
+- (IBAction)editProfileInfo:(id)sender {
+    [self performSegueWithIdentifier:@"editSegue" sender:self];
+}
 
 /*
 #pragma mark - Navigation

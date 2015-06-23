@@ -154,7 +154,7 @@
                   moduleName = "Joka"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yitinglei/Joka/Joka/JKChatViewController.m"
-                  timestampString = "456662901.694965"
+                  timestampString = "456721207.933105"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "221"
@@ -169,7 +169,7 @@
                   moduleName = "Joka"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yitinglei/Joka/Joka/JKChatViewController.m"
-                  timestampString = "456662901.695176"
+                  timestampString = "456721207.933288"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "221"
@@ -224,6 +224,70 @@
             startingLineNumber = "174"
             endingLineNumber = "174"
             landmarkName = "-checkIMConnection"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKEnterUserInfoViewController.m"
+            timestampString = "456721083.958737"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "-doneEnteringInfo:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKEnterUserInfoViewController.m"
+            timestampString = "456721083.958737"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "-doneEnteringInfo:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKEnterUserInfoViewController.m"
+            timestampString = "456721083.958737"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "-updateUserInfo"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKEnterUserInfoViewController.m"
+            timestampString = "456721083.958737"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "-updateUserInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

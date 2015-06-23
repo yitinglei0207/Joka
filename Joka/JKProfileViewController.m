@@ -118,7 +118,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[_friendInfo objectForKey:@"username"] forKey:@"username"];
     
-    [[JKLightspeedManager manager] sendRequest:@"objects/User/search.json" method:AnSocialManagerGET params:params success:^
+    [[JKLightspeedManager manager] sendRequest:@"objects/User/query.json" method:AnSocialManagerGET params:params success:^
      (NSDictionary *response) {
          
          NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
