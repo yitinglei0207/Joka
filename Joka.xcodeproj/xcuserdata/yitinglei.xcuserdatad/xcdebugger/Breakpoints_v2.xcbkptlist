@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKPersonalProfileViewController.m"
-            timestampString = "456722582.197044"
+            timestampString = "456745911.078092"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "-getUserInfo"
             landmarkType = "5">
          </BreakpointContent>

@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		67273C8A1B39469200DAECDF /* Joka.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 67273C891B39469200DAECDF /* Joka.entitlements */; };
-		67273C8D1B39510B00DAECDF /* JKTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C8C1B39510B00DAECDF /* JKTabBarViewController.m */; };
 		67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C901B3956FC00DAECDF /* SWRevealViewController.m */; };
+		67273C941B395AA100DAECDF /* JKRearTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C931B395AA100DAECDF /* JKRearTableViewController.m */; };
+		67273CA31B396E8B00DAECDF /* JKChatHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CA21B396E8B00DAECDF /* JKChatHistoryTableViewCell.m */; };
+		67273CA61B396E9300DAECDF /* JKChatHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CA51B396E9300DAECDF /* JKChatHistoryViewController.m */; };
 		67E12E9E1B31221700761D69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12E9D1B31221700761D69 /* main.m */; };
 		67E12EA11B31221700761D69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA01B31221700761D69 /* AppDelegate.m */; };
 		67E12EA41B31221700761D69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA31B31221700761D69 /* ViewController.m */; };
@@ -19,7 +21,6 @@
 		67E12EB81B31221700761D69 /* JokaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EB71B31221700761D69 /* JokaTests.m */; };
 		67E12ED51B3122E100761D69 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E12ED41B3122E100761D69 /* Security.framework */; };
 		67E12ED81B31234B00761D69 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12ED71B31234B00761D69 /* LoginViewController.m */; };
-		67E12EDC1B312E6200761D69 /* UserAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EDB1B312E6200761D69 /* UserAccountManager.m */; };
 		67E12F1D1B31491000761D69 /* JKPushDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F1C1B31491000761D69 /* JKPushDelegate.m */; };
 		67E12F201B315D6100761D69 /* JKPersonalProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F1F1B315D6100761D69 /* JKPersonalProfileViewController.m */; };
 		67E12F241B3170B100761D69 /* JKFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F231B3170B100761D69 /* JKFriendsViewController.m */; };
@@ -46,10 +47,14 @@
 
 /* Begin PBXFileReference section */
 		67273C891B39469200DAECDF /* Joka.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Joka.entitlements; sourceTree = "<group>"; };
-		67273C8B1B39510B00DAECDF /* JKTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTabBarViewController.h; sourceTree = "<group>"; };
-		67273C8C1B39510B00DAECDF /* JKTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTabBarViewController.m; sourceTree = "<group>"; };
 		67273C8F1B3956FC00DAECDF /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		67273C901B3956FC00DAECDF /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		67273C921B395AA100DAECDF /* JKRearTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKRearTableViewController.h; sourceTree = "<group>"; };
+		67273C931B395AA100DAECDF /* JKRearTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKRearTableViewController.m; sourceTree = "<group>"; };
+		67273CA11B396E8B00DAECDF /* JKChatHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKChatHistoryTableViewCell.h; sourceTree = "<group>"; };
+		67273CA21B396E8B00DAECDF /* JKChatHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKChatHistoryTableViewCell.m; sourceTree = "<group>"; };
+		67273CA41B396E9300DAECDF /* JKChatHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKChatHistoryViewController.h; sourceTree = "<group>"; };
+		67273CA51B396E9300DAECDF /* JKChatHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKChatHistoryViewController.m; sourceTree = "<group>"; };
 		67E12E981B31221700761D69 /* Joka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E12E9C1B31221700761D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67E12E9D1B31221700761D69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -66,8 +71,6 @@
 		67E12ED41B3122E100761D69 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		67E12ED61B31234B00761D69 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		67E12ED71B31234B00761D69 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		67E12EDA1B312E6200761D69 /* UserAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAccountManager.h; sourceTree = "<group>"; };
-		67E12EDB1B312E6200761D69 /* UserAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAccountManager.m; sourceTree = "<group>"; };
 		67E12F1B1B31491000761D69 /* JKPushDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPushDelegate.h; sourceTree = "<group>"; };
 		67E12F1C1B31491000761D69 /* JKPushDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPushDelegate.m; sourceTree = "<group>"; };
 		67E12F1E1B315D6100761D69 /* JKPersonalProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPersonalProfileViewController.h; sourceTree = "<group>"; };
@@ -130,6 +133,26 @@
 			path = SWRevealViewController;
 			sourceTree = "<group>";
 		};
+		67273C951B3964A700DAECDF /* RearTableView */ = {
+			isa = PBXGroup;
+			children = (
+				67273C921B395AA100DAECDF /* JKRearTableViewController.h */,
+				67273C931B395AA100DAECDF /* JKRearTableViewController.m */,
+			);
+			name = RearTableView;
+			sourceTree = "<group>";
+		};
+		67273CA71B396EA100DAECDF /* ChatHistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				67273CA41B396E9300DAECDF /* JKChatHistoryViewController.h */,
+				67273CA51B396E9300DAECDF /* JKChatHistoryViewController.m */,
+				67273CA11B396E8B00DAECDF /* JKChatHistoryTableViewCell.h */,
+				67273CA21B396E8B00DAECDF /* JKChatHistoryTableViewCell.m */,
+			);
+			name = ChatHistoryView;
+			sourceTree = "<group>";
+		};
 		67E12E8F1B31221700761D69 = {
 			isa = PBXGroup;
 			children = (
@@ -153,29 +176,26 @@
 		67E12E9A1B31221700761D69 /* Joka */ = {
 			isa = PBXGroup;
 			children = (
-				67273C8E1B3956FC00DAECDF /* SWRevealViewController */,
 				67273C891B39469200DAECDF /* Joka.entitlements */,
 				67E12F271B317E0400761D69 /* JokaCredentials.h */,
 				67E12E9F1B31221700761D69 /* AppDelegate.h */,
 				67E12EA01B31221700761D69 /* AppDelegate.m */,
-				67E12F331B32BA9A00761D69 /* LightspeedManager */,
 				67E12EA21B31221700761D69 /* ViewController.h */,
 				67E12EA31B31221700761D69 /* ViewController.m */,
-				67E12F2F1B32677500761D69 /* ProfileView */,
+				67E12F331B32BA9A00761D69 /* LightspeedManager */,
+				67273C8E1B3956FC00DAECDF /* SWRevealViewController */,
+				67273C951B3964A700DAECDF /* RearTableView */,
+				67E12F211B315D6A00761D69 /* PersonalProfileView */,
 				67E12F2B1B32598A00761D69 /* ChatView */,
 				67E12F261B3170BE00761D69 /* FriendsView */,
-				67E12F211B315D6A00761D69 /* PersonalProfileView */,
 				67E12ED91B312E1000761D69 /* LoginSignupView */,
 				67E12EA51B31221700761D69 /* Main.storyboard */,
-				67E12EDA1B312E6200761D69 /* UserAccountManager.h */,
-				67E12EDB1B312E6200761D69 /* UserAccountManager.m */,
+				67273CA71B396EA100DAECDF /* ChatHistoryView */,
 				67E12EA81B31221700761D69 /* Images.xcassets */,
 				67E12EAA1B31221700761D69 /* LaunchScreen.xib */,
 				67E12E9B1B31221700761D69 /* Supporting Files */,
 				67E12F1B1B31491000761D69 /* JKPushDelegate.h */,
 				67E12F1C1B31491000761D69 /* JKPushDelegate.m */,
-				67273C8B1B39510B00DAECDF /* JKTabBarViewController.h */,
-				67273C8C1B39510B00DAECDF /* JKTabBarViewController.m */,
 			);
 			path = Joka;
 			sourceTree = "<group>";
@@ -231,6 +251,7 @@
 			children = (
 				67E12F221B3170B100761D69 /* JKFriendsViewController.h */,
 				67E12F231B3170B100761D69 /* JKFriendsViewController.m */,
+				67E12F2F1B32677500761D69 /* ProfileView */,
 			);
 			name = FriendsView;
 			sourceTree = "<group>";
@@ -408,6 +429,7 @@
 				67E12ED81B31234B00761D69 /* LoginViewController.m in Sources */,
 				67E12F2A1B32598600761D69 /* JKChatViewController.m in Sources */,
 				67E12F201B315D6100761D69 /* JKPersonalProfileViewController.m in Sources */,
+				67273C941B395AA100DAECDF /* JKRearTableViewController.m in Sources */,
 				67E12F1D1B31491000761D69 /* JKPushDelegate.m in Sources */,
 				67E12F241B3170B100761D69 /* JKFriendsViewController.m in Sources */,
 				67E12F321B32BA9400761D69 /* JKLightspeedManager.m in Sources */,
@@ -415,10 +437,10 @@
 				67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */,
 				67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */,
 				67E12EA11B31221700761D69 /* AppDelegate.m in Sources */,
+				67273CA61B396E9300DAECDF /* JKChatHistoryViewController.m in Sources */,
 				67E12F2E1B32677200761D69 /* JKProfileViewController.m in Sources */,
+				67273CA31B396E8B00DAECDF /* JKChatHistoryTableViewCell.m in Sources */,
 				67E12E9E1B31221700761D69 /* main.m in Sources */,
-				67E12EDC1B312E6200761D69 /* UserAccountManager.m in Sources */,
-				67273C8D1B39510B00DAECDF /* JKTabBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

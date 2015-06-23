@@ -10,7 +10,10 @@
 #import "JKLightspeedManager.h"
 #import "JKEnterUserInfoViewController.h"
 #import "LoginViewController.h"
+#import "SWRevealViewController.h"
+
 @interface JKPersonalProfileViewController ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
 
 @end
 
@@ -22,6 +25,13 @@
     self.usernameLabel.text = [JKLightspeedManager manager].username;
     self.userIDLabel.text = [JKLightspeedManager manager].userId;
     
+    SWRevealViewController *revealViewController = self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.sideBarButton setTarget: self.revealViewController];
+        [self.sideBarButton setAction: @selector(revealToggle:)];
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    }
     
 }
 

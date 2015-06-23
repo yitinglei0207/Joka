@@ -12,7 +12,10 @@
 #import "JokaCredentials.h"
 #import "JKProfileViewController.h"
 #import "JKLightspeedManager.h"
+#import "SWRevealViewController.h"
+
 @interface JKFriendsViewController ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
 @property (strong, nonatomic) NSMutableArray *friendsArray;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableSet *unreadMessagesSet;
@@ -31,6 +34,13 @@
     self.unreadMessagesSet = [[NSMutableSet alloc] initWithCapacity:0];
     
     //_anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
+    SWRevealViewController *revealViewController = self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.sideBarButton setTarget: self.revealViewController];
+        [self.sideBarButton setAction: @selector(revealToggle:)];
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    }
     
 
     [JKLightspeedManager manager].chatDelegate = self;

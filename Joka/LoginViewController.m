@@ -162,8 +162,9 @@
 //                                                           @"clientId": clientId ? clientId : @""}
 //                                                  forKey:@"lastLoggedInUser"];
         
-        
-        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
+        [self presentViewController:profileView animated:YES completion:nil];
+        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
         
     } failure:^(NSDictionary *response) {
         NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
