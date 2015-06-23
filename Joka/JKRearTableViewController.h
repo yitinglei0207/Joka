@@ -1,5 +1,5 @@
 //
-//  JKTabBarViewController.h
+//  JKRearTableViewController.h
 //  Joka
 //
 //  Created by 雷翊廷 on 2015/6/23.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JKTabBarViewController : UITabBarController
+@interface JKRearTableViewController : UITableViewController
 
 @end
