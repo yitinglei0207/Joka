@@ -84,19 +84,19 @@
     }
 }
 
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-//{
-//    // only perform the action associated with this noitification if we're being brought to the foreground
-//    // by the user swiping the notification or otherwise triggering it's action.
-//    
-//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-//    
-//    if (application.applicationState == UIApplicationStateActive)
-//    {
-//        
-//    }else if (application.applicationState == UIApplicationStateInactive)
-//    {
-//        NSLog(@"Notification revieced!!! ================\n%@", userInfo);
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    // only perform the action associated with this noitification if we're being brought to the foreground
+    // by the user swiping the notification or otherwise triggering it's action.
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    if (application.applicationState == UIApplicationStateActive)
+    {
+        
+    }else if (application.applicationState == UIApplicationStateInactive)
+    {
+        NSLog(@"Notification revieced!!! ================\n%@", userInfo);
 //        HXTabBarViewController *vc = (HXTabBarViewController*) self.window.rootViewController;
 //        [HXIMManager manager].remoteNotificationInfo = [userInfo mutableCopy];
 //        
@@ -104,18 +104,9 @@
 //        if (vc.selectedIndex != 0) {
 //            vc.selectedIndex = 0;
 //        }
-//    }
-//}
-//
-//- (void)resetTabBarViews {
-//    HXTabBarViewController *tabBarController = (HXTabBarViewController *)self.window.rootViewController;
-//    for(UIViewController *foo in tabBarController.viewControllers) {
-//        if([foo isKindOfClass:[UINavigationController class]]) {
-//            UINavigationController *bar = (UINavigationController*)foo;
-//            [bar popToRootViewControllerAnimated:NO];
-//        }
-//    }
-//}
+    }
+}
+
 
 
 
