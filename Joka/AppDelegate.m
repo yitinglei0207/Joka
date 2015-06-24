@@ -59,7 +59,7 @@
 #pragma mark - AnPushDelegate functions
 - (void)didRegistered:(NSString *)anid withError:(NSString *)error
 {
-    NSLog(@"Arrownock didRegistered\nError: %@", error);
+    NSLog(@"Arrownock didRegistered");
     if (error && ![error isEqualToString:@""])
     {
         NSLog(@"LSIM AppDelegate, AnPush failed to register, error: %@", error);
@@ -72,6 +72,7 @@
     {
         /* use the anId to bind AnIM & AnPush */
         [[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY deviceType:AnPushTypeiOS];
+        NSLog(@"bind %@ to Push service",anid);
     }
 }
 

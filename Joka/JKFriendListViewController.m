@@ -9,6 +9,7 @@
 #import "JKFriendListViewController.h"
 #import "SWRevealViewController.h"
 #import "JKLightspeedManager.h"
+#import "JKChatViewController.h"
 
 @interface JKFriendListViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
@@ -80,12 +81,12 @@
 
 #pragma mark - Segue
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//    JKProfileViewController *profileView = [segue destinationViewController];
-//    //profileView.hidesBottomBarWhenPushed = YES;
-//    profileView.friendInfo = self.friendsArray[self.tableView.indexPathForSelectedRow.row];
-//    self.friendChatting = [self.friendsArray[self.tableView.indexPathForSelectedRow.row] objectForKey:@"clientId"];
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    JKChatViewController *chatView = [segue destinationViewController];
+    //chatView.hidesBottomBarWhenPushed = YES;
+    chatView.friendInfo = self.friendsArray[self.tableView.indexPathForSelectedRow.row];
+    //self.friendChatting = [self.friendsArray[self.tableView.indexPathForSelectedRow.row] objectForKey:@"clientId"];
+}
 
 
 

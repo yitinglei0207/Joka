@@ -32,12 +32,12 @@
     
     //[[[JKLightspeedManager manager]anIM] connect:[JKLightspeedManager manager].clientId];
     
-    [[JKLightspeedManager manager] checkIMConnection];
+//    [[JKLightspeedManager manager] checkIMConnection];
     //_anIM = [[AnIM alloc] initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:YES];
     //[[JKLightspeedManager manager].anIM getClientId:[JKLightspeedManager manager].userId];
     //_anIM = [[JKLightspeedManager manager] anIM];
     //_anIM = [[AnIM alloc] initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:YES];
-    NSLog(@"%@",[[JKLightspeedManager manager] anIM]);
+    //NSLog(@"%@",[[JKLightspeedManager manager] anIM]);
     //_clientID1 = [JKLightspeedManager manager].clientId;
     //_clientID2 = [_friendInfo objectForKey:@"clientId"];
     //NSString *userId = [[NSUserDefaults standardUserDefaults]objectForKey:@"lastLoggedInUser"];
@@ -128,6 +128,7 @@
     
     if ([[self.messagesArray[indexPath.row] from] isEqualToString:[JKLightspeedManager manager].clientId]) {
         nameLabel.text = @"Me";
+        
         nameLabel.textAlignment = NSTextAlignmentRight;
         messageLabel.textAlignment = NSTextAlignmentRight;
     } else {
@@ -204,7 +205,10 @@
                                                  success:^(NSArray *messages) {
                                                      if (messages.count) {
                                                          self.messagesArray = [[[messages reverseObjectEnumerator] allObjects] mutableCopy];
-                                                         [self.chatTable reloadData];
+                                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                             [self.chatTable reloadData];
+                                                         });
+                                                         
                                                      }
                                                  }
                                                  failure:^(ArrownockException *exception) {
@@ -223,7 +227,9 @@
     [[JKLightspeedManager manager].anIM getOfflineHistory:[NSSet setWithObject:[_friendInfo objectForKey:@"clientId"]] clientId:[JKLightspeedManager manager].clientId limit:30 success:^(NSArray *messages, int count) {
         if (messages.count) {
             self.messagesArray = [[[messages reverseObjectEnumerator] allObjects] mutableCopy];
-            [self.chatTable reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.chatTable reloadData];
+            });
         }
     } failure:^(ArrownockException *exception) {
         NSLog(@"%@",exception);

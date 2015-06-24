@@ -1,5 +1,5 @@
 //
-//  JKFriendListViewController.h
+//  JKCreatePostViewController.h
 //  Joka
 //
 //  Created by 雷翊廷 on 2015/6/24.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JKFriendListViewController : UIViewController
-@property (strong, nonatomic) NSDictionary *friendInfo;
+@interface JKCreatePostViewController : UIViewController
+
 @end

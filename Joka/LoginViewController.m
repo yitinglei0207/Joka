@@ -162,8 +162,12 @@
 //                                                           @"clientId": clientId ? clientId : @""}
 //                                                  forKey:@"lastLoggedInUser"];
         
-        UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
-        [self presentViewController:profileView animated:YES completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
+            [self showViewController:profileView sender:self];
+            [[JKLightspeedManager manager] checkIMConnection];
+        });
+        
         //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
         
     } failure:^(NSDictionary *response) {

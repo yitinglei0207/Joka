@@ -12,6 +12,9 @@
 		67273C941B395AA100DAECDF /* JKRearTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C931B395AA100DAECDF /* JKRearTableViewController.m */; };
 		67273CAB1B3A49FF00DAECDF /* JKFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CAA1B3A49FF00DAECDF /* JKFriendListViewController.m */; };
 		67273CAE1B3A59DC00DAECDF /* JKMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CAD1B3A59DC00DAECDF /* JKMessagesViewController.m */; };
+		67273CB21B3A962F00DAECDF /* JKWallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB11B3A962F00DAECDF /* JKWallViewController.m */; };
+		67273CB51B3AA07300DAECDF /* JKCreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB41B3AA07300DAECDF /* JKCreatePostViewController.m */; };
+		67273CB81B3AA9A500DAECDF /* JKWallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */; };
 		67E12E9E1B31221700761D69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12E9D1B31221700761D69 /* main.m */; };
 		67E12EA11B31221700761D69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA01B31221700761D69 /* AppDelegate.m */; };
 		67E12EA41B31221700761D69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA31B31221700761D69 /* ViewController.m */; };
@@ -55,6 +58,12 @@
 		67273CAA1B3A49FF00DAECDF /* JKFriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKFriendListViewController.m; sourceTree = "<group>"; };
 		67273CAC1B3A59DC00DAECDF /* JKMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMessagesViewController.h; sourceTree = "<group>"; };
 		67273CAD1B3A59DC00DAECDF /* JKMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMessagesViewController.m; sourceTree = "<group>"; };
+		67273CB01B3A962F00DAECDF /* JKWallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKWallViewController.h; sourceTree = "<group>"; };
+		67273CB11B3A962F00DAECDF /* JKWallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKWallViewController.m; sourceTree = "<group>"; };
+		67273CB31B3AA07300DAECDF /* JKCreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCreatePostViewController.h; sourceTree = "<group>"; };
+		67273CB41B3AA07300DAECDF /* JKCreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCreatePostViewController.m; sourceTree = "<group>"; };
+		67273CB61B3AA9A500DAECDF /* JKWallTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKWallTableViewCell.h; sourceTree = "<group>"; };
+		67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKWallTableViewCell.m; sourceTree = "<group>"; };
 		67E12E981B31221700761D69 /* Joka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E12E9C1B31221700761D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67E12E9D1B31221700761D69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -160,6 +169,19 @@
 			name = FriendsView;
 			sourceTree = "<group>";
 		};
+		67273CAF1B3A961400DAECDF /* WallView */ = {
+			isa = PBXGroup;
+			children = (
+				67273CB01B3A962F00DAECDF /* JKWallViewController.h */,
+				67273CB11B3A962F00DAECDF /* JKWallViewController.m */,
+				67273CB61B3AA9A500DAECDF /* JKWallTableViewCell.h */,
+				67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */,
+				67273CB31B3AA07300DAECDF /* JKCreatePostViewController.h */,
+				67273CB41B3AA07300DAECDF /* JKCreatePostViewController.m */,
+			);
+			name = WallView;
+			sourceTree = "<group>";
+		};
 		67E12E8F1B31221700761D69 = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +207,7 @@
 			children = (
 				67273C891B39469200DAECDF /* Joka.entitlements */,
 				67E12F271B317E0400761D69 /* JokaCredentials.h */,
+				67E12EA51B31221700761D69 /* Main.storyboard */,
 				67E12E9F1B31221700761D69 /* AppDelegate.h */,
 				67E12EA01B31221700761D69 /* AppDelegate.m */,
 				67E12EA21B31221700761D69 /* ViewController.h */,
@@ -197,13 +220,13 @@
 				67E12F261B3170BE00761D69 /* UserListView */,
 				67273CA81B3A49D700DAECDF /* FriendsView */,
 				67E12ED91B312E1000761D69 /* LoginSignupView */,
-				67E12EA51B31221700761D69 /* Main.storyboard */,
 				67273CA71B396EA100DAECDF /* ChatHistoryView */,
-				67E12EA81B31221700761D69 /* Images.xcassets */,
+				67273CAF1B3A961400DAECDF /* WallView */,
 				67E12EAA1B31221700761D69 /* LaunchScreen.xib */,
 				67E12E9B1B31221700761D69 /* Supporting Files */,
 				67E12F1B1B31491000761D69 /* JKPushDelegate.h */,
 				67E12F1C1B31491000761D69 /* JKPushDelegate.m */,
+				67E12EA81B31221700761D69 /* Images.xcassets */,
 			);
 			path = Joka;
 			sourceTree = "<group>";
@@ -438,13 +461,16 @@
 				67E12F2A1B32598600761D69 /* JKChatViewController.m in Sources */,
 				67E12F201B315D6100761D69 /* JKPersonalProfileViewController.m in Sources */,
 				67273C941B395AA100DAECDF /* JKRearTableViewController.m in Sources */,
+				67273CB81B3AA9A500DAECDF /* JKWallTableViewCell.m in Sources */,
 				67E12F1D1B31491000761D69 /* JKPushDelegate.m in Sources */,
+				67273CB21B3A962F00DAECDF /* JKWallViewController.m in Sources */,
 				67E12F241B3170B100761D69 /* JKUserListViewController.m in Sources */,
 				67E12F321B32BA9400761D69 /* JKLightspeedManager.m in Sources */,
 				67E12EA41B31221700761D69 /* ViewController.m in Sources */,
 				67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */,
 				67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */,
 				67E12EA11B31221700761D69 /* AppDelegate.m in Sources */,
+				67273CB51B3AA07300DAECDF /* JKCreatePostViewController.m in Sources */,
 				67273CAE1B3A59DC00DAECDF /* JKMessagesViewController.m in Sources */,
 				67E12F2E1B32677200761D69 /* JKProfileViewController.m in Sources */,
 				67E12E9E1B31221700761D69 /* main.m in Sources */,
