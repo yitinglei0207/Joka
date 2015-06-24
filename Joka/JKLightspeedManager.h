@@ -26,6 +26,7 @@ typedef enum {
 @property (strong,nonatomic) NSString *userId;
 @property (strong,nonatomic) NSString *clientId;
 @property (strong,nonatomic) NSString *username;
+@property BOOL isAppEnterBackground;
 @property BOOL clientStatus;
 @property (weak, nonatomic) id<JKLightspeedManagerChatDelegate> chatDelegate;
 

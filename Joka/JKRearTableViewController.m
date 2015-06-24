@@ -8,6 +8,7 @@
 
 #import "JKRearTableViewController.h"
 #import "SWRevealViewController.h"
+#import "JKLightspeedManager.h"
 
 @interface JKRearTableViewController ()
 {
@@ -58,12 +59,11 @@
         [revealController setFrontViewPosition:FrontViewPositionLeft animated:YES];
         return;
     }
-    else if (row == 4)//user logout
+    else if (row == 6)//user logout
     {
         [revealController setFrontViewPosition:FrontViewPositionRight animated:YES];
         //[PFUser logOut];
-        NSUserDefaults *userInfo = [NSUserDefaults standardUserDefaults];
-        [userInfo removeObjectForKey:@"email"];
+        [[JKLightspeedManager manager] logOut];
         [self dismissViewControllerAnimated:YES completion:nil];
         NSLog(@"logged out");
         return;

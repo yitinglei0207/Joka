@@ -75,9 +75,12 @@
          {
              NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
          }
-         _addToFriendButton.titleLabel.text = @"Already a Friend";
-         _addToFriendButton.enabled = NO;
-     } failure:^(NSDictionary *response) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             _addToFriendButton.titleLabel.text = @"Already a Friend";
+             _addToFriendButton.enabled = NO;
+         });
+
+              } failure:^(NSDictionary *response) {
          for (id key in response)
          {
              NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
@@ -96,14 +99,15 @@
              NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
          }
          
-         dispatch_async(dispatch_get_main_queue(), ^{
-             for (id friend in [[response objectForKey:@"response"]objectForKey:@"friends"]) {
-                 if ([[friend objectForKey:@"id"] isEqualToString:[_friendInfo objectForKey:@"id"]]) {
+         
+         for (id friend in [[response objectForKey:@"response"]objectForKey:@"friends"]) {
+             if ([[friend objectForKey:@"id"] isEqualToString:[_friendInfo objectForKey:@"id"]]) {
+                 dispatch_async(dispatch_get_main_queue(), ^{
                      _addToFriendButton.enabled = NO;
                      //_addToFriendButton.titleLabel.text = @"Already a Friend";
-                 }
+                 });
              }
-         });
+         }
          
          
      } failure:^(NSDictionary *response) {

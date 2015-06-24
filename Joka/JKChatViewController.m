@@ -28,6 +28,8 @@
                                              selector:@selector(didReceiveMessageNotification)
                                                  name:@"co.herxun.Joka.didReceiveMessage"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getChatHistory) name:@"addDidBecomeActive" object:nil];
+    
     //[[[JKLightspeedManager manager]anIM] connect:[JKLightspeedManager manager].clientId];
     
     [[JKLightspeedManager manager] checkIMConnection];
@@ -53,7 +55,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     //[_anIM connect:_clientID1];
-    
+    [self getChatHistory];
 }
 
 - (void)didReceiveMemoryWarning {

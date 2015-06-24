@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 雷翊廷. All rights reserved.
 //
 
-#import "JKFriendsViewController.h"
+#import "JKUserListViewController.h"
 #import "AnIM.h"
 #import "AnSocial.h"
 #import "JokaCredentials.h"
@@ -14,9 +14,9 @@
 #import "JKLightspeedManager.h"
 #import "SWRevealViewController.h"
 
-@interface JKFriendsViewController ()
+@interface JKUserListViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
-@property (strong, nonatomic) NSMutableArray *friendsArray;
+@property (strong, nonatomic) NSMutableArray *userArray;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableSet *unreadMessagesSet;
 @property (strong, nonatomic) NSString *friendChatting;
@@ -24,13 +24,13 @@
 //@property (strong, nonatomic) AnSocial *anSocial;
 @end
 
-@implementation JKFriendsViewController
+@implementation JKUserListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.friendsArray = [[NSMutableArray alloc] initWithCapacity:0];
+    self.userArray = [[NSMutableArray alloc] initWithCapacity:0];
     self.unreadMessagesSet = [[NSMutableSet alloc] initWithCapacity:0];
     
     //_anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
@@ -67,15 +67,21 @@
 - (void)loadUser {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@99 forKey:@"limit"];
-    
+    //[params setObject:[JKLightspeedManager manager].userId forKey:@"user_ids"];
     [[JKLightspeedManager manager] sendRequest:@"users/search.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
         NSLog(@"success log: %@",[response description]);
-        NSLog(@"Recieved a list of circle users");
-        self.friendsArray =  [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"users"]] mutableCopy];
+        NSLog(@"Recieved a list of users");
+        self.userArray =  [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"users"]] mutableCopy];
+        NSLog(@"%@",_userArray);
         
-        
-        
-        
+        //delete myself from list
+        NSMutableArray *toDelete = [NSMutableArray array];
+        for (id user in _userArray) {
+            if([[user objectForKey:@"username"]isEqualToString:[JKLightspeedManager manager].username]){
+                [toDelete addObject:user];
+            }
+        }
+        [_userArray removeObjectsInArray: toDelete];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -92,8 +98,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     JKProfileViewController *profileView = [segue destinationViewController];
     //profileView.hidesBottomBarWhenPushed = YES;
-    profileView.friendInfo = self.friendsArray[self.tableView.indexPathForSelectedRow.row];
-    self.friendChatting = [self.friendsArray[self.tableView.indexPathForSelectedRow.row] objectForKey:@"clientId"];
+    profileView.friendInfo = self.userArray[self.tableView.indexPathForSelectedRow.row];
+    self.friendChatting = [self.userArray[self.tableView.indexPathForSelectedRow.row] objectForKey:@"clientId"];
 }
 
 
@@ -113,7 +119,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.friendsArray.count;
+    return self.userArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -127,11 +133,11 @@
     UILabel *newMessageLabel = (UILabel *)[cell viewWithTag:101];
     UILabel *statusMessageLabel = (UILabel *)[cell viewWithTag:102];
     
-    nameLabel.text = [self.friendsArray[indexPath.row] objectForKey:@"username"];
+    nameLabel.text = [self.userArray[indexPath.row] objectForKey:@"username"];
     newMessageLabel.text = @"";
-    if ([self.unreadMessagesSet containsObject:[self.friendsArray[indexPath.row] objectForKey:@"clientId"]])
+    if ([self.unreadMessagesSet containsObject:[self.userArray[indexPath.row] objectForKey:@"clientId"]])
         newMessageLabel.text = @"New!";
-    NSString *status = [self.clientStatus objectForKey:[self.friendsArray[indexPath.row] objectForKey:@"clientId"]];
+    NSString *status = [self.clientStatus objectForKey:[self.userArray[indexPath.row] objectForKey:@"clientId"]];
     if (status) {
         if ([status isEqualToString:@"NO"]) {
             statusMessageLabel.text = @"Offline";
@@ -154,7 +160,7 @@
     UILabel *newMessageLabel = (UILabel *)[[tableView cellForRowAtIndexPath:indexPath] viewWithTag:101];
     if (newMessageLabel.text.length) {
         newMessageLabel.text = @"";
-        NSString *selectedId = [self.friendsArray[indexPath.row] objectForKey:@"clientId"];
+        NSString *selectedId = [self.userArray[indexPath.row] objectForKey:@"clientId"];
         [self.unreadMessagesSet removeObject:selectedId];
     }
 }

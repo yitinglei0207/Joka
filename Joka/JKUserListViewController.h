@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JKFriendsViewController : UIViewController
+@interface JKUserListViewController : UIViewController
 
 @end
