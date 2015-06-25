@@ -48,12 +48,18 @@
 
 - (void)anIM:(AnIM *)anIM didGetClientsStatus:(NSDictionary *)clientsStatus exception:(ArrownockException *)exception
 {
+
     if (!exception) {
+        NSLog(@"%@",clientsStatus);
+        
         if ([(NSObject *)self.chatDelegate respondsToSelector:@selector(didGetClientStatus:)]) {
             [self.chatDelegate didGetClientStatus:clientsStatus];
         }
     }
 }
+
+
+
 
 // it is for receiving message
 - (void)anIM:(AnIM *)anIM didReceiveMessage:(NSString *)message customData:(NSDictionary *)customData from:(NSString *)from parties:(NSSet *)parties messageId:(NSString *)messageId at:(NSNumber *)timestamp
@@ -117,6 +123,7 @@
                            failure(response);
                        }];
 }
+
 
 
 #pragma mark - Message

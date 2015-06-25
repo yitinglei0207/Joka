@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSMutableSet *unreadMessagesSet;
 @property (strong, nonatomic) NSString *friendChatting;
 @property (strong, nonatomic) NSMutableDictionary *clientStatus;
+@property (strong, nonatomic) NSMutableSet *clientIDset;
 //@property (strong, nonatomic) AnSocial *anSocial;
 @end
 
@@ -32,6 +33,8 @@
     
     self.userArray = [[NSMutableArray alloc] initWithCapacity:0];
     self.unreadMessagesSet = [[NSMutableSet alloc] initWithCapacity:0];
+    self.clientIDset = [[NSMutableSet alloc] initWithCapacity:0];
+    
     
     //_anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
     SWRevealViewController *revealViewController = self.revealViewController;
@@ -74,9 +77,12 @@
         self.userArray =  [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"users"]] mutableCopy];
         NSLog(@"%@",_userArray);
         
+        
         //delete myself from list
         NSMutableArray *toDelete = [NSMutableArray array];
         for (id user in _userArray) {
+            [_clientIDset addObject:[user objectForKey:@"clientId"]];
+            
             if([[user objectForKey:@"username"]isEqualToString:[JKLightspeedManager manager].username]){
                 [toDelete addObject:user];
             }
@@ -84,6 +90,7 @@
         [_userArray removeObjectsInArray: toDelete];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self getUserStatus];
             [self.tableView reloadData];
         });
         
@@ -176,6 +183,16 @@
 }
 
 
+-(void)getUserStatus{
+    //NSSet  * clientIds =  [[ NSSet alloc ] initWithObjects :@ "thisisclientId_1" ,  @ "thisisclientId_2" ,  nil ];
+    [[JKLightspeedManager manager].anIM getClientsStatus : _clientIDset];
+}
+
+- (void)didGetClientStatus:(NSDictionary *)clientStatus
+{
+    self.clientStatus = [NSMutableDictionary dictionaryWithDictionary:clientStatus];
+    [self.tableView reloadData];
+}
 /*
 #pragma mark - Navigation
 
