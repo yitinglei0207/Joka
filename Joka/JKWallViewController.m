@@ -97,13 +97,23 @@
     if (cell == nil) {
         cell = [[JKWallTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
     }
-
+    
+//    [cell.postCreatorName setFrame:CGRectMake(cell.frame.origin.x+8, cell.frame.origin.y+8, 100, 21)];
+//    [cell.postTextView setFrame:CGRectMake(cell.frame.origin.x+8, cell.frame.origin.y+37, cell.frame.size.width - 16, 100)];
+//    [cell.likeButton setFrame:CGRectMake(cell.frame.origin.x+8, cell.frame.origin.y+147, 46, 30)];
+//    [cell.likes setFrame:CGRectMake(cell.frame.origin.x+64, cell.frame.origin.y+147, 100, 28)];
+//    [cell.comments setFrame:CGRectMake(cell.frame.origin.x+164, cell.frame.origin.y+147, 100, 28)];
+//    [cell.createAt setFrame:CGRectMake(cell.frame.origin.x+264, cell.frame.origin.y+147, 100, 28)];
+//    
+    
     cell.postTextView.text = [[_postArray objectAtIndex:indexPath.row] objectForKey:@"content"];
+    
     cell.postCreatorName.text = [[[_postArray objectAtIndex:indexPath.row] objectForKey:@"user"] objectForKey:@"username"];
     cell.likes.text = [NSString stringWithFormat:@"%@ likes",[[_postArray objectAtIndex:indexPath.row] objectForKey:@"likeCount"]];
     cell.comments.text = [NSString stringWithFormat:@"%@ comments",[[_postArray objectAtIndex:indexPath.row] objectForKey:@"commentCount"]];
     cell.createAt.text = [[_postArray objectAtIndex:indexPath.row] objectForKey:@"created_at"];
     cell.likeButton.tag = indexPath.row;
+    
     [cell.likeButton addTarget:self action:@selector(yourButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -123,7 +133,9 @@
          }
          NSLog(@"post: %@ liked",[[_postArray objectAtIndex:sender.tag] objectForKey:@"id"] );
          dispatch_async(dispatch_get_main_queue(), ^{
-             sender.userInteractionEnabled = NO;
+             //sender.userInteractionEnabled = NO;
+             [sender setBackgroundImage:[UIImage imageNamed:@"Liked"] forState:UIControlStateNormal];
+             [sender addTarget:self action:@selector(unlike) forControlEvents:UIControlEventTouchUpInside];
              [self queryWallPosts];
          });
      } failure:^(NSDictionary *response) {
@@ -137,6 +149,44 @@
 
 
 
+-(void)queryLikes{
+    NSMutableDictionary  * params  =  [[ NSMutableDictionary alloc ] init ];
+    [ params setObject :@ "Photo" forKey :@ "object_type" ];
+    [ params setObject :[ [_postArray objectAtIndex:self.wallTableView.indexPathForSelectedRow.row] objectForKey:@"id" ] forKey:@"object_id"];
+    [ params setObject :[JKLightspeedManager manager].userId forKey :@ "user_id" ];
+    
+    [[JKLightspeedManager manager] sendRequest :@ "likes/query.json" method : AnSocialManagerGET  params : params success :^
+     ( NSDictionary  * response )  {
+         for  ( id key in response )
+         {
+             NSLog (@ "key: %@ ,value: %@" , key ,[ response objectForKey : key ]);
+         }
+     } failure :^( NSDictionary  * response )  {
+         for  ( id key in response )
+         {
+             NSLog (@ "key: %@ ,value: %@" , key ,[ response objectForKey : key ]);
+         } 
+     }];
+}
+
+-(void)unlike{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:[ [_postArray objectAtIndex:self.wallTableView.indexPathForSelectedRow.row] objectForKey:@"id" ] forKey:@"object_id"];
+    
+    [[JKLightspeedManager manager] sendRequest:@"likes/delete.json" method:AnSocialManagerPOST params:params success:^
+     (NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+         NSLog(@"unliked");
+     } failure:^(NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+     }];
+}
 /*
 #pragma mark - Navigation
 

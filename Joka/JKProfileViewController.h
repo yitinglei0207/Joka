@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addToFriendButton;
 @property (weak, nonatomic) IBOutlet UILabel *experienceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
-@property (weak, nonatomic) IBOutlet UILabel *awardLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ageGroupLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property BOOL isTopicMode;
 @end

@@ -15,6 +15,7 @@
 		67273CB21B3A962F00DAECDF /* JKWallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB11B3A962F00DAECDF /* JKWallViewController.m */; };
 		67273CB51B3AA07300DAECDF /* JKCreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB41B3AA07300DAECDF /* JKCreatePostViewController.m */; };
 		67273CB81B3AA9A500DAECDF /* JKWallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */; };
+		67273CBB1B3BE63700DAECDF /* JKEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CBA1B3BE63700DAECDF /* JKEditProfileTableViewController.m */; };
 		67E12E9E1B31221700761D69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12E9D1B31221700761D69 /* main.m */; };
 		67E12EA11B31221700761D69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA01B31221700761D69 /* AppDelegate.m */; };
 		67E12EA41B31221700761D69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA31B31221700761D69 /* ViewController.m */; };
@@ -64,6 +65,8 @@
 		67273CB41B3AA07300DAECDF /* JKCreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCreatePostViewController.m; sourceTree = "<group>"; };
 		67273CB61B3AA9A500DAECDF /* JKWallTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKWallTableViewCell.h; sourceTree = "<group>"; };
 		67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKWallTableViewCell.m; sourceTree = "<group>"; };
+		67273CB91B3BE63700DAECDF /* JKEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEditProfileTableViewController.h; sourceTree = "<group>"; };
+		67273CBA1B3BE63700DAECDF /* JKEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEditProfileTableViewController.m; sourceTree = "<group>"; };
 		67E12E981B31221700761D69 /* Joka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E12E9C1B31221700761D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67E12E9D1B31221700761D69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -212,6 +215,7 @@
 				67E12EA01B31221700761D69 /* AppDelegate.m */,
 				67E12EA21B31221700761D69 /* ViewController.h */,
 				67E12EA31B31221700761D69 /* ViewController.m */,
+				67E12ED91B312E1000761D69 /* LoginSignupView */,
 				67E12F331B32BA9A00761D69 /* LightspeedManager */,
 				67273C8E1B3956FC00DAECDF /* SWRevealViewController */,
 				67273C951B3964A700DAECDF /* RearTableView */,
@@ -219,7 +223,6 @@
 				67E12F2B1B32598A00761D69 /* ChatView */,
 				67E12F261B3170BE00761D69 /* UserListView */,
 				67273CA81B3A49D700DAECDF /* FriendsView */,
-				67E12ED91B312E1000761D69 /* LoginSignupView */,
 				67273CA71B396EA100DAECDF /* ChatHistoryView */,
 				67273CAF1B3A961400DAECDF /* WallView */,
 				67E12EAA1B31221700761D69 /* LaunchScreen.xib */,
@@ -273,6 +276,8 @@
 				67E12F1F1B315D6100761D69 /* JKPersonalProfileViewController.m */,
 				67F7C7B31B37FF3E0026E344 /* JKEnterUserInfoViewController.h */,
 				67F7C7B41B37FF3E0026E344 /* JKEnterUserInfoViewController.m */,
+				67273CB91B3BE63700DAECDF /* JKEditProfileTableViewController.h */,
+				67273CBA1B3BE63700DAECDF /* JKEditProfileTableViewController.m */,
 			);
 			name = PersonalProfileView;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 				67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */,
 				67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */,
 				67E12EA11B31221700761D69 /* AppDelegate.m in Sources */,
+				67273CBB1B3BE63700DAECDF /* JKEditProfileTableViewController.m in Sources */,
 				67273CB51B3AA07300DAECDF /* JKCreatePostViewController.m in Sources */,
 				67273CAE1B3A59DC00DAECDF /* JKMessagesViewController.m in Sources */,
 				67E12F2E1B32677200761D69 /* JKProfileViewController.m in Sources */,

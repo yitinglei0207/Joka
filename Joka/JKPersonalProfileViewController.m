@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.usernameLabel.text = [JKLightspeedManager manager].username;
-    self.userIDLabel.text = [JKLightspeedManager manager].userId;
+    self.primaryHandLabel.text = [JKLightspeedManager manager].userId;
     
     SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
@@ -50,19 +50,21 @@
     [params setObject:[JKLightspeedManager manager].username forKey:@"username"];
     //[params setObject:@"4.0" forKey:@"level"];
     
-    [[JKLightspeedManager manager] sendRequest:@"objects/User/search.json" method:AnSocialManagerGET params:params success:^
+    [[JKLightspeedManager manager] sendRequest:@"objects/MemberInfo/search.json" method:AnSocialManagerGET params:params success:^
      (NSDictionary *response) {
-         if (![[response objectForKey:@"response"]objectForKey:@"Users"]) {
+         NSLog(@"key: %@ ",response);
+         NSUInteger i = [[[response objectForKey:@"response"]objectForKey:@"MemberInfos"] count];
+         if (!i) {
              NSLog(@"no object");
          }
          else{
-             NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
+             //NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
              dispatch_async(dispatch_get_main_queue(), ^{
-                 NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0];
+                 NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"MemberInfos"]objectAtIndex:0];
                  _experienceLabel.text = [responseObject objectForKey:@"experience"]? [responseObject objectForKey:@"experience"]:@"";
-                 _awardLabel.text = [responseObject objectForKey:@"award"]? [responseObject objectForKey:@"award"]:@"";
-                 _levelLabel.text = [responseObject objectForKey:@"level"]? [responseObject objectForKey:@"level"]:@"";
-                 _locationLabel.text = [responseObject objectForKey:@"location"]? [responseObject objectForKey:@"location"]:@"";
+                 _ageGroupLabel.text = [responseObject objectForKey:@"ageGroup"]? [responseObject objectForKey:@"ageGroup"]:@"";
+                 _levelLabel.text = [responseObject objectForKey:@"ratingNTRP"]? [responseObject objectForKey:@"ratingNTRP"]:@"";
+                 _locationLabel.text = [responseObject objectForKey:@"preferedLocations"]? [responseObject objectForKey:@"preferedLocations"]:@"";
              });
          }
          

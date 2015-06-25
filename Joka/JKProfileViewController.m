@@ -118,20 +118,53 @@
      }];
 }
 
+//- (void)getUserInfo{
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//    [params setObject:[_friendInfo objectForKey:@"username"] forKey:@"username"];
+//    
+//    [[JKLightspeedManager manager] sendRequest:@"objects/User/query.json" method:AnSocialManagerGET params:params success:^
+//     (NSDictionary *response) {
+//         
+//         NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
+//         dispatch_async(dispatch_get_main_queue(), ^{
+//             _experienceLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0]objectForKey:@"experience"];
+//             _ageGroupLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"award"];
+//             _levelLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"level"];
+//             _locationLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"location"];
+//         });
+//         
+//         
+//     } failure:^(NSDictionary *response) {
+//         for (id key in response)
+//         {
+//             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+//         }
+//     }];
+//}
+
 - (void)getUserInfo{
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[_friendInfo objectForKey:@"username"] forKey:@"username"];
+    //[params setObject:@"4.0" forKey:@"level"];
     
-    [[JKLightspeedManager manager] sendRequest:@"objects/User/query.json" method:AnSocialManagerGET params:params success:^
+    [[JKLightspeedManager manager] sendRequest:@"objects/MemberInfo/search.json" method:AnSocialManagerGET params:params success:^
      (NSDictionary *response) {
+         NSLog(@"key: %@ ",response);
+         NSUInteger i = [[[response objectForKey:@"response"]objectForKey:@"MemberInfos"] count];
+         if (!i) {
+             NSLog(@"no object");
+         }
+         else{
+             //NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"MemberInfos"]objectAtIndex:0];
+                 _experienceLabel.text = [responseObject objectForKey:@"experience"]? [responseObject objectForKey:@"experience"]:@"";
+                 _ageGroupLabel.text = [responseObject objectForKey:@"ageGroup"]? [responseObject objectForKey:@"ageGroup"]:@"";
+                 _levelLabel.text = [responseObject objectForKey:@"ratingNTRP"]? [responseObject objectForKey:@"ratingNTRP"]:@"";
+                 _locationLabel.text = [responseObject objectForKey:@"preferedLocations"]? [responseObject objectForKey:@"preferedLocations"]:@"";
+             });
+         }
          
-         NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
-         dispatch_async(dispatch_get_main_queue(), ^{
-             _experienceLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0]objectForKey:@"experience"];
-             _awardLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"award"];
-             _levelLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"level"];
-             _locationLabel.text = [[[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0] objectForKey:@"location"];
-         });
          
          
      } failure:^(NSDictionary *response) {
@@ -141,5 +174,6 @@
          }
      }];
 }
+
 
 @end

@@ -97,12 +97,17 @@
          [JKLightspeedManager manager].clientId = clientId;
          
          //NSDictionary *user = [[response objectForKey:@"response"] objectForKey:@"user"];
-         [[NSUserDefaults standardUserDefaults] setObject:@{@"userId": userId ? userId : @"",
-                                                            @"userName": userName ? userName : @"",
-                                                            @"clientId": clientId ? clientId : @""}
-                                                   forKey:@"lastLoggedInUser"];
-         [self performSegueWithIdentifier:@"SigninSegue" sender:self];
-         
+//         [[NSUserDefaults standardUserDefaults] setObject:@{@"userId": userId ? userId : @"",
+//                                                            @"userName": userName ? userName : @"",
+//                                                            @"clientId": clientId ? clientId : @""}
+//                                                   forKey:@"lastLoggedInUser"];
+//         [self performSegueWithIdentifier:@"SigninSegue" sender:self];
+//         
+         dispatch_async(dispatch_get_main_queue(), ^{
+             UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
+             [self showViewController:profileView sender:self];
+             [[JKLightspeedManager manager] checkIMConnection];
+         });
          
      } failure:^(NSDictionary *response) {
          NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
