@@ -8,8 +8,10 @@
 
 #import "LoginViewController.h"
 #import "JKLightspeedManager.h"
-@interface LoginViewController ()
+#import "JKActivityControlView.h"
 
+@interface LoginViewController ()
+@property (nonatomic,strong) JKActivityControlView *indicator;
 @end
 
 @implementation LoginViewController
@@ -20,7 +22,7 @@
     
     //_anSocial = [[AnSocial alloc]initWithAppKey:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod"];
     [self.usernameText becomeFirstResponder];
-    
+    _indicator = [[JKActivityControlView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, 50, 50)];
     
 }
 
@@ -56,6 +58,10 @@
 
 
 - (void)createUser {
+    [self.view addSubview:_indicator];
+    [_indicator activityStart];
+    
+    
     
     if (!(self.usernameText.text.length && self.passwordText.text.length)) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil
@@ -64,6 +70,8 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil, nil];
         [alert show];
+        [_indicator activityStop];
+        [_indicator removeFromSuperview];
         return;
     }
     
@@ -102,11 +110,14 @@
 //                                                            @"clientId": clientId ? clientId : @""}
 //                                                   forKey:@"lastLoggedInUser"];
 //         [self performSegueWithIdentifier:@"SigninSegue" sender:self];
-//         
+         
          dispatch_async(dispatch_get_main_queue(), ^{
              UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
              [self showViewController:profileView sender:self];
              [[JKLightspeedManager manager] checkIMConnection];
+             [_indicator activityStop];
+             [_indicator removeFromSuperview];
+             
          });
          
      } failure:^(NSDictionary *response) {
@@ -121,12 +132,17 @@
              
              dispatch_async(dispatch_get_main_queue(), ^{
                  [alert show];
+                 [_indicator activityStop];
+                 [_indicator removeFromSuperview];
              });
          }
      }];
 }
 
 - (void)userLogin {
+    [_indicator activityStart];
+    [self.view addSubview:_indicator];
+    
     if (!(self.usernameText.text.length && self.passwordText.text.length)) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"Enter a user name and password!"
@@ -134,6 +150,8 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil, nil];
         [alert show];
+        [_indicator activityStop];
+        [_indicator removeFromSuperview];
         return;
     }
     
@@ -168,9 +186,23 @@
 //                                                  forKey:@"lastLoggedInUser"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            [[JKLightspeedManager manager] checkIMConnection];
             UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
             [self showViewController:profileView sender:self];
-            [[JKLightspeedManager manager] checkIMConnection];
+            
+            [_indicator activityStop];
+            [_indicator removeFromSuperview];
+            
+//            [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
+//            [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
+//            
+//            [[JKLightspeedManager manager] sendRequest:@"http://api.lightspeedmbs.com/v1/im/client_status.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
+//                NSLog(@"success log: %@",[response description]);
+//                
+//                
+//            } failure:^(NSDictionary *response) {
+//                NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
+//            }];
         });
         
         //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
@@ -186,7 +218,10 @@
                                                   otherButtonTitles:nil, nil];
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [_indicator activityStop];
+                [_indicator removeFromSuperview];
                 [alert show];
+                
             });
         }
     }];

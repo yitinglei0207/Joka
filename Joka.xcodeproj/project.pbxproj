@@ -16,6 +16,7 @@
 		67273CB51B3AA07300DAECDF /* JKCreatePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB41B3AA07300DAECDF /* JKCreatePostViewController.m */; };
 		67273CB81B3AA9A500DAECDF /* JKWallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */; };
 		67273CBB1B3BE63700DAECDF /* JKEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CBA1B3BE63700DAECDF /* JKEditProfileTableViewController.m */; };
+		67273CC11B3D329E00DAECDF /* JKActivityControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CC01B3D329E00DAECDF /* JKActivityControlView.m */; };
 		67E12E9E1B31221700761D69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12E9D1B31221700761D69 /* main.m */; };
 		67E12EA11B31221700761D69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA01B31221700761D69 /* AppDelegate.m */; };
 		67E12EA41B31221700761D69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA31B31221700761D69 /* ViewController.m */; };
@@ -67,6 +68,8 @@
 		67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKWallTableViewCell.m; sourceTree = "<group>"; };
 		67273CB91B3BE63700DAECDF /* JKEditProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEditProfileTableViewController.h; sourceTree = "<group>"; };
 		67273CBA1B3BE63700DAECDF /* JKEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEditProfileTableViewController.m; sourceTree = "<group>"; };
+		67273CBF1B3D329E00DAECDF /* JKActivityControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKActivityControlView.h; sourceTree = "<group>"; };
+		67273CC01B3D329E00DAECDF /* JKActivityControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKActivityControlView.m; sourceTree = "<group>"; };
 		67E12E981B31221700761D69 /* Joka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E12E9C1B31221700761D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67E12E9D1B31221700761D69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				67273C891B39469200DAECDF /* Joka.entitlements */,
 				67E12F271B317E0400761D69 /* JokaCredentials.h */,
 				67E12EA51B31221700761D69 /* Main.storyboard */,
+				67273CBF1B3D329E00DAECDF /* JKActivityControlView.h */,
+				67273CC01B3D329E00DAECDF /* JKActivityControlView.m */,
 				67E12E9F1B31221700761D69 /* AppDelegate.h */,
 				67E12EA01B31221700761D69 /* AppDelegate.m */,
 				67E12EA21B31221700761D69 /* ViewController.h */,
@@ -462,6 +467,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67273CC11B3D329E00DAECDF /* JKActivityControlView.m in Sources */,
 				67E12ED81B31234B00761D69 /* LoginViewController.m in Sources */,
 				67E12F2A1B32598600761D69 /* JKChatViewController.m in Sources */,
 				67E12F201B315D6100761D69 /* JKPersonalProfileViewController.m in Sources */,

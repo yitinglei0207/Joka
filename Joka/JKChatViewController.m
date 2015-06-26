@@ -11,18 +11,22 @@
 #import "AnIMMessage.h"
 #import "JokaCredentials.h"
 #import "JKLightspeedManager.h"
+#import "JKActivityControlView.h"
 
 @interface JKChatViewController () <AnIMDelegate,JKLightspeedManagerChatDelegate>
 //@property (nonatomic, strong)AnIM *anIM;
 @property (nonatomic, strong)NSMutableArray *messagesArray;
 //@property (nonatomic, strong)NSString *clientID1;
 //@property (nonatomic, strong)NSString *clientID2;
+@property (nonatomic,strong) JKActivityControlView *indicator;
 @end
 
 @implementation JKChatViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _indicator = [[JKActivityControlView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, 50, 50)];
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveMessageNotification)
@@ -32,7 +36,7 @@
     
     //[[[JKLightspeedManager manager]anIM] connect:[JKLightspeedManager manager].clientId];
     
-//    [[JKLightspeedManager manager] checkIMConnection];
+    [[JKLightspeedManager manager] checkIMConnection];
     //_anIM = [[AnIM alloc] initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:YES];
     //[[JKLightspeedManager manager].anIM getClientId:[JKLightspeedManager manager].userId];
     //_anIM = [[JKLightspeedManager manager] anIM];
@@ -197,8 +201,10 @@
 
 - (void)getChatHistory
 {
-
-        [[JKLightspeedManager manager].anIM getHistory:[NSSet setWithObject:[_friendInfo objectForKey:@"clientId"]]
+    [self.view addSubview:_indicator];
+    [_indicator activityStart];
+    
+    [[JKLightspeedManager manager].anIM getHistory:[NSSet setWithObject:[_friendInfo objectForKey:@"clientId"]]
                                                 clientId:[JKLightspeedManager manager].clientId
                                                    limit:30
                                                timestamp:0
@@ -207,6 +213,8 @@
                                                          self.messagesArray = [[[messages reverseObjectEnumerator] allObjects] mutableCopy];
                                                          dispatch_async(dispatch_get_main_queue(), ^{
                                                              [self.chatTable reloadData];
+                                                             [_indicator activityStop];
+                                                             [_indicator removeFromSuperview];
                                                          });
                                                          
                                                      }

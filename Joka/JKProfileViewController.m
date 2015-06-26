@@ -11,9 +11,11 @@
 #import "JokaCredentials.h"
 #import "JKChatViewController.h"
 #import "JKLightspeedManager.h"
+#import "JKActivityControlView.h"
 
 @interface JKProfileViewController ()
 //@property (nonatomic, strong) AnSocial *anSocial;
+@property (nonatomic,strong) JKActivityControlView *indicator;
 @end
 
 @implementation JKProfileViewController
@@ -23,6 +25,8 @@
     // Do any additional setup after loading the view.
     //_anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
     _nameLabel.text = [_friendInfo objectForKey:@"username"];
+    _indicator = [[JKActivityControlView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, 50, 50)];
+    
     
     [self getUserInfo];
 
@@ -64,6 +68,10 @@
 
 
 - (void)addToFriend {
+    [self.view addSubview:_indicator];
+    [_indicator activityStart];
+    
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
     [params setObject:[JKLightspeedManager manager].userId forKey:@"user_id"];
@@ -162,6 +170,8 @@
                  _ageGroupLabel.text = [responseObject objectForKey:@"ageGroup"]? [responseObject objectForKey:@"ageGroup"]:@"";
                  _levelLabel.text = [responseObject objectForKey:@"ratingNTRP"]? [responseObject objectForKey:@"ratingNTRP"]:@"";
                  _locationLabel.text = [responseObject objectForKey:@"preferedLocations"]? [responseObject objectForKey:@"preferedLocations"]:@"";
+                 [_indicator activityStop];
+                 [_indicator removeFromSuperview];
              });
          }
          

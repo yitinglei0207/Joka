@@ -10,27 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKChatViewController.m"
-            timestampString = "456826435.227643"
+            timestampString = "457002465.387245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "-getChatHistory"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Joka/JKChatViewController.m"
-            timestampString = "456826435.227643"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "-getOfflineChatHistory"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKChatViewController.m"
-            timestampString = "456826435.227643"
+            timestampString = "457002465.387245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "-getOfflineChatHistory"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKLightspeedManager.m"
-            timestampString = "456920921.523886"
+            timestampString = "457003839.753834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-anIM:messageSent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKChatViewController.m"
-            timestampString = "456826435.227643"
+            timestampString = "457002465.387245"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "-getOfflineChatHistory"
             landmarkType = "5">
             <Locations>
@@ -90,11 +74,11 @@
                   moduleName = "Joka"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yitinglei/Joka/Joka/JKChatViewController.m"
-                  timestampString = "456921260.257428"
+                  timestampString = "457007618.947836"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "227"
-                  endingLineNumber = "227"
+                  startingLineNumber = "235"
+                  endingLineNumber = "235"
                   offsetFromSymbolStart = "40">
                </Location>
                <Location
@@ -105,11 +89,11 @@
                   moduleName = "Joka"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yitinglei/Joka/Joka/JKChatViewController.m"
-                  timestampString = "456921260.257585"
+                  timestampString = "457007618.948009"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "227"
-                  endingLineNumber = "227"
+                  startingLineNumber = "235"
+                  endingLineNumber = "235"
                   offsetFromSymbolStart = "60">
                </Location>
             </Locations>
@@ -202,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKPersonalProfileViewController.m"
-            timestampString = "456915741.379351"
+            timestampString = "457007618.907429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-getUserInfo"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKEditProfileTableViewController.m"
-            timestampString = "456917059.460087"
+            timestampString = "456999567.700147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "-getUserInfo"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKEditProfileTableViewController.m"
-            timestampString = "456917059.460087"
+            timestampString = "456999567.700147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-createUserInfo"
             landmarkType = "5">
          </BreakpointContent>
@@ -250,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKLightspeedManager.m"
-            timestampString = "456920627.404688"
+            timestampString = "457002198.090247"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "-anIM:didGetClientsStatus:exception:"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,12 +250,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKUserListViewController.m"
-            timestampString = "456921260.17008"
+            timestampString = "457007618.907429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "-didGetClientStatus:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKUserListViewController.m"
+            timestampString = "457007618.907429"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKChatViewController.m"
+            timestampString = "457002465.387245"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "-getChatHistory"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKChatViewController.m"
+            timestampString = "457002465.387245"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "-getChatHistory"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/AppDelegate.m"
+            timestampString = "457002052.932771"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-application:didRegisterForRemoteNotificationsWithDeviceToken:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/AppDelegate.m"
+            timestampString = "457002058.963425"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-didRegistered:withError:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -282,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Joka/JKUserListViewController.m"
-            timestampString = "456921260.17008"
+            timestampString = "457007618.907429"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "-getUserStatus"
             landmarkType = "5">
          </BreakpointContent>
@@ -297,13 +361,109 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Joka/JKUserListViewController.m"
-            timestampString = "456921260.17008"
+            filePath = "Joka/JKLightspeedManager.m"
+            timestampString = "457003848.839417"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-anIM:didGetClientsStatus:exception:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKPersonalProfileViewController.m"
+            timestampString = "457007094.681299"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[JKPersonalProfileViewController viewDidLoad]"
+                  moduleName = "Joka"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yitinglei/Joka/Joka/JKPersonalProfileViewController.m"
+                  timestampString = "457007618.957414"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "1400">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__46-[JKPersonalProfileViewController viewDidLoad]_block_invoke"
+                  moduleName = "Joka"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yitinglei/Joka/Joka/JKPersonalProfileViewController.m"
+                  timestampString = "457007618.95757"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKPersonalProfileViewController.m"
+            timestampString = "457007101.841605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKPersonalProfileViewController.m"
+            timestampString = "457007618.907429"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Joka/JKLightspeedManager.m"
+            timestampString = "457007353.842983"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-checkIMConnection"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

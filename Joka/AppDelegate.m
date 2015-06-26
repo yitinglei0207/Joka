@@ -26,11 +26,11 @@
 //    if (tokenData)
 //        [AnPush setup:LIGHTSPEED_APP_KEY deviceToken:tokenData delegate:self secure:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(registerPushNotification)
-                                                 name:@"connect"
-                                               object:nil];
-    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(registerPushNotification)
+//                                                 name:@"connect"
+//                                               object:nil];
+//    
     return YES;
 }
 

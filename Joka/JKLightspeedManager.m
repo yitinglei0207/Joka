@@ -56,6 +56,10 @@
             [self.chatDelegate didGetClientStatus:clientsStatus];
         }
     }
+    else{
+        NSLog(@"%@",exception);
+        
+    }
 }
 
 

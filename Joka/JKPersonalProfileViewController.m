@@ -11,10 +11,11 @@
 #import "JKEnterUserInfoViewController.h"
 #import "LoginViewController.h"
 #import "SWRevealViewController.h"
+#import "JKActivityControlView.h"
 
 @interface JKPersonalProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
-
+@property (nonatomic,strong) JKActivityControlView *indicator;
 @end
 
 @implementation JKPersonalProfileViewController
@@ -24,6 +25,7 @@
     // Do any additional setup after loading the view.
     self.usernameLabel.text = [JKLightspeedManager manager].username;
     self.primaryHandLabel.text = [JKLightspeedManager manager].userId;
+    _indicator = [[JKActivityControlView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, 50, 50)];
     
     SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
@@ -32,6 +34,19 @@
         [self.sideBarButton setAction: @selector(revealToggle:)];
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
+    
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
+    [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
+    
+    
+    [[JKLightspeedManager manager] sendRequest:@"http://api.lightspeedmbs.com/v1/im/client_status.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
+        NSLog(@"success log: %@",[response description]);
+
+    } failure:^(NSDictionary *response) {
+        NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
+    }];
     
 }
 
@@ -46,6 +61,9 @@
 
 
 - (void)getUserInfo{
+    [self.view addSubview:_indicator];
+    [_indicator activityStart];
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:[JKLightspeedManager manager].username forKey:@"username"];
     //[params setObject:@"4.0" forKey:@"level"];
@@ -56,6 +74,10 @@
          NSUInteger i = [[[response objectForKey:@"response"]objectForKey:@"MemberInfos"] count];
          if (!i) {
              NSLog(@"no object");
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_indicator activityStop];
+                 [_indicator removeFromSuperview];
+             });
          }
          else{
              //NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
@@ -65,6 +87,8 @@
                  _ageGroupLabel.text = [responseObject objectForKey:@"ageGroup"]? [responseObject objectForKey:@"ageGroup"]:@"";
                  _levelLabel.text = [responseObject objectForKey:@"ratingNTRP"]? [responseObject objectForKey:@"ratingNTRP"]:@"";
                  _locationLabel.text = [responseObject objectForKey:@"preferedLocations"]? [responseObject objectForKey:@"preferedLocations"]:@"";
+                 [_indicator activityStop];
+                 [_indicator removeFromSuperview];
              });
          }
          

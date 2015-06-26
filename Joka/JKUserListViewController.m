@@ -13,6 +13,7 @@
 #import "JKProfileViewController.h"
 #import "JKLightspeedManager.h"
 #import "SWRevealViewController.h"
+#import "JKActivityControlView.h"
 
 @interface JKUserListViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) NSMutableDictionary *clientStatus;
 @property (strong, nonatomic) NSMutableSet *clientIDset;
 //@property (strong, nonatomic) AnSocial *anSocial;
+
+@property (nonatomic,strong) JKActivityControlView *indicator;
 @end
 
 @implementation JKUserListViewController
@@ -34,6 +37,10 @@
     self.userArray = [[NSMutableArray alloc] initWithCapacity:0];
     self.unreadMessagesSet = [[NSMutableSet alloc] initWithCapacity:0];
     self.clientIDset = [[NSMutableSet alloc] initWithCapacity:0];
+    
+    _indicator = [[JKActivityControlView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, 50, 50)];
+    
+    
     
     
     //_anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
@@ -68,6 +75,10 @@
 }
 
 - (void)loadUser {
+    
+    [self.view addSubview:_indicator];
+    [_indicator activityStart];
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@99 forKey:@"limit"];
     //[params setObject:[JKLightspeedManager manager].userId forKey:@"user_ids"];
@@ -91,7 +102,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self getUserStatus];
+            
             [self.tableView reloadData];
+            [_indicator activityStop];
+            [_indicator removeFromSuperview];
         });
         
     } failure:^(NSDictionary *response) {
@@ -185,7 +199,7 @@
 
 -(void)getUserStatus{
     //NSSet  * clientIds =  [[ NSSet alloc ] initWithObjects :@ "thisisclientId_1" ,  @ "thisisclientId_2" ,  nil ];
-    [[JKLightspeedManager manager].anIM getClientsStatus : _clientIDset];
+    [[JKLightspeedManager manager].anIM getClientsStatus: _clientIDset];
 }
 
 - (void)didGetClientStatus:(NSDictionary *)clientStatus
