@@ -212,20 +212,95 @@
                  NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"MemberInfos"]objectAtIndex:0];
                  _getObjectID = [responseObject objectForKey:@"id"];
                  _isNew = NO;
+                 
+                 
+                 if ([[responseObject objectForKey:@"gender"] isEqualToString:@"male"]) {
+                     _gender.selectedSegmentIndex = 0;
+                 }else{
+                     _gender.selectedSegmentIndex = 1;
+                 }
+                 
+                 if ([[responseObject objectForKey:@"ageGroup"] isEqualToString:@"Senior"]) {
+                     _ageGroup.selectedSegmentIndex = 0;
+                 }else if([[responseObject objectForKey:@"ageGroup"] isEqualToString:@"Adult"]){
+                     _ageGroup.selectedSegmentIndex = 1;
+                 }else if ([[responseObject objectForKey:@"ageGroup"] isEqualToString:@"Junior"]){
+                     _ageGroup.selectedSegmentIndex = 2;
+                 }
+                     
+                 if ([[responseObject objectForKey:@"primaryHand"] isEqualToString:@"Right"]) {
+                     _primaryHand.selectedSegmentIndex = 0;
+                 }else{
+                     _primaryHand.selectedSegmentIndex = 1;
+                 }
+                 
+                 if ([[responseObject objectForKey:@"playerType"] isEqualToString:@"Social"]) {
+                     _playerType.selectedSegmentIndex = 0;
+                 }else if([[responseObject objectForKey:@"playerType"] isEqualToString:@"Competitive"]){
+                     _playerType.selectedSegmentIndex = 1;
+                 }else if ([[responseObject objectForKey:@"playerType"] isEqualToString:@"Practice"]){
+                     _playerType.selectedSegmentIndex = 2;
+                 }
+                 
+                 if ([[responseObject objectForKey:@"preferToPlay"] isEqualToString:@"Singles"]) {
+                     _preferToPlay.selectedSegmentIndex = 0;
+                 }else if([[responseObject objectForKey:@"preferToPlay"] isEqualToString:@"Doubles"]){
+                     _preferToPlay.selectedSegmentIndex = 1;
+                 }else if ([[responseObject objectForKey:@"preferToPlay"] isEqualToString:@"Mixed"]){
+                     _preferToPlay.selectedSegmentIndex = 2;
+                 }else if([[responseObject objectForKey:@"preferToPlay"] isEqualToString:@"Practice"]){
+                     _preferToPlay.selectedSegmentIndex = 3;
+                 }else if ([[responseObject objectForKey:@"preferToPlay"] isEqualToString:@"All"]){
+                     _preferToPlay.selectedSegmentIndex = 4;
+                 }
+                 
+                 if ([[responseObject objectForKey:@"ratingNTRP"] isEqualToString:@"Starter"]) {
+                     _ratingNTRP.selectedSegmentIndex = 0;
+                 }else if([[responseObject objectForKey:@"ratingNTRP"] isEqualToString:@"2.0~3.0"]){
+                     _ratingNTRP.selectedSegmentIndex = 1;
+                 }else if ([[responseObject objectForKey:@"ratingNTRP"] isEqualToString:@"3.0~4.0"]){
+                     _ratingNTRP.selectedSegmentIndex = 2;
+                 }else if([[responseObject objectForKey:@"ratingNTRP"] isEqualToString:@"4.0~5.0"]){
+                     _ratingNTRP.selectedSegmentIndex = 3;
+                 }else if ([[responseObject objectForKey:@"ratingNTRP"] isEqualToString:@"5.0+"]){
+                     _ratingNTRP.selectedSegmentIndex = 4;
+                 }
+                 if ([responseObject objectForKey:@"experience"]) {
+                     _experience.text = [responseObject objectForKey:@"experience"];
+                 }
+                 
+                 if ([[responseObject objectForKey:@"toPlayWithGender"] isEqualToString:@"Male"]) {
+                     _toPlayWithGender.selectedSegmentIndex = 0;
+                 }else if([[responseObject objectForKey:@"toPlayWithGender"] isEqualToString:@"Female"]){
+                     _toPlayWithGender.selectedSegmentIndex = 1;
+                 }else if ([[responseObject objectForKey:@"toPlayWithGender"] isEqualToString:@"Both"]){
+                     _toPlayWithGender.selectedSegmentIndex = 2;
+                 }
+                 
+                 if ([[responseObject objectForKey:@"toPlayWithAge"] isEqualToString:@"Senior"]) {
+                     _toPlayWithAge.selectedSegmentIndex = 0;
+                 }else if([[responseObject objectForKey:@"toPlayWithAge"] isEqualToString:@"Adult"]){
+                     _toPlayWithAge.selectedSegmentIndex = 1;
+                 }else if ([[responseObject objectForKey:@"toPlayWithAge"] isEqualToString:@"Junior"]){
+                     _toPlayWithAge.selectedSegmentIndex = 2;
+                 }else if([[responseObject objectForKey:@"toPlayWithAge"] isEqualToString:@"All"]){
+                     _toPlayWithAge.selectedSegmentIndex = 3;
+                 }
+                 
+                 
+                 if ([responseObject objectForKey:@"website"]) {
+                     _webSite.text = [responseObject objectForKey:@"website"];
+                 }
+                 
+                 if ([responseObject objectForKey:@"preferedLocations"]) {
+                     _preferedLocations.text = [responseObject objectForKey:@"preferedLocations"];
+                 }
+                 
+                 
              });
-//             dispatch_async(dispatch_get_main_queue(), ^{
-//                 NSDictionary *responseObject = [[[response objectForKey:@"response"]objectForKey:@"Users"]objectAtIndex:0];
-//                 
-//                 _getObjectID = [responseObject objectForKey:@"id"];
-//                 _experienceText.text = [responseObject objectForKey:@"experience"]? [responseObject objectForKey:@"experience"]:@"";
-//                 _awardText.text = [responseObject objectForKey:@"award"]? [responseObject objectForKey:@"award"]:@"";
-//                 _levelText.text = [responseObject objectForKey:@"level"]? [responseObject objectForKey:@"level"]:@"";
-//                 _locationText.text = [responseObject objectForKey:@"location"]? [responseObject objectForKey:@"location"]:@"";
-//             });
          }
          //NSLog(@"key: %@ ,value: %@",@"response",[response objectForKey:@"response"]);
-         
-         
+
          
      } failure:^(NSDictionary *response) {
          NSLog(@"failed or is new");

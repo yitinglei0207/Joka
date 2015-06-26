@@ -829,7 +829,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bZp-V9-aMt" id="PGP-Tn-1t2">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-rG-1gy">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-rG-1gy">
                                                     <rect key="frame" x="8" y="7" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="67h-of-JkC"/>
@@ -879,7 +879,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3lW-rO-VcT" id="xPk-tv-ruP">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h5Z-Kl-R3I">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h5Z-Kl-R3I">
                                                     <rect key="frame" x="8" y="7" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="Lu1-VW-2Oo"/>
@@ -932,7 +932,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b0w-bc-l9z" id="dOr-Ta-SDk">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OPu-ad-MRu">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OPu-ad-MRu">
                                                     <rect key="frame" x="8" y="7" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="1K7-Cq-hX2"/>
@@ -979,7 +979,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g98-cs-o16" id="1e8-QM-aKc">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="W0t-C7-BJo">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="W0t-C7-BJo">
                                                     <rect key="frame" x="8" y="7" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="Hpn-li-4PL"/>
@@ -1027,7 +1027,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Lg-xp-0Rp" id="qfc-Ky-pyo">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iPR-j7-aEs">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iPR-j7-aEs">
                                                     <rect key="frame" x="8" y="7" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="1VH-DM-LS6"/>
@@ -1077,7 +1077,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vQT-Bm-uZP" id="DVr-UJ-V0k">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="61k-Pt-rVp">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="61k-Pt-rVp">
                                                     <rect key="frame" x="8" y="7" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="300" id="5hN-qr-Sv3"/>
@@ -1234,7 +1234,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8UC-xl-zgG" id="gJx-zP-L4Y">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xw0-pP-D2E">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xw0-pP-D2E">
                                                     <rect key="frame" x="8" y="7" width="584" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="240" id="Fot-kf-9qw"/>
@@ -1367,8 +1367,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0JB-0j-uiD" id="CM1-cX-nsD">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUa-ge-zed">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUa-ge-zed">
+                                                    <rect key="frame" x="301" y="0.0" width="299" height="44"/>
                                                     <color key="backgroundColor" red="0.0" green="0.25098040699958801" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" title="Done">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1378,14 +1378,38 @@
                                                         <action selector="doneEnteringInfo:" destination="Q6l-5U-OCQ" eventType="touchUpInside" id="d6X-jm-5dv"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWN-n5-4pL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="Cancel">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vUa-ge-zed" secondAttribute="trailing" constant="-8" id="5Un-2D-Hf4"/>
+                                                <constraint firstItem="MWN-n5-4pL" firstAttribute="top" secondItem="CM1-cX-nsD" secondAttribute="topMargin" constant="-8" id="5fA-ct-sf6"/>
+                                                <constraint firstItem="vUa-ge-zed" firstAttribute="top" secondItem="CM1-cX-nsD" secondAttribute="topMargin" constant="-8" id="60c-yh-VZG"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="vUa-ge-zed" secondAttribute="trailing" constant="-8" id="63O-zy-JKH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vUa-ge-zed" secondAttribute="bottom" constant="-8" id="OVU-hL-Wn1"/>
+                                                <constraint firstItem="vUa-ge-zed" firstAttribute="leading" secondItem="MWN-n5-4pL" secondAttribute="trailing" constant="1" id="TX1-d5-Mhm"/>
                                                 <constraint firstItem="vUa-ge-zed" firstAttribute="top" secondItem="CM1-cX-nsD" secondAttribute="topMargin" constant="-8" id="Ufy-wp-XF0"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="vUa-ge-zed" secondAttribute="bottom" constant="-9" id="iVG-YR-o7d"/>
                                                 <constraint firstItem="vUa-ge-zed" firstAttribute="leading" secondItem="CM1-cX-nsD" secondAttribute="leadingMargin" constant="-8" id="q4p-sN-gG7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="MWN-n5-4pL" secondAttribute="bottom" constant="-8" id="uE1-oO-WLj"/>
+                                                <constraint firstItem="vUa-ge-zed" firstAttribute="width" secondItem="MWN-n5-4pL" secondAttribute="width" id="vqB-vb-fWh"/>
+                                                <constraint firstItem="MWN-n5-4pL" firstAttribute="leading" secondItem="CM1-cX-nsD" secondAttribute="leadingMargin" constant="-8" id="yse-SX-ndb"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="63O-zy-JKH"/>
+                                                    <exclude reference="Ufy-wp-XF0"/>
+                                                    <exclude reference="iVG-YR-o7d"/>
+                                                    <exclude reference="q4p-sN-gG7"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
