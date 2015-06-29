@@ -17,6 +17,9 @@
 		67273CB81B3AA9A500DAECDF /* JKWallTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CB71B3AA9A500DAECDF /* JKWallTableViewCell.m */; };
 		67273CBB1B3BE63700DAECDF /* JKEditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CBA1B3BE63700DAECDF /* JKEditProfileTableViewController.m */; };
 		67273CC11B3D329E00DAECDF /* JKActivityControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273CC01B3D329E00DAECDF /* JKActivityControlView.m */; };
+		67D9F48B1B412F8E00D000DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F48A1B412F8E00D000DF /* Foundation.framework */; };
+		67D9F48D1B412F9700D000DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F48C1B412F9700D000DF /* SystemConfiguration.framework */; };
+		67D9F48F1B41305100D000DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F48E1B41305100D000DF /* UIKit.framework */; };
 		67E12E9E1B31221700761D69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12E9D1B31221700761D69 /* main.m */; };
 		67E12EA11B31221700761D69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA01B31221700761D69 /* AppDelegate.m */; };
 		67E12EA41B31221700761D69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA31B31221700761D69 /* ViewController.m */; };
@@ -70,6 +73,9 @@
 		67273CBA1B3BE63700DAECDF /* JKEditProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEditProfileTableViewController.m; sourceTree = "<group>"; };
 		67273CBF1B3D329E00DAECDF /* JKActivityControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKActivityControlView.h; sourceTree = "<group>"; };
 		67273CC01B3D329E00DAECDF /* JKActivityControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKActivityControlView.m; sourceTree = "<group>"; };
+		67D9F48A1B412F8E00D000DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		67D9F48C1B412F9700D000DF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		67D9F48E1B41305100D000DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		67E12E981B31221700761D69 /* Joka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E12E9C1B31221700761D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67E12E9D1B31221700761D69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -120,6 +126,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67D9F48F1B41305100D000DF /* UIKit.framework in Frameworks */,
+				67D9F48D1B412F9700D000DF /* SystemConfiguration.framework in Frameworks */,
+				67D9F48B1B412F8E00D000DF /* Foundation.framework in Frameworks */,
 				67F7C8001B3917920026E344 /* libLightspeed-i386-2.22.a in Frameworks */,
 				67E12ED51B3122E100761D69 /* Security.framework in Frameworks */,
 				67F7C7FD1B3917920026E344 /* libLightspeed-arm64-2.22.a in Frameworks */,
@@ -191,6 +200,9 @@
 		67E12E8F1B31221700761D69 = {
 			isa = PBXGroup;
 			children = (
+				67D9F48E1B41305100D000DF /* UIKit.framework */,
+				67D9F48C1B412F9700D000DF /* SystemConfiguration.framework */,
+				67D9F48A1B412F8E00D000DF /* Foundation.framework */,
 				67F7C7E31B3917920026E344 /* lightspeed_ios_sdk_2.22 */,
 				67E12ED41B3122E100761D69 /* Security.framework */,
 				67E12E9A1B31221700761D69 /* Joka */,

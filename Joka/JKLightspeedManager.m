@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        self.anIM = [[AnIM alloc]initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:YES];
+        self.anIM = [[AnIM alloc]initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:NO];
         self.anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
         [self.anSocial setSecureConnection:YES];
         [self.anSocial setTimeout:20.0f];

@@ -21,16 +21,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-//    NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
-//    
-//    if (tokenData)
-//        [AnPush setup:LIGHTSPEED_APP_KEY deviceToken:tokenData delegate:self secure:YES];
+    NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(registerPushNotification)
-//                                                 name:@"connect"
-//                                               object:nil];
-//    
+    if (tokenData)
+        [AnPush setup:LIGHTSPEED_APP_KEY deviceToken:tokenData delegate:self secure:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(registerPushNotification)
+                                                 name:@"connect"
+                                               object:nil];
+    
     return YES;
 }
 

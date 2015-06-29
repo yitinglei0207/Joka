@@ -188,7 +188,7 @@
 //                                                  forKey:@"lastLoggedInUser"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[JKLightspeedManager manager] checkIMConnection];
+//            [[JKLightspeedManager manager] checkIMConnection];
             [_indicator activityStop];
             [_indicator removeFromSuperview];
 //            UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];

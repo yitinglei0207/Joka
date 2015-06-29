@@ -50,7 +50,7 @@
 //    
 //    
 //   
-    
+    [JKLightspeedManager manager].chatDelegate = self;
     
 }
 

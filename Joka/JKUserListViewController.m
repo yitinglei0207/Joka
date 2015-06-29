@@ -76,6 +76,8 @@
     
     [anIM connect:clientId];
      */
+    [JKLightspeedManager manager].chatDelegate = self;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -212,9 +214,7 @@
     //NSSet  * clientIds =  [[ NSSet alloc ] initWithObjects :@ "thisisclientId_1" ,  @ "thisisclientId_2" ,  nil ];
     [[JKLightspeedManager manager].anIM getClientsStatus: _clientIDset];
     
-    
 
-   
 
 }
 
