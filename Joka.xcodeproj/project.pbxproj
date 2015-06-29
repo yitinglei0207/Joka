@@ -20,6 +20,11 @@
 		67D9F48B1B412F8E00D000DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F48A1B412F8E00D000DF /* Foundation.framework */; };
 		67D9F48D1B412F9700D000DF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F48C1B412F9700D000DF /* SystemConfiguration.framework */; };
 		67D9F48F1B41305100D000DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F48E1B41305100D000DF /* UIKit.framework */; };
+		67D9F50E1B41652900D000DF /* libLightspeed-arm64-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F5091B41652900D000DF /* libLightspeed-arm64-2.22.a */; };
+		67D9F50F1B41652900D000DF /* libLightspeed-armv7-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F50A1B41652900D000DF /* libLightspeed-armv7-2.22.a */; };
+		67D9F5101B41652900D000DF /* libLightspeed-armv7s-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F50B1B41652900D000DF /* libLightspeed-armv7s-2.22.a */; };
+		67D9F5111B41652900D000DF /* libLightspeed-i386-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F50C1B41652900D000DF /* libLightspeed-i386-2.22.a */; };
+		67D9F5121B41652900D000DF /* libLightspeed-x86_64-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67D9F50D1B41652900D000DF /* libLightspeed-x86_64-2.22.a */; };
 		67E12E9E1B31221700761D69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12E9D1B31221700761D69 /* main.m */; };
 		67E12EA11B31221700761D69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA01B31221700761D69 /* AppDelegate.m */; };
 		67E12EA41B31221700761D69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12EA31B31221700761D69 /* ViewController.m */; };
@@ -36,11 +41,6 @@
 		67E12F2E1B32677200761D69 /* JKProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F2D1B32677200761D69 /* JKProfileViewController.m */; };
 		67E12F321B32BA9400761D69 /* JKLightspeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67E12F311B32BA9400761D69 /* JKLightspeedManager.m */; };
 		67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67F7C7B41B37FF3E0026E344 /* JKEnterUserInfoViewController.m */; };
-		67F7C7FD1B3917920026E344 /* libLightspeed-arm64-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F7C7F51B3917920026E344 /* libLightspeed-arm64-2.22.a */; };
-		67F7C7FE1B3917920026E344 /* libLightspeed-armv7-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F7C7F61B3917920026E344 /* libLightspeed-armv7-2.22.a */; };
-		67F7C7FF1B3917920026E344 /* libLightspeed-armv7s-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F7C7F71B3917920026E344 /* libLightspeed-armv7s-2.22.a */; };
-		67F7C8001B3917920026E344 /* libLightspeed-i386-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F7C7F81B3917920026E344 /* libLightspeed-i386-2.22.a */; };
-		67F7C8011B3917920026E344 /* libLightspeed-x86_64-2.22.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F7C7F91B3917920026E344 /* libLightspeed-x86_64-2.22.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,7 @@
 		67273CAC1B3A59DC00DAECDF /* JKMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMessagesViewController.h; sourceTree = "<group>"; };
 		67273CAD1B3A59DC00DAECDF /* JKMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMessagesViewController.m; sourceTree = "<group>"; };
 		67273CB01B3A962F00DAECDF /* JKWallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKWallViewController.h; sourceTree = "<group>"; };
-		67273CB11B3A962F00DAECDF /* JKWallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKWallViewController.m; sourceTree = "<group>"; };
+		67273CB11B3A962F00DAECDF /* JKWallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 5; lastKnownFileType = sourcecode.c.objc; path = JKWallViewController.m; sourceTree = "<group>"; };
 		67273CB31B3AA07300DAECDF /* JKCreatePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCreatePostViewController.h; sourceTree = "<group>"; };
 		67273CB41B3AA07300DAECDF /* JKCreatePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCreatePostViewController.m; sourceTree = "<group>"; };
 		67273CB61B3AA9A500DAECDF /* JKWallTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKWallTableViewCell.h; sourceTree = "<group>"; };
@@ -76,6 +76,22 @@
 		67D9F48A1B412F8E00D000DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		67D9F48C1B412F9700D000DF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		67D9F48E1B41305100D000DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		67D9F5091B41652900D000DF /* libLightspeed-arm64-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-arm64-2.22.a"; sourceTree = "<group>"; };
+		67D9F50A1B41652900D000DF /* libLightspeed-armv7-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-armv7-2.22.a"; sourceTree = "<group>"; };
+		67D9F50B1B41652900D000DF /* libLightspeed-armv7s-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-armv7s-2.22.a"; sourceTree = "<group>"; };
+		67D9F50C1B41652900D000DF /* libLightspeed-i386-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-i386-2.22.a"; sourceTree = "<group>"; };
+		67D9F50D1B41652900D000DF /* libLightspeed-x86_64-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-x86_64-2.22.a"; sourceTree = "<group>"; };
+		67D9F5131B41654E00D000DF /* AnDeviceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnDeviceManager.h; sourceTree = "<group>"; };
+		67D9F5141B41654E00D000DF /* AnIM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnIM.h; sourceTree = "<group>"; };
+		67D9F5151B41654E00D000DF /* AnIMMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnIMMessage.h; sourceTree = "<group>"; };
+		67D9F5161B41654E00D000DF /* AnLive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnLive.h; sourceTree = "<group>"; };
+		67D9F5171B41654E00D000DF /* AnLiveLocalVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnLiveLocalVideoView.h; sourceTree = "<group>"; };
+		67D9F5181B41654E00D000DF /* AnLiveProtocols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnLiveProtocols.h; sourceTree = "<group>"; };
+		67D9F5191B41654E00D000DF /* AnLiveVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnLiveVideoView.h; sourceTree = "<group>"; };
+		67D9F51A1B41654E00D000DF /* AnPush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnPush.h; sourceTree = "<group>"; };
+		67D9F51B1B41654E00D000DF /* AnSocial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnSocial.h; sourceTree = "<group>"; };
+		67D9F51C1B41654E00D000DF /* AnSocialFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnSocialFile.h; sourceTree = "<group>"; };
+		67D9F51D1B41654E00D000DF /* ArrownockException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrownockException.h; sourceTree = "<group>"; };
 		67E12E981B31221700761D69 /* Joka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Joka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E12E9C1B31221700761D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67E12E9D1B31221700761D69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -107,18 +123,6 @@
 		67E12F311B32BA9400761D69 /* JKLightspeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKLightspeedManager.m; sourceTree = "<group>"; };
 		67F7C7B31B37FF3E0026E344 /* JKEnterUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEnterUserInfoViewController.h; sourceTree = "<group>"; };
 		67F7C7B41B37FF3E0026E344 /* JKEnterUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEnterUserInfoViewController.m; sourceTree = "<group>"; };
-		67F7C7EA1B3917920026E344 /* AnDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnDeviceManager.h; sourceTree = "<group>"; };
-		67F7C7EB1B3917920026E344 /* AnIM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnIM.h; sourceTree = "<group>"; };
-		67F7C7EC1B3917920026E344 /* AnIMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnIMMessage.h; sourceTree = "<group>"; };
-		67F7C7F11B3917920026E344 /* AnPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnPush.h; sourceTree = "<group>"; };
-		67F7C7F21B3917920026E344 /* AnSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnSocial.h; sourceTree = "<group>"; };
-		67F7C7F31B3917920026E344 /* AnSocialFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnSocialFile.h; sourceTree = "<group>"; };
-		67F7C7F41B3917920026E344 /* ArrownockException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrownockException.h; sourceTree = "<group>"; };
-		67F7C7F51B3917920026E344 /* libLightspeed-arm64-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-arm64-2.22.a"; sourceTree = "<group>"; };
-		67F7C7F61B3917920026E344 /* libLightspeed-armv7-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-armv7-2.22.a"; sourceTree = "<group>"; };
-		67F7C7F71B3917920026E344 /* libLightspeed-armv7s-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-armv7s-2.22.a"; sourceTree = "<group>"; };
-		67F7C7F81B3917920026E344 /* libLightspeed-i386-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-i386-2.22.a"; sourceTree = "<group>"; };
-		67F7C7F91B3917920026E344 /* libLightspeed-x86_64-2.22.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libLightspeed-x86_64-2.22.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,15 +130,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67D9F5111B41652900D000DF /* libLightspeed-i386-2.22.a in Frameworks */,
 				67D9F48F1B41305100D000DF /* UIKit.framework in Frameworks */,
 				67D9F48D1B412F9700D000DF /* SystemConfiguration.framework in Frameworks */,
+				67D9F50E1B41652900D000DF /* libLightspeed-arm64-2.22.a in Frameworks */,
 				67D9F48B1B412F8E00D000DF /* Foundation.framework in Frameworks */,
-				67F7C8001B3917920026E344 /* libLightspeed-i386-2.22.a in Frameworks */,
+				67D9F5121B41652900D000DF /* libLightspeed-x86_64-2.22.a in Frameworks */,
+				67D9F50F1B41652900D000DF /* libLightspeed-armv7-2.22.a in Frameworks */,
+				67D9F5101B41652900D000DF /* libLightspeed-armv7s-2.22.a in Frameworks */,
 				67E12ED51B3122E100761D69 /* Security.framework in Frameworks */,
-				67F7C7FD1B3917920026E344 /* libLightspeed-arm64-2.22.a in Frameworks */,
-				67F7C8011B3917920026E344 /* libLightspeed-x86_64-2.22.a in Frameworks */,
-				67F7C7FE1B3917920026E344 /* libLightspeed-armv7-2.22.a in Frameworks */,
-				67F7C7FF1B3917920026E344 /* libLightspeed-armv7s-2.22.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,13 +201,44 @@
 			name = WallView;
 			sourceTree = "<group>";
 		};
+		67D9F5071B41651800D000DF /* include */ = {
+			isa = PBXGroup;
+			children = (
+				67D9F5091B41652900D000DF /* libLightspeed-arm64-2.22.a */,
+				67D9F50A1B41652900D000DF /* libLightspeed-armv7-2.22.a */,
+				67D9F50B1B41652900D000DF /* libLightspeed-armv7s-2.22.a */,
+				67D9F50C1B41652900D000DF /* libLightspeed-i386-2.22.a */,
+				67D9F50D1B41652900D000DF /* libLightspeed-x86_64-2.22.a */,
+				67D9F5081B41651800D000DF /* Arrownock */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		67D9F5081B41651800D000DF /* Arrownock */ = {
+			isa = PBXGroup;
+			children = (
+				67D9F5131B41654E00D000DF /* AnDeviceManager.h */,
+				67D9F5141B41654E00D000DF /* AnIM.h */,
+				67D9F5151B41654E00D000DF /* AnIMMessage.h */,
+				67D9F5161B41654E00D000DF /* AnLive.h */,
+				67D9F5171B41654E00D000DF /* AnLiveLocalVideoView.h */,
+				67D9F5181B41654E00D000DF /* AnLiveProtocols.h */,
+				67D9F5191B41654E00D000DF /* AnLiveVideoView.h */,
+				67D9F51A1B41654E00D000DF /* AnPush.h */,
+				67D9F51B1B41654E00D000DF /* AnSocial.h */,
+				67D9F51C1B41654E00D000DF /* AnSocialFile.h */,
+				67D9F51D1B41654E00D000DF /* ArrownockException.h */,
+			);
+			path = Arrownock;
+			sourceTree = "<group>";
+		};
 		67E12E8F1B31221700761D69 = {
 			isa = PBXGroup;
 			children = (
+				67D9F5071B41651800D000DF /* include */,
 				67D9F48E1B41305100D000DF /* UIKit.framework */,
 				67D9F48C1B412F9700D000DF /* SystemConfiguration.framework */,
 				67D9F48A1B412F8E00D000DF /* Foundation.framework */,
-				67F7C7E31B3917920026E344 /* lightspeed_ios_sdk_2.22 */,
 				67E12ED41B3122E100761D69 /* Security.framework */,
 				67E12E9A1B31221700761D69 /* Joka */,
 				67E12EB41B31221700761D69 /* JokaTests */,
@@ -334,41 +369,6 @@
 				67E12F311B32BA9400761D69 /* JKLightspeedManager.m */,
 			);
 			name = LightspeedManager;
-			sourceTree = "<group>";
-		};
-		67F7C7E31B3917920026E344 /* lightspeed_ios_sdk_2.22 */ = {
-			isa = PBXGroup;
-			children = (
-				67F7C7E81B3917920026E344 /* include */,
-				67F7C7F51B3917920026E344 /* libLightspeed-arm64-2.22.a */,
-				67F7C7F61B3917920026E344 /* libLightspeed-armv7-2.22.a */,
-				67F7C7F71B3917920026E344 /* libLightspeed-armv7s-2.22.a */,
-				67F7C7F81B3917920026E344 /* libLightspeed-i386-2.22.a */,
-				67F7C7F91B3917920026E344 /* libLightspeed-x86_64-2.22.a */,
-			);
-			path = lightspeed_ios_sdk_2.22;
-			sourceTree = "<group>";
-		};
-		67F7C7E81B3917920026E344 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				67F7C7E91B3917920026E344 /* Arrownock */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		67F7C7E91B3917920026E344 /* Arrownock */ = {
-			isa = PBXGroup;
-			children = (
-				67F7C7EA1B3917920026E344 /* AnDeviceManager.h */,
-				67F7C7EB1B3917920026E344 /* AnIM.h */,
-				67F7C7EC1B3917920026E344 /* AnIMMessage.h */,
-				67F7C7F11B3917920026E344 /* AnPush.h */,
-				67F7C7F21B3917920026E344 /* AnSocial.h */,
-				67F7C7F31B3917920026E344 /* AnSocialFile.h */,
-				67F7C7F41B3917920026E344 /* ArrownockException.h */,
-			);
-			path = Arrownock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -629,12 +629,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/lightspeed_ios_sdk_2.22/**",
+					"$(PROJECT_DIR)/include/Arrownock/**",
 				);
 				INFOPLIST_FILE = Joka/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/lightspeed_ios_sdk_2.22";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/include",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -651,12 +654,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/lightspeed_ios_sdk_2.22/**",
+					"$(PROJECT_DIR)/include/Arrownock/**",
 				);
 				INFOPLIST_FILE = Joka/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/lightspeed_ios_sdk_2.22";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/include",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -356,10 +356,13 @@
                                                         <constraint firstAttribute="width" constant="32" id="7Wq-pO-VIm"/>
                                                         <constraint firstAttribute="height" constant="32" id="LVe-wz-0Sq"/>
                                                     </constraints>
+                                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" backgroundImage="Like">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="disabled" backgroundImage="Liked"/>
+                                                    <state key="selected" backgroundImage="Liked"/>
                                                 </button>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7W-ru-odv">
                                                     <rect key="frame" x="8" y="37" width="584" height="100"/>
