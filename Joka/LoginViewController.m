@@ -112,13 +112,15 @@
 //         [self performSegueWithIdentifier:@"SigninSegue" sender:self];
          
          dispatch_async(dispatch_get_main_queue(), ^{
-             UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
-             [self showViewController:profileView sender:self];
              [[JKLightspeedManager manager] checkIMConnection];
              [_indicator activityStop];
              [_indicator removeFromSuperview];
              
+             
+             
          });
+         UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
+         [self showViewController:profileView sender:self];
          
      } failure:^(NSDictionary *response) {
          NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
@@ -140,9 +142,9 @@
 }
 
 - (void)userLogin {
-    [_indicator activityStart];
-    [self.view addSubview:_indicator];
-    
+//    [_indicator activityStart];
+//    [self.view addSubview:_indicator];
+//    
     if (!(self.usernameText.text.length && self.passwordText.text.length)) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"Enter a user name and password!"
@@ -187,12 +189,22 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[JKLightspeedManager manager] checkIMConnection];
-            UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
-            [self showViewController:profileView sender:self];
-            
             [_indicator activityStop];
             [_indicator removeFromSuperview];
+//            UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
+//            [self showViewController:profileView sender:self];
+            dispatch_queue_t myBackgroundQ = dispatch_queue_create("backgroundDelayQueue", NULL);
+            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
+            dispatch_after(delay, myBackgroundQ, ^(void){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self performSegueWithIdentifier:@"showMainView" sender:self];
+                });
+            });
             
+            
+            
+//
+//            
 //            [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
 //            [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
 //            

@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[JKLightspeedManager manager] checkIMConnection];
     // Do any additional setup after loading the view.
     self.usernameLabel.text = [JKLightspeedManager manager].username;
     self.primaryHandLabel.text = [JKLightspeedManager manager].userId;
@@ -36,17 +37,20 @@
     }
     
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
-    [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//    [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
+//    [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
+//    
+//    [[JKLightspeedManager manager] sendRequest:@"http://api.lightspeedmbs.com/v1/im/remove_clients.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
+//        NSLog(@"success log: %@",[response description]);
+//    }
+//              failure:^(NSDictionary *response) {
+//                  NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
+//              }];
+//    
+//    
+//   
     
-    
-    [[JKLightspeedManager manager] sendRequest:@"http://api.lightspeedmbs.com/v1/im/client_status.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
-        NSLog(@"success log: %@",[response description]);
-
-    } failure:^(NSDictionary *response) {
-        NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
-    }];
     
 }
 
@@ -70,7 +74,7 @@
     
     [[JKLightspeedManager manager] sendRequest:@"objects/MemberInfo/search.json" method:AnSocialManagerGET params:params success:^
      (NSDictionary *response) {
-         NSLog(@"key: %@ ",response);
+         //NSLog(@"key: %@ ",response);
          NSUInteger i = [[[response objectForKey:@"response"]objectForKey:@"MemberInfos"] count];
          if (!i) {
              NSLog(@"no object");

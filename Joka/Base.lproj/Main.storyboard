@@ -64,11 +64,12 @@
                         <outlet property="passwordText" destination="CkN-eB-N95" id="n0C-WG-oNW"/>
                         <outlet property="usernameText" destination="djl-VJ-cP3" id="q0e-sQ-pB6"/>
                         <segue destination="Q6l-5U-OCQ" kind="show" identifier="SigninSegue" id="kc0-jo-903"/>
+                        <segue destination="d1n-5N-v0V" kind="show" identifier="showMainView" id="jTf-jA-1F9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="325" y="-1095"/>
+            <point key="canvasLocation" x="-605" y="-853"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="A04-dF-ebZ">
@@ -1948,8 +1949,8 @@
         <image name="reveal" width="22" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FAb-bK-0uJ"/>
-        <segue reference="0fT-bX-QpS"/>
+        <segue reference="4Vx-mD-o03"/>
         <segue reference="MVp-L7-DMx"/>
+        <segue reference="kc0-jo-903"/>
     </inferredMetricsTieBreakers>
 </document>

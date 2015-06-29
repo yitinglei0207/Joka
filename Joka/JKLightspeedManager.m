@@ -147,6 +147,18 @@
     _clientStatus = status;
     //if (self.isAppEnterBackground)return;
     
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
+    [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
+    
+    [self sendRequest:@"http://api.lightspeedmbs.com/v1/im/client_status.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
+        NSLog(@"success log: %@",[response description]);
+    }
+    failure:^(NSDictionary *response) {
+        NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
+    }];
+    
+    
     if (!status)
     {
 //        UIWindow *displayWindow = [[[UIApplication sharedApplication] delegate] window];
@@ -177,7 +189,6 @@
 
 - (void)checkIMConnection
 {
-    
     if (!self.clientId.length) return;
     
     if (!_clientStatus )
@@ -187,6 +198,7 @@
         
         [self.anIM connect:self.clientId];
     }
+
     else
     {
         NSLog(@"IM is connected");

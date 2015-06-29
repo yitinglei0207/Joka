@@ -40,7 +40,16 @@
     
     _indicator = [[JKActivityControlView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, 50, 50)];
     
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
+    [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
     
+    [[JKLightspeedManager manager] sendRequest:@"http://api.lightspeedmbs.com/v1/im/client_status.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
+        NSLog(@"success log: %@",[response description]);
+    }
+              failure:^(NSDictionary *response) {
+                  NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
+              }];
     
     
     //_anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
@@ -101,6 +110,8 @@
         [_userArray removeObjectsInArray: toDelete];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
             [self getUserStatus];
             
             [self.tableView reloadData];
@@ -200,6 +211,11 @@
 -(void)getUserStatus{
     //NSSet  * clientIds =  [[ NSSet alloc ] initWithObjects :@ "thisisclientId_1" ,  @ "thisisclientId_2" ,  nil ];
     [[JKLightspeedManager manager].anIM getClientsStatus: _clientIDset];
+    
+    
+
+   
+
 }
 
 - (void)didGetClientStatus:(NSDictionary *)clientStatus
