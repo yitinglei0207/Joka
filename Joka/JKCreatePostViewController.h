@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface JKCreatePostViewController : UIViewController
-
+@property (nonatomic,strong) NSString *commentOrPost;
+@property (nonatomic,strong) NSString *commentPostId;
 @end

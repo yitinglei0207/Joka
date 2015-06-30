@@ -10,4 +10,5 @@
 
 @interface JKCustomButton : UIButton
 @property (nonatomic, strong) NSString * customData;
+@property (nonatomic, strong) NSString * cellId;
 @end

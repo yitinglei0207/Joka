@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *comments;
 @property (weak, nonatomic) IBOutlet UILabel *createAt;
 @property (weak, nonatomic) IBOutlet JKCustomButton *likeButton;
-@property (nonatomic,strong) NSString *likeIdTag;
+@property (weak, nonatomic) IBOutlet JKCustomButton *commentButton;
+@property (nonatomic,strong) NSString *postId;
 @end

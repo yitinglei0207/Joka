@@ -51,8 +51,11 @@
 - (void)finishButtonTapped
 {
     [self.messageTextView resignFirstResponder];
-    [self createPost];
-
+    if ([_commentOrPost isEqualToString:@"Comment"]) {
+        [self createComment];
+    }else{
+        [self createPost];
+    }
 }
 
 
@@ -65,7 +68,7 @@
                                      @"wall_id":LIGHTSPEED_WALL_ID,
                                      @"content":self.messageTextView.text}mutableCopy];
     
-    [[JKLightspeedManager manager]sendRequest:@"posts/create.json" method:AnSocialManagerPOST params:params success:^(NSDictionary *response){
+    [[JKLightspeedManager manager] sendRequest:@"posts/create.json" method:AnSocialManagerPOST params:params success:^(NSDictionary *response){
         NSLog(@"post data :%@",[response description]);
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -76,6 +79,31 @@
         //[self.load removeFromSuperview];
         NSLog(@"fail to post data :%@",[response description]);
     }];
+}
+
+-(void)createComment{
+    
+    NSMutableDictionary *params = [@{@"object_type":@"Post",
+                                     @"user_id":[JKLightspeedManager manager].userId,
+                                     @"object_id":self.commentPostId,
+                                     @"content":self.messageTextView.text
+                                     }mutableCopy];
+    
+    [[JKLightspeedManager manager] sendRequest:@"comments/create.json" method:AnSocialManagerPOST params:params success:^
+     (NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self successPost];
+         });
+     } failure:^(NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+     }];
 }
 
 - (void)successPost

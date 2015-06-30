@@ -213,9 +213,6 @@
 -(void)getUserStatus{
     //NSSet  * clientIds =  [[ NSSet alloc ] initWithObjects :@ "thisisclientId_1" ,  @ "thisisclientId_2" ,  nil ];
     [[JKLightspeedManager manager].anIM getClientsStatus: _clientIDset];
-    
-
-
 }
 
 - (void)didGetClientStatus:(NSDictionary *)clientStatus
