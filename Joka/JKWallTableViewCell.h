@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "JKCustomButton.h"
 @interface JKWallTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *postTextView;
 
@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *likes;
 @property (weak, nonatomic) IBOutlet UILabel *comments;
 @property (weak, nonatomic) IBOutlet UILabel *createAt;
-@property (weak, nonatomic) IBOutlet UIButton *likeButton;
-
+@property (weak, nonatomic) IBOutlet JKCustomButton *likeButton;
+@property (nonatomic,strong) NSString *likeIdTag;
 @end

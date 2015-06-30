@@ -63,9 +63,10 @@
     {
         [revealController setFrontViewPosition:FrontViewPositionRight animated:YES];
         //[PFUser logOut];
+        NSLog(@"logged out");
         [[JKLightspeedManager manager] logOut];
         [self dismissViewControllerAnimated:YES completion:nil];
-        NSLog(@"logged out");
+        
         return;
     }
     _presentedRow = row;  // <- store the presented row

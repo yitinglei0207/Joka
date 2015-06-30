@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        self.anIM = [[AnIM alloc]initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:YES];
+        self.anIM = [[AnIM alloc]initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:NO];
         self.anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
         [self.anSocial setSecureConnection:YES];
         [self.anSocial setTimeout:20.0f];
@@ -147,16 +147,16 @@
     _clientStatus = status;
     //if (self.isAppEnterBackground)return;
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
-    [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
-    
-    [self sendRequest:@"http://api.lightspeedmbs.com/v1/im/client_status.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
-        NSLog(@"success log: %@",[response description]);
-    }
-    failure:^(NSDictionary *response) {
-        NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
-    }];
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//    [params setObject:@"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" forKey:@"key"];
+//    [params setObject:[JKLightspeedManager manager].clientId forKey:@"client"];
+//    
+//    [self sendRequest:@"http://api.lightspeedmbs.com/v1/im/client_status.json" method:AnSocialManagerGET params:params success:^(NSDictionary *response) {
+//        NSLog(@"success log: %@",[response description]);
+//    }
+//    failure:^(NSDictionary *response) {
+//        NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);
+//    }];
     
     
     if (!status)
