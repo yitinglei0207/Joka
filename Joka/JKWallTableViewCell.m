@@ -20,10 +20,19 @@
 
     // Configure the view for the selected state
 }
-- (IBAction)likebuttonPressed:(id)sender {
-    NSNumber *likecount = [NSNumber numberWithInteger:[self.likes.text intValue]+1] ;
+- (IBAction)likebuttonPressed:(JKCustomButton*)sender {
+    if (sender.selected) {
+        [sender setSelected:NO];
+        NSNumber *likecount = [NSNumber numberWithInteger:[self.likes.text intValue]-1] ;
+        
+        self.likes.text = [NSString stringWithFormat:@"%d likes",likecount.intValue];
+    }else{
+        [sender setSelected:YES];
+        NSNumber *likecount = [NSNumber numberWithInteger:[self.likes.text intValue]+1] ;
+        
+        self.likes.text = [NSString stringWithFormat:@"%d likes",likecount.intValue];
+    }
     
-    self.likes.text = [NSString stringWithFormat:@"%d likes",likecount.intValue];
 }
 
 @end
