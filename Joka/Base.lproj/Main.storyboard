@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -179,26 +180,6 @@
                                             <segue destination="Kpb-kg-pYK" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="l5B-ZY-hPR"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Lfn-pB-cZh">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lfn-pB-cZh" id="8NE-UK-fxa">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ypq-Qf-2zA">
-                                                    <rect key="frame" x="8" y="11" width="37" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ypq-Qf-2zA" secondAttribute="trailing" id="P1X-Oq-Obg"/>
-                                                <constraint firstItem="ypq-Qf-2zA" firstAttribute="top" secondItem="8NE-UK-fxa" secondAttribute="topMargin" constant="3" id="SHZ-8Z-1MB"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ypq-Qf-2zA" secondAttribute="bottom" constant="3" id="sx4-jD-fYa"/>
-                                                <constraint firstItem="ypq-Qf-2zA" firstAttribute="leading" secondItem="8NE-UK-fxa" secondAttribute="leadingMargin" id="x6u-Dh-mTJ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="L0E-sm-QGM">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L0E-sm-QGM" id="YcZ-rq-E9I">
@@ -349,7 +330,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLA-75-znc" customClass="JKCustomButton">
+                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLA-75-znc" customClass="JKCustomButton">
                                                     <rect key="frame" x="8" y="145" width="32" height="32"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -359,10 +340,16 @@
                                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <state key="normal" backgroundImage="Like">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="disabled" backgroundImage="Liked"/>
-                                                    <state key="selected" backgroundImage="Liked"/>
+                                                    <state key="selected" backgroundImage="Liked">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted" backgroundImage="Liked"/>
+                                                    <connections>
+                                                        <action selector="likebuttonPressed:" destination="V1J-yz-bcV" eventType="touchUpInside" id="Fmt-NE-eNE"/>
+                                                    </connections>
                                                 </button>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7W-ru-odv">
                                                     <rect key="frame" x="8" y="37" width="584" height="100"/>
@@ -2069,8 +2056,8 @@
         <image name="reveal" width="22" height="17"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kc0-jo-903"/>
-        <segue reference="4Vx-mD-o03"/>
         <segue reference="MVp-L7-DMx"/>
+        <segue reference="kc0-jo-903"/>
+        <segue reference="0fT-bX-QpS"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -59,7 +59,7 @@
         [revealController setFrontViewPosition:FrontViewPositionLeft animated:YES];
         return;
     }
-    else if (row == 6)//user logout
+    else if (row == 5)//user logout
     {
         [revealController setFrontViewPosition:FrontViewPositionRight animated:YES];
         //[PFUser logOut];

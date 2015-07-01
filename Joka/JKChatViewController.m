@@ -73,8 +73,9 @@
 
 - (void)sendMessage {
     
-    NSSet *clientIds = [NSSet setWithObjects:[_friendInfo objectForKey:@"clientId"], nil];
-    [[[JKLightspeedManager manager] anIM] sendMessage:_messageTextField.text toClients:clientIds needReceiveACK:NO];
+    //NSSet *clientIds = [NSSet setWithObjects:[_friendInfo objectForKey:@"clientId"], nil];
+    //[[[JKLightspeedManager manager] anIM] sendMessage:_messageTextField.text toClients:clientIds needReceiveACK:NO];
+    [[[JKLightspeedManager manager] anIM] sendMessage:_messageTextField.text toClient:[_friendInfo objectForKey:@"clientId"] needReceiveACK:NO];
     self.messageTextField.text = @"";
 }
 

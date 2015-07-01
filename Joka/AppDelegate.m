@@ -24,7 +24,8 @@
     NSData *tokenData = [[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"];
     
     if (tokenData)
-        [AnPush setup:LIGHTSPEED_APP_KEY deviceToken:tokenData delegate:self secure:YES];
+        //[AnPush setup:LIGHTSPEED_APP_KEY deviceToken:tokenData delegate:self secure:YES];
+        [AnPush setup:LIGHTSPEED_APP_KEY deviceToken:tokenData secure:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(registerPushNotification)
@@ -48,8 +49,24 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [AnPush setup:LIGHTSPEED_APP_KEY deviceToken:deviceToken delegate:self secure:YES];
-    [[AnPush shared] register:@[ @"Joka_Push" ] overwrite:YES];
+    //[AnPush setup:LIGHTSPEED_APP_KEY deviceToken:deviceToken delegate:self secure:YES];
+    [AnPush setup:LIGHTSPEED_APP_KEY deviceToken:deviceToken secure:YES];
+    //[[AnPush shared] register:@[ @"Joka_Push" ] overwrite:YES];
+    [[AnPush shared] register:@[ @"Joka_Push" ] overwrite:YES success:^(NSString *anid) {
+        NSLog(@"register success:%@",anid);
+        NSLog(@"Arrownock didRegistered");
+        /* use the anId to bind AnIM & AnPush */
+        //[[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY deviceType:AnPushTypeiOS];
+        [[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY clientId:[JKLightspeedManager manager].clientId success:^{
+            NSLog(@"bind %@ to Push service",anid);
+        } failure:^(ArrownockException *exception) {
+            NSLog(@"Bind to push service failed:%@",exception);
+        }];
+        
+        
+    } failure:^(ArrownockException *exception) {
+        NSLog(@"register failed: %@",exception);
+    }];
     //    NSArray *channels = [NSArray arrayWithObjects:@"BroadcastMessage", @"Payroll", @"ImportantNews"];
     //    [[AnPush shared] register:channels overwrite:YES];
     //    
@@ -57,23 +74,31 @@
 
 
 #pragma mark - AnPushDelegate functions
-- (void)didRegistered:(NSString *)anid withError:(NSString *)error
+- (void)didRegistered:(NSString *)anid withException:(ArrownockException *)exception
 {
-    NSLog(@"Arrownock didRegistered");
-    if (error && ![error isEqualToString:@""])
-    {
-        NSLog(@"LSIM AppDelegate, AnPush failed to register, error: %@", error);
-    }
-    else if (!anid || [anid isEqualToString:@""])
-    {
-        NSLog(@"LSIM AppDelegate, AnPush failed to register, invalid Lightspeed ID");
-    }
-    else
-    {
-        /* use the anId to bind AnIM & AnPush */
-        [[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY deviceType:AnPushTypeiOS];
-        NSLog(@"bind %@ to Push service",anid);
-    }
+    
+//    if (error && ![error isEqualToString:@""])
+//    {
+//        
+//        NSLog(@"LSIM AppDelegate, AnPush failed to register, error: %@", error);
+//    }
+//    else if (!anid || [anid isEqualToString:@""])
+//    {
+//        NSLog(@"LSIM AppDelegate, AnPush failed to register, invalid Lightspeed ID");
+//    }
+//    else
+//    {
+//        NSLog(@"Arrownock didRegistered");
+//        /* use the anId to bind AnIM & AnPush */
+//        //[[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY deviceType:AnPushTypeiOS];
+//        [[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY clientId:[JKLightspeedManager manager].clientId success:^{
+//            NSLog(@"bind %@ to Push service",anid);
+//        } failure:^(ArrownockException *exception) {
+//            NSLog(@"Bind to push service failed:%@",exception);
+//        }];
+//        
+//        
+//    }
 }
 
 - (void)didUnregistered:(BOOL)success withError:(NSString *)error

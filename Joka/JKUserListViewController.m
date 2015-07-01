@@ -212,13 +212,21 @@
 
 -(void)getUserStatus{
     //NSSet  * clientIds =  [[ NSSet alloc ] initWithObjects :@ "thisisclientId_1" ,  @ "thisisclientId_2" ,  nil ];
-    [[JKLightspeedManager manager].anIM getClientsStatus: _clientIDset];
+    [[JKLightspeedManager manager].anIM getClientsStatus:_clientIDset success:^(NSDictionary *clientsStatus) {
+        NSLog(@"getClientsStatus success:%@",clientsStatus);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.clientStatus = [NSMutableDictionary dictionaryWithDictionary:clientsStatus];
+            [self.tableView reloadData];
+        });
+    } failure:^(ArrownockException *exception) {
+        NSLog(@"getClientsStatus failed:%@",exception);
+    }];
 }
 
 - (void)didGetClientStatus:(NSDictionary *)clientStatus
 {
-    self.clientStatus = [NSMutableDictionary dictionaryWithDictionary:clientStatus];
-    [self.tableView reloadData];
+//    self.clientStatus = [NSMutableDictionary dictionaryWithDictionary:clientStatus];
+//    [self.tableView reloadData];
 }
 /*
 #pragma mark - Navigation

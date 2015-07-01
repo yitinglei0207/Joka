@@ -11,4 +11,5 @@
 @interface JKCustomButton : UIButton
 @property (nonatomic, strong) NSString * customData;
 @property (nonatomic, strong) NSString * cellId;
+@property (nonatomic) NSInteger likeIndexSaver;
 @end

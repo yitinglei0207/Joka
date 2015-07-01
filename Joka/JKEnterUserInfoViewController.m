@@ -139,9 +139,8 @@
          NSLog(@"UserInfo updated");
      } failure:^(NSDictionary *response) {
          NSLog(@"UserInfo updating failed");
-         for (id key in response) {
-             NSLog(@"%@",response);
-         }
+         NSLog(@"%@",response);
+         
          
      }];
 }
