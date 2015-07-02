@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6713A64D1B45351500E3D2B5 /* HXChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A64C1B45351500E3D2B5 /* HXChatViewController.m */; };
 		67273C8A1B39469200DAECDF /* Joka.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 67273C891B39469200DAECDF /* Joka.entitlements */; };
 		67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C901B3956FC00DAECDF /* SWRevealViewController.m */; };
 		67273C941B395AA100DAECDF /* JKRearTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C931B395AA100DAECDF /* JKRearTableViewController.m */; };
@@ -57,8 +56,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6713A64B1B45351500E3D2B5 /* HXChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXChatViewController.h; sourceTree = "<group>"; };
-		6713A64C1B45351500E3D2B5 /* HXChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXChatViewController.m; sourceTree = "<group>"; };
 		67273C891B39469200DAECDF /* Joka.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Joka.entitlements; sourceTree = "<group>"; };
 		67273C8F1B3956FC00DAECDF /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		67273C901B3956FC00DAECDF /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
@@ -161,15 +158,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6713A64A1B45351500E3D2B5 /* ChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				6713A64B1B45351500E3D2B5 /* HXChatViewController.h */,
-				6713A64C1B45351500E3D2B5 /* HXChatViewController.m */,
-			);
-			path = ChatViewController;
-			sourceTree = "<group>";
-		};
 		67273C8E1B3956FC00DAECDF /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,7 +294,6 @@
 				67E12F261B3170BE00761D69 /* UserListView */,
 				67273CA81B3A49D700DAECDF /* FriendsView */,
 				67273CA71B396EA100DAECDF /* ChatHistoryView */,
-				6713A64A1B45351500E3D2B5 /* ChatViewController */,
 				67273CAF1B3A961400DAECDF /* WallView */,
 				67E12EAA1B31221700761D69 /* LaunchScreen.xib */,
 				67E12E9B1B31221700761D69 /* Supporting Files */,
@@ -522,7 +509,6 @@
 				67E12F241B3170B100761D69 /* JKUserListViewController.m in Sources */,
 				67E12F321B32BA9400761D69 /* JKLightspeedManager.m in Sources */,
 				67E12EA41B31221700761D69 /* ViewController.m in Sources */,
-				6713A64D1B45351500E3D2B5 /* HXChatViewController.m in Sources */,
 				67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */,
 				67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */,
 				67E12EA11B31221700761D69 /* AppDelegate.m in Sources */,
