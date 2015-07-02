@@ -142,9 +142,9 @@
 }
 
 - (void)userLogin {
-//    [_indicator activityStart];
-//    [self.view addSubview:_indicator];
-//    
+    [_indicator activityStart];
+    [self.view addSubview:_indicator];
+    
     if (!(self.usernameText.text.length && self.passwordText.text.length)) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"Enter a user name and password!"
@@ -191,16 +191,18 @@
 //            [[JKLightspeedManager manager] checkIMConnection];
             [_indicator activityStop];
             [_indicator removeFromSuperview];
+            [self performSegueWithIdentifier:@"showMainView" sender:self];
+            
 //            UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
 //            [self showViewController:profileView sender:self];
-            dispatch_queue_t myBackgroundQ = dispatch_queue_create("backgroundDelayQueue", NULL);
-            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
-            dispatch_after(delay, myBackgroundQ, ^(void){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self performSegueWithIdentifier:@"showMainView" sender:self];
-                });
-            });
-            
+//            dispatch_queue_t myBackgroundQ = dispatch_queue_create("backgroundDelayQueue", NULL);
+//            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
+//            dispatch_after(delay, myBackgroundQ, ^(void){
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self performSegueWithIdentifier:@"showMainView" sender:self];
+//                });
+//            });
+//            
             
             
 //

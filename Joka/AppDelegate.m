@@ -57,11 +57,14 @@
         NSLog(@"Arrownock didRegistered");
         /* use the anId to bind AnIM & AnPush */
         //[[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY deviceType:AnPushTypeiOS];
-        [[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY clientId:[JKLightspeedManager manager].clientId success:^{
-            NSLog(@"bind %@ to Push service",anid);
-        } failure:^(ArrownockException *exception) {
-            NSLog(@"Bind to push service failed:%@",exception);
-        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[JKLightspeedManager manager]anIM] bindAnPushService:anid appKey:LIGHTSPEED_APP_KEY clientId:[JKLightspeedManager manager].clientId success:^{
+                NSLog(@"bind %@ to Push service",anid);
+            } failure:^(ArrownockException *exception) {
+                NSLog(@"Bind to push service failed:%@",exception);
+            }];
+        });
+        
         
         
     } failure:^(ArrownockException *exception) {

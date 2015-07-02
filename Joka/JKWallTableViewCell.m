@@ -7,7 +7,7 @@
 //
 
 #import "JKWallTableViewCell.h"
-
+#import "JKLightspeedManager.h"
 @implementation JKWallTableViewCell
 
 - (void)awakeFromNib {
@@ -21,18 +21,26 @@
     // Configure the view for the selected state
 }
 - (IBAction)likebuttonPressed:(JKCustomButton*)sender {
+    sender.userInteractionEnabled = NO;
+    
     if (sender.selected) {
         [sender setSelected:NO];
         NSNumber *likecount = [NSNumber numberWithInteger:[self.likes.text intValue]-1] ;
-        
         self.likes.text = [NSString stringWithFormat:@"%d likes",likecount.intValue];
+        [self.likeStatusChangeDelegate removeLikeAtIndex:sender.tag];
+        sender.userInteractionEnabled = YES;
+        
     }else{
         [sender setSelected:YES];
         NSNumber *likecount = [NSNumber numberWithInteger:[self.likes.text intValue]+1] ;
-        
         self.likes.text = [NSString stringWithFormat:@"%d likes",likecount.intValue];
+        [self.likeStatusChangeDelegate addLikeAtIndex:sender.tag];
+        sender.userInteractionEnabled = YES;
+
     }
     
 }
+
+
 
 @end

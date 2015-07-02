@@ -14,7 +14,7 @@
 #import "JKCreatePostViewController.h"
 #import "JKCommentViewController.h"
 
-@interface JKWallViewController ()
+@interface JKWallViewController ()<LikeStatusChangeDelegate>
 @property (nonatomic,strong) NSMutableArray *postArray;
 @property (weak, nonatomic) IBOutlet UITableView *wallTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
@@ -22,6 +22,8 @@
 @property (nonatomic,strong) NSString *sendCommentId;
 @property (nonatomic,strong) NSMutableArray *likeArray;
 @property (nonatomic,strong) NSMutableArray *likeCountArray;
+@property (nonatomic,strong) NSMutableArray *likeIndexArray;
+@property (nonatomic,strong) NSArray *originalLikeStatus;
 @end
 
 @implementation JKWallViewController
@@ -33,6 +35,8 @@
      
      self.likeArray = [[NSMutableArray alloc]initWithCapacity:0];
      self.likeCountArray = [[NSMutableArray alloc]initWithCapacity:0];
+     self.likeIndexArray = [[NSMutableArray alloc]initWithCapacity:0];
+     //self.originalLikeStatus = [[NSMutableArray alloc]initWithCapacity:0];
      //self.likedDic = [[NSMutableDictionary alloc]initWithCapacity:0];
      
      SWRevealViewController *revealViewController = self.revealViewController;
@@ -46,10 +50,14 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-     [self queryWallPosts];
      
+     [self queryLiked];
      
      //[self queryLiked];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+     [self checkLikeChages];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,38 +96,19 @@
      }
      NSDictionary *tempDic = [[NSDictionary alloc]initWithDictionary:[_postArray objectAtIndex:indexPath.row] ];
      NSLog(@"This cell is for Data:%@",tempDic);
-     
-     if (_likeArray.count) {
-          for (id likedpost in _likeArray) {
-               if ([[likedpost objectForKey:@"parentId"]isEqualToString:[tempDic objectForKey:@"id"]]) {
-                    if ([[likedpost objectForKey:@"positive"] integerValue] == 1) {
-                         //cell.likeButton.selected = YES;
-                         [[_likeCountArray objectAtIndex:indexPath.row] setObject:[NSNumber numberWithBool:YES] forKey:@"liked"];
-                         cell.likeButton.customData = [likedpost objectForKey:@"id"];
-                         break;
-                    }else{
-                         //cell.likeButton.selected = NO;
-                         cell.likeButton.customData = @"";
-                    }
-               }else{
-                    //cell.likeButton.selected = NO;
-               }
-          }
-     }else{
-          //cell.likeButton.selected = NO;
-     }
-     NSNumber *liked = [[_likeCountArray objectAtIndex:indexPath.row]objectForKey:@"liked"];
-     if (liked.boolValue == YES) {
+
+     if([[_likeIndexArray[indexPath.row] objectForKey:@"liked"]boolValue] == YES){
           cell.likeButton.selected = YES;
-          //cell.likeButton.customData = [likedpost objectForKey:@"id"];
      }else{
           cell.likeButton.selected = NO;
-          //cell.likeButton.customData = @"";
      }
      
-     NSNumber *likes = [[_likeCountArray objectAtIndex:indexPath.row]objectForKey:@"likeCount"];
+     NSNumber *likes = [[_likeIndexArray objectAtIndex:indexPath.row] objectForKey:@"likeCount"];
      //NSNumber *unlikes = [[_postArray objectAtIndex:indexPath.row] objectForKey:@"dislikeCount"];
      //cell.likeButton.likeIndexSaver = indexPath.row;
+     
+     cell.likeStatusChangeDelegate = self;
+     
      cell.postId = [[_postArray objectAtIndex:indexPath.row] objectForKey:@"id"];
      
      cell.postTextView.text = [[_postArray objectAtIndex:indexPath.row] objectForKey:@"content"];
@@ -130,108 +119,11 @@
      cell.createAt.text = [[_postArray objectAtIndex:indexPath.row] objectForKey:@"created_at"];
      cell.likeButton.tag = indexPath.row;
      cell.commentButton.cellId = [[_postArray objectAtIndex:indexPath.row] objectForKey:@"id"];
-     //[cell.likeButton addTarget:self action:@selector(yourButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+     
      [cell.commentButton addTarget:self action:@selector(commentsPressed:) forControlEvents:UIControlEventTouchUpInside];
      return cell;
 }
 
-- (void)yourButtonClicked:(JKCustomButton*)sender{
-     if (sender.selected) {
-          [sender setSelected:NO];
-          sender.userInteractionEnabled = NO;
-          
-          
-          NSMutableDictionary *changeLike = [[NSMutableDictionary alloc]initWithDictionary:[_postArray objectAtIndex:sender.tag]];
-          if (_likeArray.count) {
-               for (int i=0;i<_likeArray.count;i++) {
-                    if ([[[_likeArray objectAtIndex:i] objectForKey:@"parentId"]isEqualToString:[changeLike objectForKey:@"id"]]) {
-                         [_likeArray removeObjectAtIndex:i];
-                    }
-               }
-          }
-          
-          NSNumber *likecount = [[NSNumber alloc]initWithInt:[[[_likeCountArray objectAtIndex:sender.tag] objectForKey:@"likeCount"] intValue] - 1];
-          [[_likeCountArray objectAtIndex:sender.tag] setObject:[NSNumber numberWithBool:NO] forKey:@"liked"];
-          [[_likeCountArray objectAtIndex:sender.tag] setObject:likecount forKey:@"likeCount"];
-
-          NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-          [params setObject:sender.customData forKey:@"like_id"];
-          
-          [[JKLightspeedManager manager] sendRequest:@"likes/delete.json" method:AnSocialManagerPOST params:params success:^
-           (NSDictionary *response) {
-                for (id key in response)
-                {
-                     NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
-                }
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                     
-//                     
-//                     [self queryWallPosts];
-//                });
-                sender.userInteractionEnabled = YES;
-           } failure:^(NSDictionary *response) {
-                for (id key in response)
-                {
-                     NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
-                }
-           }];
-          [self.wallTableView reloadData];
-
-          
-     }else{
-          
-          [sender setSelected:YES];
-          sender.userInteractionEnabled = NO;
-          
-
-         
-          NSNumber *likecount = [[NSNumber alloc]initWithInt:[[[_likeCountArray objectAtIndex:sender.tag] objectForKey:@"likeCount"] intValue] + 1];
-          [[_likeCountArray objectAtIndex:sender.tag] setObject:[NSNumber numberWithBool:YES] forKey:@"liked"];
-          [[_likeCountArray objectAtIndex:sender.tag] setObject:likecount forKey:@"likeCount"];
-          
-//          NSMutableDictionary *changeLike = [[NSMutableDictionary alloc]initWithDictionary:[_postArray objectAtIndex:sender.tag]];
-//          [changeLike setObject:likecount forKey:@"likeCount"];
-//          if (_likeArray.count) {
-//               for (int i=0;i<_likeArray.count;i++) {
-//                    if ([[[_likeArray objectAtIndex:i] objectForKey:@"parentId"]isEqualToString:[changeLike objectForKey:@"id"]]) {
-//                         NSMutableDictionary *changePositive = [[NSMutableDictionary alloc]initWithDictionary:[_likeArray objectAtIndex:i]];
-//                         [changePositive setObject:[NSNumber numberWithInt:1] forKey:@"positive"];
-//                         [_likeArray setObject:changePositive atIndexedSubscript:i];
-//                    }
-//               }
-//          }
-          //[_postArray setObject:changeLike atIndexedSubscript:sender.tag] ;
-          NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-          [params setObject:@"Post" forKey:@"object_type"];
-          [params setObject:[[_postArray objectAtIndex:sender.tag] objectForKey:@"id"] forKey:@"object_id"];
-          [params setObject:@"true" forKey:@"like"];
-          [params setObject:[JKLightspeedManager manager].userId forKey:@"user_id"];
-
-          
-          [[JKLightspeedManager manager] sendRequest:@"likes/create.json" method:AnSocialManagerPOST params:params success:^
-           (NSDictionary *response) {
-//                for (id key in response)
-//                {
-//                     NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
-//                }
-                NSLog(@"post: %@ liked",[[_postArray objectAtIndex:sender.tag] objectForKey:@"id"] );
-                dispatch_async(dispatch_get_main_queue(), ^{
-                     //sender.userInteractionEnabled = NO;
-                     [self queryLiked];
-                });
-                sender.userInteractionEnabled = YES;
-           } failure:^(NSDictionary *response) {
-                for (id key in response)
-                {
-                     NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
-                }
-           }];
-          [self.wallTableView reloadData];
-     }
-     
-     
-     
-}
 
 
 - (void)queryWallPosts{
@@ -246,15 +138,33 @@
            //NSLog(@"postArray:\n %@ ",self.postArray);
            dispatch_async(dispatch_get_main_queue(), ^{
                 [self.postArray removeAllObjects];
+                //[self.originalLikeStatus removeAllObjects];
+                [self.likeIndexArray removeAllObjects];
                 self.postArray = [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"posts"]] mutableCopy];
                 
                 for (id post in _postArray) {
                      NSMutableDictionary *likedRecordingDic = [[NSMutableDictionary alloc]initWithCapacity:0];
+                     [likedRecordingDic setObject:[post objectForKey:@"id"] forKey:@"postId"];
                      [likedRecordingDic setObject:[post objectForKey:@"likeCount"] forKey:@"likeCount"];
                      [likedRecordingDic setObject:[NSNumber numberWithBool:NO] forKey:@"liked"];
-                     [_likeCountArray addObject:likedRecordingDic];
+                     [likedRecordingDic setObject:@"" forKey:@"likeId"];
+                     
+                     if (_likeArray.count) {
+                          for (id likedpost in _likeArray) {
+                               if ([[likedpost objectForKey:@"parentId"]isEqualToString:[post objectForKey:@"id"]])
+                                    if ([[likedpost objectForKey:@"positive"] integerValue] == 1){
+                                         [likedRecordingDic setObject:[NSNumber numberWithBool:YES] forKey:@"liked"];
+                                         [likedRecordingDic setObject:[likedpost objectForKey:@"id"] forKey:@"likeId"];
+                                    }
+                               
+                          }
+                     }
+                     //[_originalLikeStatus addObject:likedRecordingDic];
+                     [_likeIndexArray addObject:likedRecordingDic];
                 }
-                [self queryLiked];
+                
+                _originalLikeStatus = [[NSArray alloc]initWithArray:_likeIndexArray copyItems:YES];
+                [self.wallTableView reloadData];
            });
            
            
@@ -275,11 +185,16 @@
      [params setObject :[JKLightspeedManager manager].userId forKey :@ "user_id" ];
      [_likeArray removeAllObjects];
      [[JKLightspeedManager manager] sendRequest :@ "likes/query.json" method : AnSocialManagerGET  params : params success :^
-      ( NSDictionary  * response )  {
+      (NSDictionary  *response ){
+           NSLog(@"================================\n queryLiked: %@\n========================================",response);
            dispatch_async(dispatch_get_main_queue(), ^{
                 _likeArray = [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"likes"]] mutableCopy];
-                [self.wallTableView reloadData];
+                
+                //[JKLikeManager manager].likeArray = [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"likes"]] mutableCopy];
                 //[self deleteAllLikes];
+                [self queryWallPosts];
+                
+                
            });
            
       } failure :^( NSDictionary  * response )  {
@@ -290,6 +205,8 @@
       }];
      
 }
+
+
 
 -(void)deleteAllLikes{
      for (id likes in _likeArray) {
@@ -328,6 +245,80 @@
      }else{
           JKCreatePostViewController *postView = [segue destinationViewController];
           postView.commentOrPost = @"Post";
+     }
+}
+
+
+#pragma mark - LikeStatusChangeDelegate
+-(void)addLikeAtIndex:(NSInteger)index{
+     [_likeIndexArray[index] setObject:[NSNumber numberWithBool:YES] forKey:@"liked"];
+     NSNumber *likecount = [NSNumber numberWithInteger:[[_likeIndexArray[index]objectForKey:@"likeCount"] intValue]+1] ;
+     [_likeIndexArray[index] setObject:[NSString stringWithFormat:@"%d",likecount.intValue] forKey:@"likeCount"];
+
+     //self.likes.text = [NSString stringWithFormat:@"%d likes",likecount.intValue];
+}
+-(void)removeLikeAtIndex:(NSInteger)index{
+     [_likeIndexArray[index] setObject:[NSNumber numberWithBool:NO] forKey:@"liked"];
+     NSNumber *likecount = [NSNumber numberWithInteger:[[_likeIndexArray[index]objectForKey:@"likeCount"] intValue]-1] ;
+     [_likeIndexArray[index] setObject:[NSString stringWithFormat:@"%d",likecount.intValue] forKey:@"likeCount"];
+
+}
+
+-(void)deleteLikeWithPostId:(NSString*)postId{
+     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+     [params setObject:postId forKey:@"like_id"];
+     
+     [[JKLightspeedManager manager] sendRequest:@"likes/delete.json" method:AnSocialManagerPOST params:params success:^
+      (NSDictionary *response) {
+           NSLog(@"%@",response);
+           
+      } failure:^(NSDictionary *response) {
+           for (id key in response)
+           {
+                NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+           }
+      }];
+     
+}
+
+-(void)createLikeWithPostId:(NSString*)postId{
+     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+     [params setObject:@"Post" forKey:@"object_type"];
+     [params setObject:postId forKey:@"object_id"];
+     [params setObject:@"true" forKey:@"like"];
+     [params setObject:[JKLightspeedManager manager].userId forKey:@"user_id"];
+     
+     
+     [[JKLightspeedManager manager] sendRequest:@"likes/create.json" method:AnSocialManagerPOST params:params success:^
+      (NSDictionary *response) {
+           //                for (id key in response)
+           //                {
+           //                     NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+           //                }
+           NSLog(@"post: %@ liked",postId );
+
+      } failure:^(NSDictionary *response) {
+           for (id key in response)
+           {
+                NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+           }
+      }];
+}
+
+-(void)checkLikeChages{
+     for (int i=0; i<_likeIndexArray.count;i++) {
+          if ([[_likeIndexArray[i] objectForKey:@"liked"]boolValue] == YES) {
+               if ([[_originalLikeStatus[i]objectForKey:@"liked"]boolValue] == NO) {
+                    
+                    [self createLikeWithPostId:[_likeIndexArray[i] objectForKey:@"postId"]];
+               }
+          }
+          if ([[_likeIndexArray[i] objectForKey:@"liked"]boolValue] == NO) {
+               if ([[_originalLikeStatus[i]objectForKey:@"liked"]boolValue] == YES) {
+                    [self deleteLikeWithPostId:[_likeIndexArray[i] objectForKey:@"likeId"]];
+               }
+          }
+          
      }
 }
 /*

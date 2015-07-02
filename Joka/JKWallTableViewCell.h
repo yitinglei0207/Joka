@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "JKCustomButton.h"
+
+@protocol LikeStatusChangeDelegate
+@optional
+- (void)addLikeAtIndex:(NSInteger)index;
+- (void)removeLikeAtIndex:(NSInteger)index;
+
+//- (void)removelikedWithTag:(NSNumber*)tag;
+@end
+
 @interface JKWallTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UITextView *postTextView;
 
@@ -18,4 +27,6 @@
 @property (weak, nonatomic) IBOutlet JKCustomButton *likeButton;
 @property (weak, nonatomic) IBOutlet JKCustomButton *commentButton;
 @property (nonatomic,strong) NSString *postId;
+
+@property (weak, nonatomic) id<LikeStatusChangeDelegate> likeStatusChangeDelegate;
 @end
