@@ -19,6 +19,7 @@
 #import "MessageUtil.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "HXMessageTableViewCell.h"
+//#import "HXMapViewController.h"
 
 typedef NS_ENUM(NSInteger, FieldTag) {
     FieldTagHorizontalLayout = 1001,
@@ -66,6 +67,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 //@property (nonatomic, strong)NSString *clientID2;
 @property (nonatomic,strong) JKActivityControlView *indicator;
 @property (strong, nonatomic) NSMutableSet *sendingMsgSet;
+//@property (strong, nonatomic) CLLocationManager* locationManager;
 
 - (NSInteger)valueForRow:(NSInteger)row inFieldWithTag:(NSInteger)tag;
 
@@ -824,8 +826,9 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         //cameraRollPicker.modalPresentationStyle = UIModalPresentationCurrentContext;
         
         [cameraRollPicker removeFromParentViewController];
-        [self.navigationController presentViewController:cameraRollPicker animated:YES completion:nil];
-//        
+        //[self.navigationController presentViewController:cameraRollPicker animated:YES completion:nil];
+        [self presentViewController:cameraRollPicker animated:YES completion:nil];
+//
 //        [self addChildViewController:cameraRollPicker];
 //        [self.view addSubview:cameraRollPicker.view];
 //        [cameraRollPicker didMoveToParentViewController:self];
@@ -846,6 +849,12 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
     }
 }
+
+- (void)shareLocationTapped
+{
+    [self performSelectorOnMainThread:@selector(initLocationManager) withObject:nil waitUntilDone:NO];
+}
+
 
 #pragma mark - Image setting
 
@@ -953,6 +962,8 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     });
     
 }
+
+
 /*
 #pragma mark - Navigation
 
