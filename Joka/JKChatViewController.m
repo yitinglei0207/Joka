@@ -537,6 +537,10 @@ typedef NS_ENUM(NSInteger, FieldTag) {
             self.messagesArray = [[[messages reverseObjectEnumerator] allObjects] mutableCopy];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.chatTable reloadData];
+                if (self.messagesArray.count) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
+                    [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                }
             });
         }
     } failure:^(ArrownockException *exception) {
@@ -558,18 +562,18 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     UILabel* dismissLabel = [[UILabel alloc] init];
     dismissLabel.translatesAutoresizingMaskIntoConstraints = NO;
     dismissLabel.backgroundColor = [UIColor clearColor];
-    dismissLabel.textColor = [UIColor whiteColor];
-    dismissLabel.font = [UIFont boldSystemFontOfSize:32.0];
-    dismissLabel.text = @"Send Media Files";
+    dismissLabel.textColor = [UIColor lightGrayColor];
+    dismissLabel.font = [UIFont boldSystemFontOfSize:20.0];
+    dismissLabel.text = @"Send Media Files:";
     
     UIButton* dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
     dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
     dismissButton.contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20);
     dismissButton.backgroundColor = [UIColor colorWithRed:(184.0/255.0) green:(233.0/255.0) blue:(122.0/255.0) alpha:1.0];
-    [dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [dismissButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [dismissButton setTitleColor:[[dismissButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
     dismissButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-    [dismissButton setTitle:@"Bye" forState:UIControlStateNormal];
+    [dismissButton setTitle:@"Cancel" forState:UIControlStateNormal];
     dismissButton.layer.cornerRadius = 6.0;
     [dismissButton addTarget:self action:@selector(dismissButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -581,27 +585,38 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     [takePhotoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [takePhotoButton setTitleColor:[[takePhotoButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
     takePhotoButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-    [takePhotoButton setTitle:@"Send a Photo" forState:UIControlStateNormal];
+    [takePhotoButton setTitle:@"Take a Photo" forState:UIControlStateNormal];
     takePhotoButton.layer.cornerRadius = 6.0;
-    [takePhotoButton addTarget:self action:@selector(selectPhotoTapped) forControlEvents:UIControlEventTouchUpInside];
+    [takePhotoButton addTarget:self action:@selector(takePhotoTapped) forControlEvents:UIControlEventTouchUpInside];
+
+    UIButton* choosePhotoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    choosePhotoButton.translatesAutoresizingMaskIntoConstraints = NO;
+    choosePhotoButton.contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20);
+    choosePhotoButton.backgroundColor = [UIColor colorWithRed:(184.0/255.0) green:(233.0/255.0) blue:(122.0/255.0) alpha:1.0];
+    [choosePhotoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [choosePhotoButton setTitleColor:[[choosePhotoButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+    choosePhotoButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    [choosePhotoButton setTitle:@"Choose a Photo" forState:UIControlStateNormal];
+    choosePhotoButton.layer.cornerRadius = 6.0;
+    [choosePhotoButton addTarget:self action:@selector(selectPhotoTapped) forControlEvents:UIControlEventTouchUpInside];
 
     
     
-    
-    [contentView addSubview:dismissLabel];
+    //[contentView addSubview:dismissLabel];
     [contentView addSubview:dismissButton];
     [contentView addSubview:takePhotoButton];
+    [contentView addSubview:choosePhotoButton];
     
-    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, dismissButton, dismissLabel, takePhotoButton);
+    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, dismissButton, takePhotoButton,choosePhotoButton);
     
     [contentView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[dismissLabel]-(10)-[takePhotoButton]-(10)-[dismissButton]-(24)-|"
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[choosePhotoButton]-(10)-[takePhotoButton]-(10)-[dismissButton]-(24)-|"
                                              options:NSLayoutFormatAlignAllCenterX
                                              metrics:nil
                                                views:views]];
     
     [contentView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(36)-[dismissLabel]-(36)-|"
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(36)-[choosePhotoButton]-(36)-|"
                                              options:0
                                              metrics:nil
                                                views:views]];
@@ -781,7 +796,10 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 //                                  withRowAnimation:UITableViewRowAnimationAutomatic];
 //            [self.chatTable endUpdates];
             [self.chatTable reloadData];
-            
+            if (self.messagesArray.count) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
+                [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
             //[load loadCompleted];
             
         });
