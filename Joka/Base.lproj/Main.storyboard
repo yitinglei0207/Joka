@@ -1739,9 +1739,21 @@
                                     <constraint firstAttribute="height" constant="44" id="qR9-Bp-4f3"/>
                                 </constraints>
                                 <items>
+                                    <barButtonItem style="plain" id="yIg-Ji-pB4">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="7K3-FZ-des">
+                                            <rect key="frame" x="16" y="7" width="22" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="showButtonPressed:" destination="Bh4-Wi-ZyO" eventType="touchUpInside" id="Atp-uv-ajy"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" id="sI5-ik-3KP">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="6nJ-A8-56t">
-                                            <rect key="frame" x="16" y="7" width="259" height="30"/>
+                                            <rect key="frame" x="48" y="7" width="232" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>

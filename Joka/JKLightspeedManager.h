@@ -11,10 +11,10 @@
 #import "AnSocial.h"
 
 
-typedef enum {
-    AnSocialManagerGET,
-    AnSocialManagerPOST
-} AnSocialManagerMethod;
+//typedef enum {
+//    AnSocialManagerGET,
+//    AnSocialManagerPOST
+//} AnSocialManagerMethod;
 
 @protocol JKLightspeedManagerChatDelegate
 @optional
@@ -26,6 +26,7 @@ typedef enum {
 @property (strong,nonatomic) NSString *userId;
 @property (strong,nonatomic) NSString *clientId;
 @property (strong,nonatomic) NSString *username;
+@property (strong, nonatomic) NSMutableDictionary *remoteNotificationInfo;
 @property BOOL isAppEnterBackground;
 @property BOOL clientStatus;
 @property (weak, nonatomic) id<JKLightspeedManagerChatDelegate> chatDelegate;

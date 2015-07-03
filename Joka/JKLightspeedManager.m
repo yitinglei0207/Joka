@@ -29,6 +29,7 @@
     if (self) {
         self.anIM = [[AnIM alloc]initWithAppKey:LIGHTSPEED_APP_KEY delegate:self secure:YES];
         self.anSocial = [[AnSocial alloc]initWithAppKey:LIGHTSPEED_APP_KEY];
+        self.remoteNotificationInfo = [[NSMutableDictionary alloc]initWithCapacity:0];
         [self.anSocial setSecureConnection:YES];
         [self.anSocial setTimeout:20.0f];
     }

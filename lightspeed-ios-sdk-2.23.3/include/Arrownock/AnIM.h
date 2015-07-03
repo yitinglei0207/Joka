@@ -9,6 +9,11 @@
 #import "ArrownockException.h"
 #import "AnLiveProtocols.h"
 
+typedef enum {
+    AnSocialManagerGET,
+    AnSocialManagerPOST
+} AnSocialManagerMethod;
+
 @class AnIM;
 @protocol AnIMDelegate <NSObject>
 
