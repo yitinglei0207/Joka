@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 雷翊廷. All rights reserved.
 //
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
 #import "JKChatViewController.h"
 #import "AnIMMessage.h"
@@ -19,7 +20,11 @@
 #import "MessageUtil.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "HXMessageTableViewCell.h"
-//#import "HXMapViewController.h"
+#import "JKMessageTableViewCell.h"
+
+#import <CoreLocation/CoreLocation.h>
+#import "HXImageDetailViewController.h"
+#import "HXMapViewController.h"
 
 typedef NS_ENUM(NSInteger, FieldTag) {
     FieldTagHorizontalLayout = 1001,
@@ -33,7 +38,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 };
 
 
-@interface JKChatViewController () <AnIMDelegate,JKLightspeedManagerChatDelegate,UIImagePickerControllerDelegate>
+@interface JKChatViewController () <AnIMDelegate,JKLightspeedManagerChatDelegate,CLLocationManagerDelegate,UIImagePickerControllerDelegate>
 //@property (nonatomic, strong)AnIM *anIM;
 
 {
@@ -67,7 +72,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 //@property (nonatomic, strong)NSString *clientID2;
 @property (nonatomic,strong) JKActivityControlView *indicator;
 @property (strong, nonatomic) NSMutableSet *sendingMsgSet;
-//@property (strong, nonatomic) CLLocationManager* locationManager;
+@property (strong, nonatomic) CLLocationManager* locationManager;
 
 - (NSInteger)valueForRow:(NSInteger)row inFieldWithTag:(NSInteger)tag;
 
@@ -109,7 +114,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     self.navigationItem.title = [self.friendInfo objectForKey:@"username"];
     [JKLightspeedManager manager].chatDelegate = self;
     
-    [self getChatHistory];
+    //[self getChatHistory];
     // developers will get the clientId in
     // - (void)anIM:(AnIM *)anIM didGetClientId:(NSString *)clientId error:(NSString *)error;
 }
@@ -127,6 +132,24 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 - (IBAction)sendButton:(id)sender {
     [self sendMessage];
 }
+
+- (void)initLocationManager
+{
+    if (!self.locationManager)
+    {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.distanceFilter = 50;  // triggers update when moving over 10 meters
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.delegate = self;
+        //NSLog(@"%d",[CLLocationManager locationServicesEnabled]);
+    }
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    [self.locationManager startUpdatingLocation];
+}
+
 
 -(void)initInstance{
     _fields = @[@(FieldTagHorizontalLayout),
@@ -252,17 +275,71 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     
     //NSSet *clientIds = [NSSet setWithObjects:[_friendInfo objectForKey:@"clientId"], nil];
     //[[[JKLightspeedManager manager] anIM] sendMessage:_messageTextField.text toClients:clientIds needReceiveACK:NO];
-    [[[JKLightspeedManager manager] anIM] sendMessage:_messageTextField.text
-                                             toClient:[_friendInfo objectForKey:@"clientId"]
-                                       needReceiveACK:NO];
+//    [[[JKLightspeedManager manager] anIM] sendMessage:_messageTextField.text
+//                                             toClient:[_friendInfo objectForKey:@"clientId"]
+//                                       needReceiveACK:NO];
     //[[JKLightspeedManager manager] anIM] send
-    self.messageTextField.text = @"";
     
 
-    if (self.messagesArray.count) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
-        [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
+//    if (self.messagesArray.count) {
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
+//        [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//    }
+    
+    
+    NSString *msgId;
+    NSString *notificationAlert = [NSString stringWithFormat:@"%@ : %@",_friendInfo[@"username"],_messageTextField.text];
+    NSDictionary *customData = @{@"name":_friendInfo[@"username"],
+                                 @"notification_alert":notificationAlert};
+    //if (!self.isTopicMode) {
+    
+        msgId = [[[JKLightspeedManager manager]anIM] sendMessage:_messageTextField.text
+                                              customData:customData
+                                               toClient:self.friendInfo[@"clientId"]
+                                          needReceiveACK:YES];
+//    }else{
+//        msgId = [[[JKLightspeedManager manager]anIM] sendMessage:message
+//                                              customData:customData
+//                                               toTopicId:self.targetTopicId
+//                                          needReceiveACK:YES];
+//    }
+    
+    NSNumber *timestamp = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000];
+    
+    AnIMMessage *customMessage = [[AnIMMessage alloc]initWithType:AnIMTextMessage
+                                                            msgId:msgId
+                                                          topicId:@""
+                                                          message:_messageTextField.text
+                                                          content:nil
+                                                         fileType:@"text"
+                                                             from:[JKLightspeedManager manager].clientId
+                                                       customData:customData
+                                                        timestamp:timestamp];
+    
+    [self wrapMessageToSend:[MessageUtil anIMMessageToHXMessage:customMessage]];
+    self.messageTextField.text = @"";
+
+    //HXMessage *hxMessage = [HXMessage createTempObjectWithDict:[MessageUtil reformedMessageToDic:customMessage]];
+    
+    //[self addTimeMessageWithTimestamp:message.timestamp];
+//    [self.sendingMsgSet addObject:hxMessage.msgId];
+//    [self.messagesArray addObject:hxMessage];
+//    
+//    if (!self.isTopicMode) {
+//        [MessageUtil saveChatMessageIntoDB:@[customMessage] withTargetClientId:self.targetClientId];
+//    }else{
+//        [MessageUtil saveTopicMessageIntoDB:@[customMessage]];
+//    }
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//        [self.chatTable reloadData];
+//        if (self.messagesArray.count) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
+//            [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        }
+//    });
+
 
 }
 
@@ -275,6 +352,20 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 }
 
 
+#pragma mark - CLLocationManagerDelegate
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    [self.locationManager stopUpdatingLocation];
+    
+    if ([CLLocationManager locationServicesEnabled] && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized))
+    {
+        [self sendLocationMessage];
+    }
+    if (IS_OS_8_OR_LATER) {
+        [self sendLocationMessage];
+    }
+}
+
 
 #pragma mark - TableView Datasource
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -286,16 +377,27 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         return 24/2 + 20/2 + timeLabelY;
         
     }else{
-        //HXMessage *message = self.messagesArray[indexPath.row];
-        AnIMMessage *message = self.messagesArray[indexPath.row];
+        if ([self.messagesArray[indexPath.row] isKindOfClass:[AnIMMessage class]]){
+            AnIMMessage *message = self.messagesArray[indexPath.row];
+            NSString *ownerName = [message.from isEqualToString:[JKLightspeedManager manager].clientId]
+            ? nil : [_friendInfo objectForKey:@"username"];
+            
+            return [JKMessageTableViewCell cellHeightForOwnerName:ownerName
+                                                          message:message.message
+                                                      messageType:message.customData[@"type"]
+                                                            image:message.content] + 20/2;
+        }else{
+            HXMessage *message = self.messagesArray[indexPath.row];
+            
+            NSString *ownerName = [ message.from isEqualToString:[JKLightspeedManager manager].clientId]
+            ? nil : [_friendInfo objectForKey:@"username"];
+            
+            return [JKMessageTableViewCell cellHeightForOwnerName:ownerName
+                                                          message:message.message
+                                                      messageType:message.type
+                                                            image:message.content] + 20/2;
+        }
         
-        NSString *ownerName = [ message.from isEqualToString:[JKLightspeedManager manager].clientId]
-        ? nil : [_friendInfo objectForKey:@"username"];
-        
-        return [HXMessageTableViewCell cellHeightForOwnerName:ownerName
-                                                      message:message.message
-                                                  messageType:message.fileType
-                                                        image:message.content] + 20/2;
         
     }
     return 70;
@@ -338,112 +440,87 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     }else
     {
         static NSString *cellIdentifier = @"chatCell";
-        HXMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        JKMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        //HXMessage *message = self.messagesArray[indexPath.row];
-        
-//        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"clientId == %@", message.from];
-//        NSArray *users = [[[self.chatInfo.users allObjects] filteredArrayUsingPredicate:resultPredicate]mutableCopy];
-//        HXUser *remoteUser = [users firstObject];
-//        
-        //NSString *photoUrl = remoteUser ? remoteUser.photoURL : nil;
-        //NSString *ownerName = [[self.messagesArray[indexPath.row]objectForKey:@"from"] isEqualToString:[_friendInfo objectForKey:@"clientId"]] ? [_friendInfo objectForKey:@"username"] :[JKLightspeedManager manager].username;
-        AnIMMessage *message = self.messagesArray[indexPath.row];
-        
-        NSString *ownerName = [ message.from isEqualToString:[JKLightspeedManager manager].clientId]
-        ? nil : [_friendInfo objectForKey:@"username"];
-//
-//        // read ack
-//        if (self.remoteReadMsgSet) {
-//            if ([self.remoteReadMsgSet count]){
-//                if ([self.remoteReadMsgSet containsObject:message.msgId]) {
-//                    message.readACK = @(YES);
-//                    self.messagesArray[indexPath.row] = message;
-//                    [self.remoteReadMsgSet removeObject:message.msgId];
-//                }
-//            }
-//        }
-        
-        
-        if (cell == nil) {
-            //NSLog(@"%@",[[HXImageStore imageStore] imageUrlForKey:message.from]);
-            cell = [[HXMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
-                                                reuseIdentifier:cellIdentifier
-                                                      OwnerName:ownerName
-                                          profileImageUrlString:nil
-                                                        message:message.message
-                                                           date:message.timestamp
-                                                           type:message.fileType
-                                                          image:message.content
-                                                        readACK:YES];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = [UIColor clearColor];
-            cell.delegate = self;
-            cell.tappedTag = indexPath.row;
+        if ([self.messagesArray[indexPath.row] isKindOfClass:[AnIMMessage class]]){
+            AnIMMessage *message = self.messagesArray[indexPath.row];
+            NSString *ownerName = [ message.from isEqualToString:[JKLightspeedManager manager].clientId]
+            ? nil : [_friendInfo objectForKey:@"username"];
+            
+            
+            if (cell == nil) {
+                //NSLog(@"%@",[[HXImageStore imageStore] imageUrlForKey:message.from]);
+                cell = [[JKMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                                    reuseIdentifier:cellIdentifier
+                                                          OwnerName:ownerName
+                                              profileImageUrlString:nil
+                                                            message:message.message
+                                                               date:message.timestamp
+                                                               type:message.customData[@"type"]
+                                                              image:message.content
+                                                            readACK:YES];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = [UIColor clearColor];
+                cell.delegate = self;
+                cell.tappedTag = indexPath.row;
+                
+            }else{
+                //NSLog(@"%@",[[HXImageStore imageStore] imageUrlForKey:message.from]);
+                [cell reuseCellWithOwnerName:ownerName
+                                profileImage:[UIImage imageNamed:@"friend_default"]
+                       profileImageUrlString:nil
+                                     message:message.message
+                                        date:message.timestamp
+                                        type:message.customData[@"type"]
+                                       image:message.content
+                                     readACK:YES];
+                cell.tappedTag = indexPath.row;
+            }
             
         }else{
-            //NSLog(@"%@",[[HXImageStore imageStore] imageUrlForKey:message.from]);
-            [cell reuseCellWithOwnerName:ownerName
-                            profileImage:[UIImage imageNamed:@"friend_default"]
-                   profileImageUrlString:nil
-                                 message:message.message
-                                    date:message.timestamp
-                                    type:message.fileType
-                                   image:message.content
-                                 readACK:YES];
-            cell.tappedTag = indexPath.row;
+            HXMessage *message = self.messagesArray[indexPath.row];
+            NSString *ownerName = [ message.from isEqualToString:[JKLightspeedManager manager].clientId]
+            ? nil : [_friendInfo objectForKey:@"username"];
+            
+            
+            if (cell == nil) {
+                //NSLog(@"%@",[[HXImageStore imageStore] imageUrlForKey:message.from]);
+                cell = [[JKMessageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                                    reuseIdentifier:cellIdentifier
+                                                          OwnerName:ownerName
+                                              profileImageUrlString:nil
+                                                            message:message.message
+                                                               date:message.timestamp
+                                                               type:message.type
+                                                              image:message.content
+                                                            readACK:YES];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = [UIColor clearColor];
+                cell.delegate = self;
+                cell.tappedTag = indexPath.row;
+                
+            }else{
+                //NSLog(@"%@",[[HXImageStore imageStore] imageUrlForKey:message.from]);
+                [cell reuseCellWithOwnerName:ownerName
+                                profileImage:[UIImage imageNamed:@"friend_default"]
+                       profileImageUrlString:nil
+                                     message:message.message
+                                        date:message.timestamp
+                                        type:message.type
+                                       image:message.content
+                                     readACK:YES];
+                cell.tappedTag = indexPath.row;
+            }
         }
+
+
+
         
         
         return cell;
     }
     
 }
-
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *cellIdentifier = @"messageCell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-//    }
-//    
-//    UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
-//    UILabel *messageLabel = (UILabel *)[cell viewWithTag:101];
-//    
-//    if ([self.messagesArray[indexPath.row] customData]) {
-//        if ([[[self.messagesArray[indexPath.row] customData] objectForKey:@"type"] isEqualToString:@"link"]) {
-//            messageLabel.text = [NSString stringWithFormat:@"[Link]"];
-//            messageLabel.textColor = UIColorFromRGB(0xea9c29);
-//        } else if ([[[self.messagesArray[indexPath.row] customData] objectForKey:@"type"] isEqualToString:@"video"]) {
-//            messageLabel.text = [NSString stringWithFormat:@"[Video]"];
-//            messageLabel.textColor = UIColorFromRGB(0xec4f54);
-//        } else if ([[[self.messagesArray[indexPath.row] customData] objectForKey:@"type"] isEqualToString:@"location"]) {
-//            messageLabel.text = [NSString stringWithFormat:@"[Location]"];
-//            messageLabel.textColor = UIColorFromRGB(0x27abb9);
-//        }
-//    } else if ([self.messagesArray[indexPath.row] message]) {
-//        messageLabel.text = [self.messagesArray[indexPath.row] message];
-//        messageLabel.textColor = [UIColor blackColor];
-//    }
-//    
-//    if ([[self.messagesArray[indexPath.row] from] isEqualToString:[JKLightspeedManager manager].clientId]) {
-//        nameLabel.text = @"Me";
-//        
-//        nameLabel.textAlignment = NSTextAlignmentRight;
-//        messageLabel.textAlignment = NSTextAlignmentRight;
-//    } else {
-//        if (!_isTopicMode) {
-//            nameLabel.text = [self.friendInfo objectForKey:@"username"];
-//        } else {
-//            //nameLabel.text = [[HXLightspeedManager manager] getCircleFriendForClientId:[self.messagesArray[indexPath.row] from]][@"username"];
-//        }
-//        nameLabel.textAlignment = NSTextAlignmentLeft;
-//        messageLabel.textAlignment = NSTextAlignmentLeft;
-//    }
-//    return cell;
-//}
 
 
 - (NSString *)stringForCustomFileType:(NSString *)fileType
@@ -453,13 +530,14 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     else
         return fileType;
     
+    
 }
 
 #pragma mark - HXLightspeedManager Delegate & Notification
 
 - (void)messageSent:(NSString *)messageId
 {
-    [self getChatHistory];
+    //[self getChatHistory];
 //    if (!_isTopicMode) {
 //        [self getChatHistory];
 //    } else {
@@ -508,8 +586,10 @@ typedef NS_ENUM(NSInteger, FieldTag) {
                                                timestamp:0
                                                  success:^(NSArray *messages) {
                                                      if (messages.count) {
-                                                         self.messagesArray = [[[messages reverseObjectEnumerator] allObjects] mutableCopy];
+                                                         
                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                             [self.messagesArray removeAllObjects];
+                                                             self.messagesArray = [[[messages reverseObjectEnumerator] allObjects] mutableCopy];
                                                              [self.chatTable reloadData];
                                                              [_indicator activityStop];
                                                              [_indicator removeFromSuperview];
@@ -523,6 +603,11 @@ typedef NS_ENUM(NSInteger, FieldTag) {
                                                  }
                                                  failure:^(ArrownockException *exception) {
                                                      NSLog(@"%@",exception);
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                         
+                                                         [_indicator activityStop];
+                                                         [_indicator removeFromSuperview];
+                                                     });
                                                  }];
 
     }
@@ -601,6 +686,19 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     [choosePhotoButton setTitle:@"Choose a Photo" forState:UIControlStateNormal];
     choosePhotoButton.layer.cornerRadius = 6.0;
     [choosePhotoButton addTarget:self action:@selector(selectPhotoTapped) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    UIButton* sendLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    sendLocationButton.translatesAutoresizingMaskIntoConstraints = NO;
+    sendLocationButton.contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20);
+    sendLocationButton.backgroundColor = [UIColor colorWithRed:(184.0/255.0) green:(233.0/255.0) blue:(122.0/255.0) alpha:1.0];
+    [sendLocationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sendLocationButton setTitleColor:[[sendLocationButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+    sendLocationButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    [sendLocationButton setTitle:@"Send Current Location" forState:UIControlStateNormal];
+    sendLocationButton.layer.cornerRadius = 6.0;
+    [sendLocationButton addTarget:self action:@selector(shareLocationTapped) forControlEvents:UIControlEventTouchUpInside];
+
 
     
     
@@ -608,11 +706,12 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     [contentView addSubview:dismissButton];
     [contentView addSubview:takePhotoButton];
     [contentView addSubview:choosePhotoButton];
+    [contentView addSubview:sendLocationButton];
     
-    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, dismissButton, takePhotoButton,choosePhotoButton);
+    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, dismissButton, takePhotoButton,choosePhotoButton,sendLocationButton);
     
     [contentView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[choosePhotoButton]-(10)-[takePhotoButton]-(10)-[dismissButton]-(24)-|"
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[choosePhotoButton]-(10)-[takePhotoButton]-(10)-[sendLocationButton]-(10)-[dismissButton]-(24)-|"
                                              options:NSLayoutFormatAlignAllCenterX
                                              metrics:nil
                                                views:views]];
@@ -684,6 +783,80 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 }
 
 
+#pragma mark AnIM Send Message Method
+
+- (void)sendLocationMessage
+{
+    float fLat = self.locationManager.location.coordinate.latitude;
+    float fLong = self.locationManager.location.coordinate.longitude;
+    NSString *notificationAlert = [NSString stringWithFormat:NSLocalizedString(@"%@ 向您傳送了位置訊息", nil),self.friendInfo[@"username"]];
+    NSDictionary *customData = @{@"location":@{@"latitude":[NSNumber numberWithFloat:fLat],
+                                               @"longitude":[NSNumber numberWithFloat:fLong]},
+                                 @"name":self.friendInfo[@"username"],
+                                 @"type":@"location",
+                                 @"notification_alert":notificationAlert};
+    NSString *msgId;
+    //if (!self.isTopicMode) {
+        //NSSet *clientId = [NSSet setWithObject:self.targetClientId];
+        msgId = [[[JKLightspeedManager manager] anIM] sendMessage:@"[location]"
+                                               customData:customData
+                                                toClient:_friendInfo[@"clientId"]
+                                           needReceiveACK:YES];
+    //msgId = [[[JKLightspeedManager manager]anIM]sendBinary:[NSData dataWithContentsOfFile:@"location"] fileType:@"location" customData:customData toClient:_friendInfo[@"clientId"] needReceiveACK:YES];
+    
+//    }else{
+//        msgId = [[[JKLightspeedManager manager] anIM] sendMessage:@"[location]"
+//                                               customData:customData
+//                                                        toTopicId:_friendInfo[@"clientId"]
+//                                           needReceiveACK:YES];
+    //}
+    
+    NSNumber *timestamp = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000];
+    
+    AnIMMessage *customMessage = [[AnIMMessage alloc]initWithType:AnIMTextMessage
+                                                            msgId:msgId
+                                                          topicId:@""
+                                                          message:@""
+                                                          content:nil
+                                                         fileType:@"location"
+                                                             from:[JKLightspeedManager manager].clientId
+                                                       customData:customData
+                                                        timestamp:timestamp];
+    
+    [self wrapMessageToSend:[MessageUtil anIMMessageToHXMessage:customMessage]];
+//    HXMessage *hxMessage = [HXMessage initWithDict:[MessageUtil reformedMessageToDic:customMessage]];
+//    
+//    //[self addTimeMessageWithTimestamp:message.timestamp];
+//    [self.sendingMsgSet addObject:hxMessage.msgId];
+//    [self.messagesArray addObject:hxMessage];
+//    
+//    
+////    [self.sendingMsgSet addObject:customMessage.msgId];
+////    [self.messagesArray addObject:customMessage];
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//        [self.chatTable reloadData];
+//        if (self.messagesArray.count) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
+//            [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        }
+//    });
+    
+    
+    
+    
+//    [self wrapMessageToSend:[MessageUtil anIMMessageToHXMessage:customMessage]];
+//    
+//    if (!self.isTopicMode) {
+//        [MessageUtil saveChatMessageIntoDB:@[customMessage] withTargetClientId:self.targetClientId];
+//    }else{
+//        [MessageUtil saveTopicMessageIntoDB:@[customMessage]];
+//    }
+    
+}
+
+
 #pragma mark AnIM Send Binary Data Method
 
 - (void)showSendingImage:(UIImage *)image
@@ -712,23 +885,23 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     
     
     
-    //[self wrapMessageToSend:[MessageUtil anIMMessageToHXMessage:customMessage]];
+    [self wrapMessageToSend:[MessageUtil anIMMessageToHXMessage:customMessage]];
     
-    //HXMessage *hxMessage = [HXMessage createTempObjectWithDict:[MessageUtil reformedMessageToDic:customMessage]]
-    
-    //[self addTimeMessageWithTimestamp:message.timestamp];
-    [self.sendingMsgSet addObject:customMessage.msgId];
-    [self.messagesArray addObject:customMessage];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self.chatTable reloadData];
-        if (self.messagesArray.count) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
-            [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        }
-    });
-    
+//    HXMessage *hxMessage = [HXMessage initWithDict:[MessageUtil reformedMessageToDic:customMessage]];
+//    
+//    //[self addTimeMessageWithTimestamp:message.timestamp];
+//    [self.sendingMsgSet addObject:hxMessage.msgId];
+//    [self.messagesArray addObject:hxMessage];
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//        [self.chatTable reloadData];
+//        if (self.messagesArray.count) {
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
+//            [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        }
+//    });
+//    
     
     
     
@@ -749,7 +922,6 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     UIImage *resizedImage = [self resizedOriginalImage:image maxOffset:480];
     NSData* resizedImageData = UIImageJPEGRepresentation(resizedImage, 1);
     
-    NSInteger photoDataIndex = self.messagesArray.count - 1;
     
 //    HXLoadingView *load = [[HXLoadingView alloc]initLoadingView];
 //    [self.view addSubview:load];
@@ -782,26 +954,29 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 //                                                  needReceiveACK:YES];
 //                
 //            }
-//            HXMessage *imageMessage = [MessageUtil getMessageByMessageId:timestampStr];
-//            imageMessage.msgId = msgId;
-//            imageMessage.fileURL = photoUrls;
-//            
+            NSInteger photoDataIndex = self.messagesArray.count - 1;
+
+            HXMessage *imageMessage = self.messagesArray[photoDataIndex];
+            imageMessage.msgId = msgId;
+            imageMessage.fileURL = photoUrls;
+//
 //            NSError *error;
 //            [[CoreDataUtil sharedContext] save:&error];
 //            if (error) {
 //                NSLog(@"Whoops, couldn't save image: %@", [error localizedDescription]);
 //            }
-            //self.messagesArray[photoDataIndex] = imageMessage;
+            self.messagesArray[photoDataIndex] = imageMessage;
             
+            [self getChatHistory];
 //            [self.chatTable beginUpdates];
 //            [self.chatTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:photoDataIndex inSection:0]]
 //                                  withRowAnimation:UITableViewRowAnimationAutomatic];
 //            [self.chatTable endUpdates];
-            [self.chatTable reloadData];
-            if (self.messagesArray.count) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
-                [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            }
+//            [self.chatTable reloadData];
+//            if (self.messagesArray.count) {
+//                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
+//                [self.chatTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//            }
             //[load loadCompleted];
             
         });
@@ -811,6 +986,12 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     }];
     
 }
+
+- (void)shareLocationTapped
+{
+    [self performSelectorOnMainThread:@selector(initLocationManager) withObject:nil waitUntilDone:NO];
+}
+
 
 - (void)selectPhotoTapped
 {
@@ -825,13 +1006,14 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         cameraRollPicker.allowsEditing = NO;
         //cameraRollPicker.modalPresentationStyle = UIModalPresentationCurrentContext;
         
-        [cameraRollPicker removeFromParentViewController];
+        //[cameraRollPicker removeFromParentViewController];
         //[self.navigationController presentViewController:cameraRollPicker animated:YES completion:nil];
         [self presentViewController:cameraRollPicker animated:YES completion:nil];
-//
-//        [self addChildViewController:cameraRollPicker];
-//        [self.view addSubview:cameraRollPicker.view];
-//        [cameraRollPicker didMoveToParentViewController:self];
+        
+        
+//        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:cameraRollPicker];
+//        [self presentViewController:nav animated:YES completion:nil];
+
     }
 }
 - (void)takePhotoTapped
@@ -846,13 +1028,8 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         imagePicker.allowsEditing = NO;
         imagePicker.showsCameraControls = YES;
         imagePicker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
-        [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
+        [self presentViewController:imagePicker animated:YES completion:nil];
     }
-}
-
-- (void)shareLocationTapped
-{
-    [self performSelectorOnMainThread:@selector(initLocationManager) withObject:nil waitUntilDone:NO];
 }
 
 
@@ -963,7 +1140,54 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     
 }
 
+#pragma mark - HXMessageCell Delegate
 
+- (void)messageCellImageTapped:(NSInteger)index
+{
+    //[self.messageTextField textFieldResignFirstResponder];
+    
+    if ([self.messagesArray[index] isKindOfClass:[AnIMMessage class]]){
+        AnIMMessage *message = self.messagesArray[index];
+        if ([message.customData[@"type"] isEqualToString:@"image"]) {
+            
+            HXImageDetailViewController *vc = [[HXImageDetailViewController alloc]initWithImage:[UIImage imageWithData:message.content] imageUrl:message.customData[@"url"] mode:@"modal"];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+            [self presentViewController:nav animated:YES completion:nil];
+            
+        }else if ([message.customData[@"type"] isEqualToString:@"record"]){
+            
+            //[self playVoiceWithData:message.content];
+        }else if ([message.customData[@"type"] isEqualToString:@"location"]||[message.message isEqualToString:@"[location]"]){
+            
+            HXMapViewController *mapVc = [[HXMapViewController alloc]init];
+            mapVc.fLatitude = [message.customData[@"location"][@"latitude"] floatValue];
+            mapVc.fLongitude = [message.customData[@"location"][@"longitude"] floatValue];
+            [self.navigationController pushViewController:mapVc animated:YES];
+        }
+    }else{
+        HXMessage *message = self.messagesArray[index];
+        
+        if ([message.type isEqualToString:@"image"]) {
+            
+            HXImageDetailViewController *vc = [[HXImageDetailViewController alloc]initWithImage:[UIImage imageWithData:message.content] imageUrl:message.fileURL mode:@"modal"];
+            UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+            [self presentViewController:nav animated:YES completion:nil];
+            
+        }else if ([message.type isEqualToString:@"record"]){
+            
+            //[self playVoiceWithData:message.content];
+        }else if ([message.type isEqualToString:@"location"]||[message.message isEqualToString:@"[location]"]){
+            
+            HXMapViewController *mapVc = [[HXMapViewController alloc]init];
+            mapVc.fLatitude = [message.latitude floatValue];
+            mapVc.fLongitude = [message.longitude floatValue];
+            [self.navigationController pushViewController:mapVc animated:YES];
+        }
+    }
+    
+    
+    
+}
 /*
 #pragma mark - Navigation
 

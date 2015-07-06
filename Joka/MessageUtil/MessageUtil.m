@@ -5,14 +5,13 @@
 //  Created by Herxun on 2015/1/15.
 //  Copyright (c) 2015年 Herxun. All rights reserved.
 //
-
+#import "JKLightspeedManager.h"
 #import "MessageUtil.h"
 #import "CoreDataUtil.h"
 #import "ChatUtil.h"
 //#import "HXIMManager.h"
 #import "UserUtil.h"
 #import "NotificationCenterUtil.h"
-#import "JKLightspeedManager.h"
 @interface MessageUtil ()
 @end
 
@@ -21,11 +20,13 @@
 + (NSDictionary *)reformedMessageToDic:(AnIMMessage *)message
 {
     NSString *type;
-    if (message.fileType) {
-        type = message.fileType;
-    }else if (message.customData[@"location"]){
-        type = @"location";
-    }else{
+    if (message.customData[@"type"]) {
+        type = message.customData[@"type"];
+    }
+//    else if (message.customData[@"location"]){
+//        type = @"location";
+//    }
+    else{
         type = @"text";
     }
     NSDictionary *customData = message.customData;

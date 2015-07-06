@@ -9,7 +9,7 @@
 #ifndef Joka_JokaCredentials_h
 #define Joka_JokaCredentials_h
 
-#define LIGHTSPEED_APP_KEY @"ZG4Nr4VrZM1sW8gWvUA64c7jd3XigTod" 
-#define LIGHTSPEED_WALL_ID @"55892f7e56a7c9a530000004"
+#define LIGHTSPEED_APP_KEY @"ZTR5jJDNoyFyljOAfBcoAS5iFmoZlxEF"
+#define LIGHTSPEED_WALL_ID @"559a40e156a7c9c006000006"
 
 #endif

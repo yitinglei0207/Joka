@@ -126,16 +126,15 @@
     [ params setObject :@ "Post" forKey :@ "object_type" ];
     [ params setObject :self.commentPostId forKey :@ "object_id" ];
     //[ params setObject :@ " 1425372027683" forKey :@ "begin_time" ];
-    
+    [_commentsArray removeAllObjects];
     [[JKLightspeedManager manager] sendRequest :@ "comments/query.json" method : AnSocialManagerGET  params : params success :^
      ( NSDictionary  * response )  {
-//         for  ( id key in response )
-//         {
-//             NSLog (@ "key: %@ ,value: %@" , key ,[ response objectForKey : key ]);
-//         }
-         _commentsArray = [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"comments"]] mutableCopy];
-         NSLog(@"_commentsArray = %@\n============================================",_commentsArray);
+         NSLog(@"=========================\n comments response:%@",response);
+         //NSLog(@"_commentsArray = %@\n============================================",_commentsArray);
          dispatch_async(dispatch_get_main_queue(), ^{
+             //NSLog(@"_commentsArray = %@\n============================================",_commentsArray);
+             _commentsArray = [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"comments"]] mutableCopy];
+             NSLog(@"_commentsArray = %lu\n============================================",(unsigned long)_commentsArray.count);
              [self.commentTable reloadData];
          });
      } failure :^( NSDictionary  * response )  {

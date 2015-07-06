@@ -13,7 +13,6 @@
 		6713A6591B463EEB00E3D2B5 /* HXAnSocialManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A6581B463EEB00E3D2B5 /* HXAnSocialManager.m */; };
 		6713A65E1B46422C00E3D2B5 /* HXMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A65B1B46422C00E3D2B5 /* HXMessage.m */; };
 		6713A65F1B46422C00E3D2B5 /* HXMessage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A65D1B46422C00E3D2B5 /* HXMessage+Additions.m */; };
-		6713A6631B4642F100E3D2B5 /* MessageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A6621B4642F100E3D2B5 /* MessageUtil.m */; };
 		6713A6661B46438F00E3D2B5 /* ActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A6651B46438F00E3D2B5 /* ActivityIndicatorManager.m */; };
 		6713A6681B46447D00E3D2B5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6713A6671B46447D00E3D2B5 /* CoreData.framework */; };
 		6713A66C1B4644B400E3D2B5 /* CoreDataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A66B1B4644B400E3D2B5 /* CoreDataUtil.m */; };
@@ -44,6 +43,10 @@
 		6713A7581B4672BA00E3D2B5 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A7461B4672BA00E3D2B5 /* UIImageView+HighlightedWebCache.m */; };
 		6713A7591B4672BA00E3D2B5 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A7481B4672BA00E3D2B5 /* UIImageView+WebCache.m */; };
 		6713A75A1B4672BA00E3D2B5 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A74A1B4672BA00E3D2B5 /* UIView+WebCacheOperation.m */; };
+		6713A7601B4A6A1600E3D2B5 /* HXImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A75F1B4A6A1600E3D2B5 /* HXImageDetailViewController.m */; };
+		6713A7631B4A6B3400E3D2B5 /* HXMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A7621B4A6B3400E3D2B5 /* HXMapViewController.m */; };
+		6713A7661B4A799600E3D2B5 /* JKMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A7651B4A799600E3D2B5 /* JKMessageTableViewCell.m */; };
+		6713A76A1B4A7E5100E3D2B5 /* MessageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A7691B4A7E5100E3D2B5 /* MessageUtil.m */; };
 		67273C8A1B39469200DAECDF /* Joka.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 67273C891B39469200DAECDF /* Joka.entitlements */; };
 		67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C901B3956FC00DAECDF /* SWRevealViewController.m */; };
 		67273C941B395AA100DAECDF /* JKRearTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67273C931B395AA100DAECDF /* JKRearTableViewController.m */; };
@@ -103,8 +106,6 @@
 		6713A65B1B46422C00E3D2B5 /* HXMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXMessage.m; sourceTree = "<group>"; };
 		6713A65C1B46422C00E3D2B5 /* HXMessage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HXMessage+Additions.h"; sourceTree = "<group>"; };
 		6713A65D1B46422C00E3D2B5 /* HXMessage+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HXMessage+Additions.m"; sourceTree = "<group>"; };
-		6713A6611B4642F100E3D2B5 /* MessageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageUtil.h; sourceTree = "<group>"; };
-		6713A6621B4642F100E3D2B5 /* MessageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageUtil.m; sourceTree = "<group>"; };
 		6713A6641B46438F00E3D2B5 /* ActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicatorManager.h; sourceTree = "<group>"; };
 		6713A6651B46438F00E3D2B5 /* ActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicatorManager.m; sourceTree = "<group>"; };
 		6713A6671B46447D00E3D2B5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -163,6 +164,14 @@
 		6713A7481B4672BA00E3D2B5 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		6713A7491B4672BA00E3D2B5 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		6713A74A1B4672BA00E3D2B5 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		6713A75E1B4A6A1600E3D2B5 /* HXImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXImageDetailViewController.h; sourceTree = "<group>"; };
+		6713A75F1B4A6A1600E3D2B5 /* HXImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXImageDetailViewController.m; sourceTree = "<group>"; };
+		6713A7611B4A6B3400E3D2B5 /* HXMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXMapViewController.h; sourceTree = "<group>"; };
+		6713A7621B4A6B3400E3D2B5 /* HXMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXMapViewController.m; sourceTree = "<group>"; };
+		6713A7641B4A799600E3D2B5 /* JKMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMessageTableViewCell.h; sourceTree = "<group>"; };
+		6713A7651B4A799600E3D2B5 /* JKMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMessageTableViewCell.m; sourceTree = "<group>"; };
+		6713A7681B4A7E5100E3D2B5 /* MessageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageUtil.h; sourceTree = "<group>"; };
+		6713A7691B4A7E5100E3D2B5 /* MessageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageUtil.m; sourceTree = "<group>"; };
 		67273C891B39469200DAECDF /* Joka.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Joka.entitlements; sourceTree = "<group>"; };
 		67273C8F1B3956FC00DAECDF /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		67273C901B3956FC00DAECDF /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
@@ -276,15 +285,6 @@
 			path = KLCPopup;
 			sourceTree = "<group>";
 		};
-		6713A6601B4642F100E3D2B5 /* MessageUtil */ = {
-			isa = PBXGroup;
-			children = (
-				6713A6611B4642F100E3D2B5 /* MessageUtil.h */,
-				6713A6621B4642F100E3D2B5 /* MessageUtil.m */,
-			);
-			path = MessageUtil;
-			sourceTree = "<group>";
-		};
 		6713A6691B4644B400E3D2B5 /* CoreDataUtil */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +391,15 @@
 				6713A74A1B4672BA00E3D2B5 /* UIView+WebCacheOperation.m */,
 			);
 			path = SDWebImage;
+			sourceTree = "<group>";
+		};
+		6713A7671B4A7E5100E3D2B5 /* MessageUtil */ = {
+			isa = PBXGroup;
+			children = (
+				6713A7681B4A7E5100E3D2B5 /* MessageUtil.h */,
+				6713A7691B4A7E5100E3D2B5 /* MessageUtil.m */,
+			);
+			path = MessageUtil;
 			sourceTree = "<group>";
 		};
 		67273C8E1B3956FC00DAECDF /* SWRevealViewController */ = {
@@ -527,6 +536,7 @@
 				67E12EA01B31221700761D69 /* AppDelegate.m */,
 				67E12EA21B31221700761D69 /* ViewController.h */,
 				67E12EA31B31221700761D69 /* ViewController.m */,
+				6713A7671B4A7E5100E3D2B5 /* MessageUtil */,
 				6713A6921B46724700E3D2B5 /* BasicUtil */,
 				6713A67C1B46462200E3D2B5 /* HXUser */,
 				6713A6751B46460200E3D2B5 /* HXChat */,
@@ -534,7 +544,6 @@
 				6713A66D1B4645A300E3D2B5 /* ChatUtil */,
 				6713A6831B46467000E3D2B5 /* NotificationCenterUtil */,
 				6713A6691B4644B400E3D2B5 /* CoreDataUtil */,
-				6713A6601B4642F100E3D2B5 /* MessageUtil */,
 				6713A6501B4620E300E3D2B5 /* KLCPopup */,
 				67E12ED91B312E1000761D69 /* LoginSignupView */,
 				67E12F331B32BA9A00761D69 /* LightspeedManager */,
@@ -619,6 +628,12 @@
 				67E12F291B32598600761D69 /* JKChatViewController.m */,
 				6713A68F1B466F4200E3D2B5 /* HXMessageTableViewCell.h */,
 				6713A6901B466F4200E3D2B5 /* HXMessageTableViewCell.m */,
+				6713A7641B4A799600E3D2B5 /* JKMessageTableViewCell.h */,
+				6713A7651B4A799600E3D2B5 /* JKMessageTableViewCell.m */,
+				6713A75E1B4A6A1600E3D2B5 /* HXImageDetailViewController.h */,
+				6713A75F1B4A6A1600E3D2B5 /* HXImageDetailViewController.m */,
+				6713A7611B4A6B3400E3D2B5 /* HXMapViewController.h */,
+				6713A7621B4A6B3400E3D2B5 /* HXMapViewController.m */,
 			);
 			name = ChatView;
 			sourceTree = "<group>";
@@ -766,6 +781,7 @@
 				6713A6701B4645A300E3D2B5 /* ChatUtil.m in Sources */,
 				6713A74C1B4672BA00E3D2B5 /* NSData+ImageContentType.m in Sources */,
 				6713A6591B463EEB00E3D2B5 /* HXAnSocialManager.m in Sources */,
+				6713A7631B4A6B3400E3D2B5 /* HXMapViewController.m in Sources */,
 				67E12F2A1B32598600761D69 /* JKChatViewController.m in Sources */,
 				6713A65F1B46422C00E3D2B5 /* HXMessage+Additions.m in Sources */,
 				6713A66C1B4644B400E3D2B5 /* CoreDataUtil.m in Sources */,
@@ -778,6 +794,7 @@
 				67273C941B395AA100DAECDF /* JKRearTableViewController.m in Sources */,
 				6713A74F1B4672BA00E3D2B5 /* SDWebImageDecoder.m in Sources */,
 				67273CB81B3AA9A500DAECDF /* JKWallTableViewCell.m in Sources */,
+				6713A7661B4A799600E3D2B5 /* JKMessageTableViewCell.m in Sources */,
 				67E12F1D1B31491000761D69 /* JKPushDelegate.m in Sources */,
 				6713A7501B4672BA00E3D2B5 /* SDWebImageDownloader.m in Sources */,
 				67273CB21B3A962F00DAECDF /* JKWallViewController.m in Sources */,
@@ -791,15 +808,16 @@
 				6713A6811B46462200E3D2B5 /* HXUser+Additions.m in Sources */,
 				6713A65E1B46422C00E3D2B5 /* HXMessage.m in Sources */,
 				6713A6741B4645AD00E3D2B5 /* UserUtil.m in Sources */,
-				6713A6631B4642F100E3D2B5 /* MessageUtil.m in Sources */,
 				67273C911B3956FC00DAECDF /* SWRevealViewController.m in Sources */,
 				6713A6531B4620E300E3D2B5 /* KLCPopup.m in Sources */,
+				6713A7601B4A6A1600E3D2B5 /* HXImageDetailViewController.m in Sources */,
 				6713A75A1B4672BA00E3D2B5 /* UIView+WebCacheOperation.m in Sources */,
 				6713A7531B4672BA00E3D2B5 /* SDWebImagePrefetcher.m in Sources */,
 				67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */,
 				6713A67A1B46460200E3D2B5 /* HXChat+Additions.m in Sources */,
 				67E12EA11B31221700761D69 /* AppDelegate.m in Sources */,
 				6713A7551B4672BA00E3D2B5 /* UIImage+GIF.m in Sources */,
+				6713A76A1B4A7E5100E3D2B5 /* MessageUtil.m in Sources */,
 				67273CBB1B3BE63700DAECDF /* JKEditProfileTableViewController.m in Sources */,
 				67273CB51B3AA07300DAECDF /* JKCreatePostViewController.m in Sources */,
 				67273CAE1B3A59DC00DAECDF /* JKMessagesViewController.m in Sources */,

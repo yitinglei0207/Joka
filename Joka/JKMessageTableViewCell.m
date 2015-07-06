@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 Herxun. All rights reserved.
 //
 
-#import "HXMessageTableViewCell.h"
+#import "JKMessageTableViewCell.h"
 #import "HXAppUtility.h"
 #import "SDWebImage/UIImageView+WebCache.h"
 #define SENT_MESSAGE_BACKGROUND_OFFSET    20
@@ -20,7 +20,7 @@
 #define RECEIVE_BINARY_BACKGROUND_OFFSET  18/2 + 20/2 + 5
 #define LABEL_WIDTH_OFFSET 20
 #define LABEL_X_OFFSET 8
-@interface HXMessageTableViewCell ()
+@interface JKMessageTableViewCell ()
 @property (strong, nonatomic) NSString *ownerName;
 @property (strong, nonatomic) NSString *messageType;
 @property (strong, nonatomic) NSString *message;
@@ -41,26 +41,12 @@
 @property BOOL isRead;
 @end
 
-@implementation HXMessageTableViewCell
+@implementation JKMessageTableViewCell
 
 + (CGFloat)cellHeightForOwnerName:(NSString *)ownerName message:(NSString *)message messageType:(NSString *)messageType image:(NSData *)image
 {
-    if ([messageType isEqualToString:@"image"]) {
+    if ([messageType isEqualToString:@"text"]) {
         
-        UIImageView *binaryImage = [HXMessageTableViewCell resizedPhotoImageView:[[UIImageView alloc]initWithImage:[UIImage imageWithData:image]]];
-        if (ownerName) {
-            return binaryImage.frame.size.height + RECEIVE_BINARY_BACKGROUND_OFFSET + 10;
-        }else
-            return binaryImage.frame.size.height + SENT_BINARY_BACKGROUND_OFFSET + 10;
-        
-        
-    }else if ([message isEqualToString:@"[location]"] || [messageType isEqualToString:@"record"]|| [messageType isEqualToString:@"location"])
-    {
-        if (ownerName) {
-            return 30 + RECEIVE_BINARY_BACKGROUND_OFFSET;
-        }else
-            return 30 + SENT_BINARY_BACKGROUND_OFFSET;
-    }else {
         UILabel *messageLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 50/2, 352/2, 30/2)];
         messageLabel.text = message;
         messageLabel.font = [UIFont fontWithName:@"STHeitiTC-Light" size:30/2];
@@ -71,7 +57,19 @@
             return messageLabel.frame.size.height + 50/2 + 10;
         }else
             return messageLabel.frame.size.height + 20;
+    }else if ([messageType isEqualToString:@"location"] || [messageType isEqualToString:@"record"])
+    {
+        if (ownerName) {
+            return 30 + RECEIVE_BINARY_BACKGROUND_OFFSET;
+        }else
+            return 30 + SENT_BINARY_BACKGROUND_OFFSET;
+    }else {
         
+        UIImageView *binaryImage = [JKMessageTableViewCell resizedPhotoImageView:[[UIImageView alloc]initWithImage:[UIImage imageWithData:image]]];
+        if (ownerName) {
+            return binaryImage.frame.size.height + RECEIVE_BINARY_BACKGROUND_OFFSET + 10;
+        }else
+            return binaryImage.frame.size.height + SENT_BINARY_BACKGROUND_OFFSET + 10;
     }
     return 60;
     
@@ -132,7 +130,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
 {
     CGRect frame;
     
-    self.messageTextView = [[UILabel alloc]initWithFrame:CGRectMake(14, 20/2, 352, 30/2)];
+    self.messageTextView = [[UILabel alloc]initWithFrame:CGRectMake(14, 50/2, 352/2, 30/2)];
     self.messageTextView.text = self.message;
     self.messageTextView.font = [UIFont fontWithName:@"STHeitiTC-Light" size:30/2];
     self.messageTextView.textColor = [HXAppUtility hexToColor:0x58595b alpha:1];
@@ -143,12 +141,12 @@ profileImageUrlString:(NSString *)profileImageUrlString
     if (![self.messageType isEqualToString:@"text"]) {
 
         self.binaryDataImage = [self binaryImageView];
-        self.binaryDataImage.contentMode = UIViewContentModeScaleAspectFit;
+        
         UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped)];
         [self.binaryDataImage addGestureRecognizer:imageTap];
         self.binaryDataImage.userInteractionEnabled = YES;
         
-        if ([self.messageType isEqualToString:@"record"] || [self.message isEqualToString:@"[location]"]|| [self.messageType isEqualToString:@"location"])
+        if ([self.messageType isEqualToString:@"record"] || [self.messageType isEqualToString:@"location"])
         {
             frame = self.binaryDataImage.frame;
             frame.size.width = 90;
@@ -183,26 +181,16 @@ profileImageUrlString:(NSString *)profileImageUrlString
         {
             if (![self.userPhotoUrlString isEqualToString:@""]) {
                 SDWebImageManager *manager = [SDWebImageManager sharedManager];
-//                [manager downloadWithURL:[NSURL URLWithString:self.userPhotoUrlString]
-//                                 options:0
-//                                progress:^(NSInteger receivedSize, NSInteger expectedSize){}
-//                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished){
-//                                   if (image) {
-//                                       self.photo.image = image;
-//                                       self.photo.contentMode = UIViewContentModeScaleAspectFill;
-//                                   }
-//                                   
-//                               }];
-                [manager downloadImageWithURL:[NSURL URLWithString:self.userPhotoUrlString]
-                                      options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                          
-                                      } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                                          if (image) {
-                                              self.photo.image = image;
-                                              self.photo.contentMode = UIViewContentModeScaleAspectFill;
-                                          }
-                                      }];
-                
+                [manager downloadWithURL:[NSURL URLWithString:self.userPhotoUrlString]
+                                 options:0
+                                progress:^(NSInteger receivedSize, NSInteger expectedSize){}
+                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished){
+                                   if (image) {
+                                       self.photo.image = image;
+                                       self.photo.contentMode = UIViewContentModeScaleAspectFill;
+                                   }
+                                   
+                               }];
             }
         }
         else if (self.userPhoto)
@@ -240,7 +228,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
         frame = self.messageBackground.frame;
         frame.origin.x = self.photo.frame.origin.x + self.photo.frame.size.width +6;
         
-        if ([self.message isEqualToString:@"[location]"] || [self.messageType isEqualToString:@"record"]|| [self.messageType isEqualToString:@"location"]) {
+        if ([self.messageType isEqualToString:@"location"] || [self.messageType isEqualToString:@"record"]) {
             
             // Location/ voice
             // Other user
@@ -308,7 +296,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
             self.timeLabel = [[UILabel alloc] init];
             self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",timeHint,timestamp];
             self.timeLabel.font = [UIFont fontWithName:@"STHeitiTC-Light" size:20.0f/2];
-            self.timeLabel.textColor = [UIColor grayColor];
+            self.timeLabel.textColor = [UIColor darkGrayColor];
             self.timeLabel.numberOfLines = 1;
             [self.timeLabel sizeToFit];
             frame = self.timeLabel.frame;
@@ -324,7 +312,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
         
         self.height = self.messageTextView.frame.size.height + 20;
         
-        self.messageTextView.textColor = [UIColor darkGrayColor];
+        self.messageTextView.textColor = [UIColor blackColor];
         frame = self.messageTextView.frame;
         frame.origin.y = 10;
         frame.origin.x = 10;
@@ -335,7 +323,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
         self.messageBackground = [[UIImageView alloc]initWithImage:backgroundImage];
         frame = self.messageBackground.frame;
         
-        if ([self.message isEqualToString:@"[location]"] || [self.messageType isEqualToString:@"record"]|| [self.messageType isEqualToString:@"location"]) {
+        if ([self.messageType isEqualToString:@"location"] || [self.messageType isEqualToString:@"record"]) {
             
             // Localtion/ voice
             // Local user
@@ -375,8 +363,6 @@ profileImageUrlString:(NSString *)profileImageUrlString
             frame.origin.y = 10;
             self.messageTextView.frame = frame;
             [self.messageBackground addSubview:self.messageTextView];
-            self.messageTextView.textAlignment = 2;
-            
             frame = self.messageBackground.frame;
             frame.size.height = self.messageTextView.frame.size.height + 10 *2;
             frame.size.width = self.messageTextView.frame.size.width +14 +10;
@@ -408,7 +394,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
             self.timeLabel = [[UILabel alloc] init];
             self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",timeHint,timestamp];
             self.timeLabel.font = [UIFont fontWithName:@"STHeitiTC-Light" size:20.0f/2];
-            self.timeLabel.textColor = [UIColor grayColor];
+            self.timeLabel.textColor = [UIColor darkGrayColor];
             self.timeLabel.numberOfLines = 1;
             [self.timeLabel sizeToFit];
             frame = self.timeLabel.frame;
@@ -421,7 +407,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
         self.readAckLabel = [[UILabel alloc] init];
         self.readAckLabel.text = NSLocalizedString(@"已讀", nil);
         self.readAckLabel.font = [UIFont fontWithName:@"STHeitiTC-Light" size:20.0f/2];
-        self.readAckLabel.textColor = [UIColor lightGrayColor];
+        self.readAckLabel.textColor = [HXAppUtility hexToColor:0x999999 alpha:1];
         self.readAckLabel.numberOfLines = 1;
         [self.readAckLabel sizeToFit];
         frame = self.readAckLabel.frame;
@@ -473,7 +459,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
 
         }
         
-        if ([self.messageType isEqualToString:@"record"] || [self.message isEqualToString:@"[location]"]|| [self.messageType isEqualToString:@"location"])
+        if ([self.messageType isEqualToString:@"record"] || [self.messageType isEqualToString:@"location"])
         {
             frame = self.binaryDataImage.frame;
             frame.size.width = 90;
@@ -523,26 +509,16 @@ profileImageUrlString:(NSString *)profileImageUrlString
             
             if (![self.userPhotoUrlString isEqualToString:@""]) {
                 SDWebImageManager *manager = [SDWebImageManager sharedManager];
-//                [manager downloadWithURL:[NSURL URLWithString:self.userPhotoUrlString]
-//                                 options:0
-//                                progress:^(NSInteger receivedSize, NSInteger expectedSize){}
-//                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished){
-//                                   if (image) {
-//                                       self.photo.image = image;
-//                                       self.photo.contentMode = UIViewContentModeScaleAspectFill;
-//                                   }
-//                                   
-//                               }];
-                [manager downloadImageWithURL:[NSURL URLWithString:self.userPhotoUrlString]
-                                      options:0
-                                     progress:^(NSInteger receivedSize, NSInteger expectedSize) {}
-                                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                                        if (image) {
-                                            self.photo.image = image;
-                                            self.photo.contentMode = UIViewContentModeScaleAspectFill;
-                                        }
-                                    }];
-                
+                [manager downloadWithURL:[NSURL URLWithString:self.userPhotoUrlString]
+                                 options:0
+                                progress:^(NSInteger receivedSize, NSInteger expectedSize){}
+                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished){
+                                   if (image) {
+                                       self.photo.image = image;
+                                       self.photo.contentMode = UIViewContentModeScaleAspectFill;
+                                   }
+                                   
+                               }];
             }
             
         }
@@ -583,7 +559,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
         
         [[self.messageBackground subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
         
-        if ([self.message isEqualToString:@"[location]"] || [self.messageType isEqualToString:@"record"]|| [self.messageType isEqualToString:@"location"]) {
+        if ([self.messageType isEqualToString:@"location"] || [self.messageType isEqualToString:@"record"]) {
             
             // Location / voice
             // Other user
@@ -662,7 +638,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
             self.photo.hidden = YES;
         }
         
-        self.messageTextView.textColor = [UIColor darkGrayColor];
+        self.messageTextView.textColor = [UIColor blackColor];
         frame = self.messageTextView.frame;
         frame.origin.y = 5;
         frame.origin.x = 0;
@@ -674,7 +650,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
         
         [[self.messageBackground subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
         
-        if ([self.message isEqualToString:@"[location]"] || [self.messageType isEqualToString:@"record"] || [self.messageType isEqualToString:@"location"]) {
+        if ([self.messageType isEqualToString:@"location"] || [self.messageType isEqualToString:@"record"]) {
         
             // Location / voice
             // Local user
@@ -770,7 +746,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
 
 - (UIImage *)binaryImage
 {
-    if ([self.message isEqualToString:@"[location]"]|| [self.messageType isEqualToString:@"location"]) {
+    if ([self.messageType isEqualToString:@"location"]) {
         
         if (self.ownerName)
             return [UIImage imageNamed:@"location_receive"];
@@ -790,14 +766,14 @@ profileImageUrlString:(NSString *)profileImageUrlString
     }else {
         UIImage *image = [UIImage imageWithData:self.imageData];
         
-        return [HXMessageTableViewCell resizedImage:image];
+        return [JKMessageTableViewCell resizedImage:image];
     }
     
 }
 
 - (UIImageView *)binaryImageView
 {
-    if ([self.message isEqualToString:@"[location]"]|| [self.messageType isEqualToString:@"location"]) {
+    if ([self.messageType isEqualToString:@"location"]) {
         
         if (self.ownerName)
             return [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"location_receive"]];
@@ -817,7 +793,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
     }else {
         UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageWithData:self.imageData]];
         
-        return [HXMessageTableViewCell resizedPhotoImageView:imageView];
+        return [JKMessageTableViewCell resizedPhotoImageView:imageView];
     }
     
 }
