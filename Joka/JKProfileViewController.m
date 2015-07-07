@@ -84,8 +84,10 @@
              NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
          }
          dispatch_async(dispatch_get_main_queue(), ^{
-             _addToFriendButton.titleLabel.text = @"Already a Friend";
+             //_addToFriendButton.titleLabel.text = @"Already a Friend";
              _addToFriendButton.enabled = NO;
+             [_indicator activityStop];
+             [_indicator removeFromSuperview];
          });
 
               } failure:^(NSDictionary *response) {

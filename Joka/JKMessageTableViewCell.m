@@ -141,7 +141,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
     if (![self.messageType isEqualToString:@"text"]) {
 
         self.binaryDataImage = [self binaryImageView];
-        
+        self.binaryDataImage.contentMode = UIViewContentModeScaleAspectFit;
         UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped)];
         [self.binaryDataImage addGestureRecognizer:imageTap];
         self.binaryDataImage.userInteractionEnabled = YES;
@@ -452,11 +452,12 @@ profileImageUrlString:(NSString *)profileImageUrlString
         if (!self.binaryDataImage) {
 //            self.binaryDataImage = [[UIImageView alloc]initWithImage:[self binaryImage]];
             self.binaryDataImage = [self binaryImageView];
+            self.binaryDataImage.contentMode = UIViewContentModeScaleAspectFit;
         }
         else
         {
             self.binaryDataImage = [self binaryImageView];
-
+            self.binaryDataImage.contentMode = UIViewContentModeScaleAspectFit;
         }
         
         if ([self.messageType isEqualToString:@"record"] || [self.messageType isEqualToString:@"location"])
@@ -465,6 +466,7 @@ profileImageUrlString:(NSString *)profileImageUrlString
             frame.size.width = 90;
             frame.size.height = 25;
             self.binaryDataImage.frame = frame;
+            self.binaryDataImage.contentMode = UIViewContentModeScaleAspectFit;
         }
         
         UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped)];

@@ -7,6 +7,7 @@
 //
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define IS_OS_8_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define IS_OS_8_OR_EARLIER  ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
 
 #import "JKChatViewController.h"
 #import "AnIMMessage.h"
@@ -25,6 +26,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import "HXImageDetailViewController.h"
 #import "HXMapViewController.h"
+#import "HXVoiceRecordView.h"
+#import <AVFoundation/AVFoundation.h>
+
 
 typedef NS_ENUM(NSInteger, FieldTag) {
     FieldTagHorizontalLayout = 1001,
@@ -38,7 +42,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 };
 
 
-@interface JKChatViewController () <AnIMDelegate,JKLightspeedManagerChatDelegate,CLLocationManagerDelegate,UIImagePickerControllerDelegate>
+@interface JKChatViewController () <AnIMDelegate,JKLightspeedManagerChatDelegate,HXVoiceRecordViewDelegate,CLLocationManagerDelegate,UIImagePickerControllerDelegate>
 //@property (nonatomic, strong)AnIM *anIM;
 
 {
@@ -66,6 +70,8 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     BOOL _shouldDismissOnBackgroundTouch;
     BOOL _shouldDismissOnContentTouch;
     BOOL _shouldDismissAfterDelay;
+    
+    UIViewController *nav;
 }
 @property (nonatomic, strong)NSMutableArray *messagesArray;
 //@property (nonatomic, strong)NSString *clientID1;
@@ -73,6 +79,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 @property (nonatomic,strong) JKActivityControlView *indicator;
 @property (strong, nonatomic) NSMutableSet *sendingMsgSet;
 @property (strong, nonatomic) CLLocationManager* locationManager;
+@property (strong, nonatomic) AVAudioPlayer* voicePlayer;
 
 - (NSInteger)valueForRow:(NSInteger)row inFieldWithTag:(NSInteger)tag;
 
@@ -110,18 +117,19 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     [_messageTextField setDelegate:self];
     [self initInstance];
     
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     self.navigationItem.title = [self.friendInfo objectForKey:@"username"];
     [JKLightspeedManager manager].chatDelegate = self;
     
-    //[self getChatHistory];
+    [self getChatHistory];
     // developers will get the clientId in
     // - (void)anIM:(AnIM *)anIM didGetClientId:(NSString *)clientId error:(NSString *)error;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     //[_anIM connect:_clientID1];
-    [self getChatHistory];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -586,7 +594,6 @@ typedef NS_ENUM(NSInteger, FieldTag) {
                                                timestamp:0
                                                  success:^(NSArray *messages) {
                                                      if (messages.count) {
-                                                         
                                                          dispatch_async(dispatch_get_main_queue(), ^{
                                                              [self.messagesArray removeAllObjects];
                                                              self.messagesArray = [[[messages reverseObjectEnumerator] allObjects] mutableCopy];
@@ -599,6 +606,11 @@ typedef NS_ENUM(NSInteger, FieldTag) {
                                                              }
                                                          });
                                                          
+                                                     }else{
+                                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                         [_indicator activityStop];
+                                                         [_indicator removeFromSuperview];
+                                                        });
                                                      }
                                                  }
                                                  failure:^(ArrownockException *exception) {
@@ -699,6 +711,17 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     sendLocationButton.layer.cornerRadius = 6.0;
     [sendLocationButton addTarget:self action:@selector(shareLocationTapped) forControlEvents:UIControlEventTouchUpInside];
 
+    UIButton* recordVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    recordVoiceButton.translatesAutoresizingMaskIntoConstraints = NO;
+    recordVoiceButton.contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20);
+    recordVoiceButton.backgroundColor = [UIColor colorWithRed:(184.0/255.0) green:(233.0/255.0) blue:(122.0/255.0) alpha:1.0];
+    [recordVoiceButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [recordVoiceButton setTitleColor:[[recordVoiceButton titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+    recordVoiceButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    [recordVoiceButton setTitle:@"Send Voice Message" forState:UIControlStateNormal];
+    recordVoiceButton.layer.cornerRadius = 6.0;
+    [recordVoiceButton addTarget:self action:@selector(recordVoiceTapped) forControlEvents:UIControlEventTouchUpInside];
+    
 
     
     
@@ -707,11 +730,12 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     [contentView addSubview:takePhotoButton];
     [contentView addSubview:choosePhotoButton];
     [contentView addSubview:sendLocationButton];
+    [contentView addSubview:recordVoiceButton];
     
-    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, dismissButton, takePhotoButton,choosePhotoButton,sendLocationButton);
+    NSDictionary* views = NSDictionaryOfVariableBindings(contentView, dismissButton, takePhotoButton,choosePhotoButton,recordVoiceButton,sendLocationButton);
     
     [contentView addConstraints:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[choosePhotoButton]-(10)-[takePhotoButton]-(10)-[sendLocationButton]-(10)-[dismissButton]-(24)-|"
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(16)-[choosePhotoButton]-(10)-[takePhotoButton]-(10)-[sendLocationButton]-(10)-[recordVoiceButton]-(10)-[dismissButton]-(24)-|"
                                              options:NSLayoutFormatAlignAllCenterX
                                              metrics:nil
                                                views:views]];
@@ -782,6 +806,67 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     return 0;
 }
 
+
+- (void)sendVoiceData:(NSData *)voice
+{
+    NSString *msgId;
+    NSString *notificationAlert = [NSString stringWithFormat:NSLocalizedString(@"您收到來自 %@ 的聲音訊息", nil),_friendInfo[@"username"]];
+    NSDictionary *customData = @{@"name":_friendInfo[@"username"],
+                                 @"type":@"record",
+                                 @"notification_alert":notificationAlert};
+//    if (!self.isTopicMode) {
+//        NSSet *clientId = [NSSet setWithObject:self.targetClientId];
+        msgId = [[[JKLightspeedManager manager] anIM] sendBinary:voice
+                                                fileType:@"record"
+                                              customData:customData
+                                               toClient:self.friendInfo[@"clientId"]
+                                          needReceiveACK:YES];
+//    }else{
+//        msgId = [[[HXIMManager manager] anIM] sendBinary:voice
+//                                                fileType:@"record"
+//                                              customData:customData
+//                                               toTopicId:self.targetTopicId
+//                                          needReceiveACK:YES];
+//    }
+    
+    NSNumber *timestamp = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000];
+    
+    AnIMMessage *customMessage = [[AnIMMessage alloc]initWithType:AnIMBinaryMessage
+                                                            msgId:msgId
+                                                          topicId:@""
+                                                          message:@""
+                                                          content:voice
+                                                         fileType:@"record"
+                                                             from:[JKLightspeedManager manager].clientId
+                                                       customData:customData
+                                                        timestamp:timestamp];
+    
+    [self wrapMessageToSend:[MessageUtil anIMMessageToHXMessage:customMessage]];
+    
+//    if (!self.isTopicMode) {
+//        [MessageUtil saveChatMessageIntoDB:@[customMessage] withTargetClientId:self.targetClientId];
+//    }else{
+//        [MessageUtil saveTopicMessageIntoDB:@[customMessage]];
+//    }
+    
+}
+
+- (void)playVoiceWithData:(NSData *)voice
+{
+    NSError* error;
+    self.voicePlayer = [[AVAudioPlayer alloc] initWithData:voice error:&error];
+    if (error)
+        NSLog(@"%@", [error localizedDescription]);
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [[AVAudioSession sharedInstance] setActive: YES error: nil];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    if ([self.voicePlayer isPlaying])
+        [self.voicePlayer stop];
+    else
+        [self.voicePlayer play];
+}
 
 #pragma mark AnIM Send Message Method
 
@@ -861,7 +946,13 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 
 - (void)showSendingImage:(UIImage *)image
 {
-    //[self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[picker dismissViewControllerAnimated:YES completion:nil];
+    if (IS_OS_8_OR_EARLIER) {
+        [nav removeFromParentViewController];
+    }else{
+        [nav dismissViewControllerAnimated:YES completion:nil];
+    }
     
     // NSData* originalImageData = UIImageJPEGRepresentation(image, 1);
     UIImage *thumbnail = [self thumbnailImage:image];
@@ -928,9 +1019,9 @@ typedef NS_ENUM(NSInteger, FieldTag) {
     
     [[HXAnSocialManager manager] uploadPhotoToServer:resizedImageData Success:^(NSDictionary *response){
         
-        NSString *photoUrls = response[@"response"][@"photo"][@"url"];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            NSString *photoUrls = response[@"response"][@"photo"][@"url"];
             NSString *msgId;
             NSString *notificationAlert = [NSString stringWithFormat:NSLocalizedString(@"%@ 向您傳送了圖片", nil),[self.friendInfo objectForKey:@"username"]];
             NSDictionary *customData = @{@"name":[self.friendInfo objectForKey:@"username"],
@@ -955,23 +1046,32 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 //                
 //            }
             NSInteger photoDataIndex = self.messagesArray.count - 1;
-
-            HXMessage *imageMessage = self.messagesArray[photoDataIndex];
-            imageMessage.msgId = msgId;
-            imageMessage.fileURL = photoUrls;
+            
+            if ([self.messagesArray[photoDataIndex] isKindOfClass:[AnIMMessage class]]){
+                HXMessage *imageMessage = [MessageUtil anIMMessageToHXMessage:self.messagesArray[photoDataIndex]];
+                imageMessage.msgId = msgId;
+                imageMessage.fileURL = photoUrls;
+                self.messagesArray[photoDataIndex] = imageMessage;
+            }else{
+                HXMessage *imageMessage = self.messagesArray[photoDataIndex];
+                imageMessage.msgId = msgId;
+                imageMessage.fileURL = photoUrls;
+                self.messagesArray[photoDataIndex] = imageMessage;
+            }
+            
 //
 //            NSError *error;
 //            [[CoreDataUtil sharedContext] save:&error];
 //            if (error) {
 //                NSLog(@"Whoops, couldn't save image: %@", [error localizedDescription]);
 //            }
-            self.messagesArray[photoDataIndex] = imageMessage;
             
-            [self getChatHistory];
-//            [self.chatTable beginUpdates];
-//            [self.chatTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:photoDataIndex inSection:0]]
-//                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-//            [self.chatTable endUpdates];
+            //[self.chatTable reloadData];
+//            [self getChatHistory];
+            [self.chatTable beginUpdates];
+            [self.chatTable reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:photoDataIndex inSection:0]]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.chatTable endUpdates];
 //            [self.chatTable reloadData];
 //            if (self.messagesArray.count) {
 //                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messagesArray.count-1 inSection:0];
@@ -1008,12 +1108,24 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         
         //[cameraRollPicker removeFromParentViewController];
         //[self.navigationController presentViewController:cameraRollPicker animated:YES completion:nil];
-        [self presentViewController:cameraRollPicker animated:YES completion:nil];
+        //[self presentViewController:cameraRollPicker animated:YES completion:nil];
         
         
-//        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:cameraRollPicker];
-//        [self presentViewController:nav animated:YES completion:nil];
-
+        
+        nav = [[UIViewController alloc]init];
+        nav.view.backgroundColor = [UIColor clearColor];
+        
+        if (IS_OS_8_OR_EARLIER) {
+            [self addChildViewController:nav];
+            //[self presentViewController:nav animated:YES completion:nil];
+            [nav presentViewController:cameraRollPicker animated:YES completion:nil];
+        }else{
+            [self presentViewController:nav animated:YES completion:nil];
+            [nav presentViewController:cameraRollPicker animated:YES completion:nil];
+        }
+        
+        
+        
     }
 }
 - (void)takePhotoTapped
@@ -1028,8 +1140,28 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         imagePicker.allowsEditing = NO;
         imagePicker.showsCameraControls = YES;
         imagePicker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
-        [self presentViewController:imagePicker animated:YES completion:nil];
+        
+        
+        nav = [[UIViewController alloc]init];
+        nav.view.backgroundColor = [UIColor clearColor];
+        
+        if (IS_OS_8_OR_EARLIER) {
+            [self addChildViewController:nav];
+            //[self presentViewController:nav animated:YES completion:nil];
+            [nav presentViewController:imagePicker animated:YES completion:nil];
+        }else{
+            [self presentViewController:nav animated:YES completion:nil];
+            [nav presentViewController:imagePicker animated:YES completion:nil];
+        }
+        
     }
+}
+
+- (void)recordVoiceTapped
+{
+    HXVoiceRecordView *vrView = [[HXVoiceRecordView alloc]initWithFrame:self.view.bounds];
+    vrView.delegate = self;
+    [self.view addSubview:vrView];
 }
 
 
@@ -1105,7 +1237,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     
     if ([mediaType isEqualToString:@"public.image"]) {
@@ -1116,9 +1248,22 @@ typedef NS_ENUM(NSInteger, FieldTag) {
         [self showSendingImage:image];
         
     }
+    picker.delegate = nil;
+    
     
 }
-
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[picker dismissViewControllerAnimated:YES completion:nil];
+    if (IS_OS_8_OR_EARLIER) {
+        [nav removeFromParentViewController];
+    }else{
+        [nav dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    
+    
+}
 
 #pragma mark Helper
 
@@ -1156,7 +1301,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
             
         }else if ([message.customData[@"type"] isEqualToString:@"record"]){
             
-            //[self playVoiceWithData:message.content];
+            [self playVoiceWithData:message.content];
         }else if ([message.customData[@"type"] isEqualToString:@"location"]||[message.message isEqualToString:@"[location]"]){
             
             HXMapViewController *mapVc = [[HXMapViewController alloc]init];
@@ -1175,7 +1320,7 @@ typedef NS_ENUM(NSInteger, FieldTag) {
             
         }else if ([message.type isEqualToString:@"record"]){
             
-            //[self playVoiceWithData:message.content];
+            [self playVoiceWithData:message.content];
         }else if ([message.type isEqualToString:@"location"]||[message.message isEqualToString:@"[location]"]){
             
             HXMapViewController *mapVc = [[HXMapViewController alloc]init];

@@ -15,6 +15,10 @@
 #import "JKCommentViewController.h"
 
 @interface JKWallViewController ()<LikeStatusChangeDelegate>
+{
+     BOOL doneQueryPosts;
+     BOOL doneQueryLikes;
+}
 @property (nonatomic,strong) NSMutableArray *postArray;
 @property (weak, nonatomic) IBOutlet UITableView *wallTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sideBarButton;
@@ -24,6 +28,7 @@
 @property (nonatomic,strong) NSMutableArray *likeCountArray;
 @property (nonatomic,strong) NSMutableArray *likeIndexArray;
 @property (nonatomic,strong) NSArray *originalLikeStatus;
+
 @end
 
 @implementation JKWallViewController
@@ -36,6 +41,8 @@
      self.likeArray = [[NSMutableArray alloc]initWithCapacity:0];
      self.likeCountArray = [[NSMutableArray alloc]initWithCapacity:0];
      self.likeIndexArray = [[NSMutableArray alloc]initWithCapacity:0];
+     
+     
      //self.originalLikeStatus = [[NSMutableArray alloc]initWithCapacity:0];
      //self.likedDic = [[NSMutableDictionary alloc]initWithCapacity:0];
      
@@ -46,13 +53,16 @@
           [self.sideBarButton setAction: @selector(revealToggle:)];
           [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
      }
-     
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneQueryPosts) name:@"DoneQueryPosts" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneQueryLikes) name:@"DoneQueryLikes" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doneQueryBoth) name:@"DoneQueryBoth" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-     
+     doneQueryPosts = NO;
+     doneQueryLikes = NO;
      [self queryLiked];
-     
+     [self queryWallPosts];
      //[self queryLiked];
 }
 
@@ -141,30 +151,31 @@
                 //[self.originalLikeStatus removeAllObjects];
                 [self.likeIndexArray removeAllObjects];
                 self.postArray = [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"posts"]] mutableCopy];
-                
-                for (id post in _postArray) {
-                     NSMutableDictionary *likedRecordingDic = [[NSMutableDictionary alloc]initWithCapacity:0];
-                     [likedRecordingDic setObject:[post objectForKey:@"id"] forKey:@"postId"];
-                     [likedRecordingDic setObject:[post objectForKey:@"likeCount"] forKey:@"likeCount"];
-                     [likedRecordingDic setObject:[NSNumber numberWithBool:NO] forKey:@"liked"];
-                     [likedRecordingDic setObject:@"" forKey:@"likeId"];
-                     
-                     if (_likeArray.count) {
-                          for (id likedpost in _likeArray) {
-                               if ([[likedpost objectForKey:@"parentId"]isEqualToString:[post objectForKey:@"id"]])
-                                    if ([[likedpost objectForKey:@"positive"] integerValue] == 1){
-                                         [likedRecordingDic setObject:[NSNumber numberWithBool:YES] forKey:@"liked"];
-                                         [likedRecordingDic setObject:[likedpost objectForKey:@"id"] forKey:@"likeId"];
-                                    }
-                               
-                          }
-                     }
-                     //[_originalLikeStatus addObject:likedRecordingDic];
-                     [_likeIndexArray addObject:likedRecordingDic];
-                }
-                
-                _originalLikeStatus = [[NSArray alloc]initWithArray:_likeIndexArray copyItems:YES];
-                [self.wallTableView reloadData];
+                //[[NSNotificationCenter defaultCenter]postNotificationName:@"DoneQueryPosts" object:nil];
+                [self doneQueryPosts];
+//                for (id post in _postArray) {
+//                     NSMutableDictionary *likedRecordingDic = [[NSMutableDictionary alloc]initWithCapacity:0];
+//                     [likedRecordingDic setObject:[post objectForKey:@"id"] forKey:@"postId"];
+//                     [likedRecordingDic setObject:[post objectForKey:@"likeCount"] forKey:@"likeCount"];
+//                     [likedRecordingDic setObject:[NSNumber numberWithBool:NO] forKey:@"liked"];
+//                     [likedRecordingDic setObject:@"" forKey:@"likeId"];
+//                     
+//                     if (_likeArray.count) {
+//                          for (id likedpost in _likeArray) {
+//                               if ([[likedpost objectForKey:@"parentId"]isEqualToString:[post objectForKey:@"id"]])
+//                                    if ([[likedpost objectForKey:@"positive"] integerValue] == 1){
+//                                         [likedRecordingDic setObject:[NSNumber numberWithBool:YES] forKey:@"liked"];
+//                                         [likedRecordingDic setObject:[likedpost objectForKey:@"id"] forKey:@"likeId"];
+//                                    }
+//                               
+//                          }
+//                     }
+//                     //[_originalLikeStatus addObject:likedRecordingDic];
+//                     [_likeIndexArray addObject:likedRecordingDic];
+//                }
+//                
+//                _originalLikeStatus = [[NSArray alloc]initWithArray:_likeIndexArray copyItems:YES];
+//                [self.wallTableView reloadData];
            });
            
            
@@ -192,8 +203,8 @@
                 
                 //[JKLikeManager manager].likeArray = [[NSArray arrayWithArray:[[response objectForKey:@"response"] objectForKey:@"likes"]] mutableCopy];
                 //[self deleteAllLikes];
-                [self queryWallPosts];
-                
+                //[self queryWallPosts];
+                [self doneQueryLikes];
                 
            });
            
@@ -320,6 +331,44 @@
           }
           
      }
+}
+
+-(void)doneQueryPosts{
+     doneQueryPosts = YES;
+     if (doneQueryLikes) {
+          [self doneQueryBoth];
+     }
+}
+-(void)doneQueryLikes{
+     doneQueryLikes = YES;
+     if (doneQueryPosts) {
+          [self doneQueryBoth];
+     }
+}
+-(void)doneQueryBoth{
+     for (id post in _postArray) {
+          NSMutableDictionary *likedRecordingDic = [[NSMutableDictionary alloc]initWithCapacity:0];
+          [likedRecordingDic setObject:[post objectForKey:@"id"] forKey:@"postId"];
+          [likedRecordingDic setObject:[post objectForKey:@"likeCount"] forKey:@"likeCount"];
+          [likedRecordingDic setObject:[NSNumber numberWithBool:NO] forKey:@"liked"];
+          [likedRecordingDic setObject:@"" forKey:@"likeId"];
+          
+          if (_likeArray.count) {
+               for (id likedpost in _likeArray) {
+                    if ([[likedpost objectForKey:@"parentId"]isEqualToString:[post objectForKey:@"id"]])
+                         if ([[likedpost objectForKey:@"positive"] integerValue] == 1){
+                              [likedRecordingDic setObject:[NSNumber numberWithBool:YES] forKey:@"liked"];
+                              [likedRecordingDic setObject:[likedpost objectForKey:@"id"] forKey:@"likeId"];
+                         }
+                    
+               }
+          }
+          //[_originalLikeStatus addObject:likedRecordingDic];
+          [_likeIndexArray addObject:likedRecordingDic];
+     }
+     
+     _originalLikeStatus = [[NSArray alloc]initWithArray:_likeIndexArray copyItems:YES];
+     [self.wallTableView reloadData];
 }
 /*
  #pragma mark - Navigation

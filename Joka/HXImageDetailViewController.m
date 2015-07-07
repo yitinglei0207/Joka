@@ -110,7 +110,7 @@
 - (void)initNavigationBar
 {
     NSString *title = [self.mode isEqualToString:@"push"] ? NSLocalizedString(@"查看照片", nil) : @"";
-    [HXAppUtility initNavigationTitle:title barTintColor:[UIColor yellowColor] withViewController:self];
+    [HXAppUtility initNavigationTitle:title barTintColor:[UIColor darkGrayColor] withViewController:self];
     
     if([self.mode isEqualToString:@"modal"]){
         UIBarButtonItem *cancelBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(cancelButtonTapped)];

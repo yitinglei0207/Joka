@@ -115,12 +115,14 @@
              [[JKLightspeedManager manager] checkIMConnection];
              [_indicator activityStop];
              [_indicator removeFromSuperview];
+             [self performSegueWithIdentifier:@"showMainView" sender:self];
              
              
              
          });
-         UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
-         [self showViewController:profileView sender:self];
+//         UIViewController *profileView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWView"];
+//         [self presentViewController:profileView animated:YES completion:nil];
+         //[self showViewController:profileView sender:self];
          
      } failure:^(NSDictionary *response) {
          NSLog(@"Error: %@", [[response objectForKey:@"meta"] objectForKey:@"message"]);

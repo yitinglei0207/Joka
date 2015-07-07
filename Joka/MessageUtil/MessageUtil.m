@@ -23,9 +23,9 @@
     if (message.customData[@"type"]) {
         type = message.customData[@"type"];
     }
-//    else if (message.customData[@"location"]){
-//        type = @"location";
-//    }
+    else if (message.fileType){
+        type = message.fileType;
+    }
     else{
         type = @"text";
     }

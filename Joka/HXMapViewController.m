@@ -28,10 +28,10 @@
 
 - (void)initNavigationBar
 {
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:[UIColor colorWithRed:(247/255.0) green:(247/255.0) blue:(247/255.0) alpha:1]];
     
     // set navigation bar
-    [HXAppUtility initNavigationTitle:@"" barTintColor:[UIColor yellowColor] withViewController:self];
+    [HXAppUtility initNavigationTitle:@"Location" barTintColor:[UIColor darkGrayColor] withViewController:self];
     
 }
 
