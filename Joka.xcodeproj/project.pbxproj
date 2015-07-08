@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6705FBAE1B4BDE4E00D94D0C /* JKSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6705FBAD1B4BDE4E00D94D0C /* JKSearchTableViewController.m */; };
+		6705FBB41B4CD1DD00D94D0C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6705FBB01B4CD1DD00D94D0C /* LICENSE */; };
+		6705FBB51B4CD1DD00D94D0C /* PHFDelegateChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6705FBB21B4CD1DD00D94D0C /* PHFDelegateChain.m */; };
+		6705FBB61B4CD1DD00D94D0C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 6705FBB31B4CD1DD00D94D0C /* README.md */; };
 		6713A64F1B45414A00E3D2B5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6713A64E1B45414A00E3D2B5 /* LaunchScreen.xib */; };
 		6713A6531B4620E300E3D2B5 /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6713A6521B4620E300E3D2B5 /* KLCPopup.m */; };
 		6713A6551B4635CC00E3D2B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6713A6541B4635CC00E3D2B5 /* CoreGraphics.framework */; };
@@ -99,6 +102,10 @@
 /* Begin PBXFileReference section */
 		6705FBAC1B4BDE4E00D94D0C /* JKSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSearchTableViewController.h; sourceTree = "<group>"; };
 		6705FBAD1B4BDE4E00D94D0C /* JKSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSearchTableViewController.m; sourceTree = "<group>"; };
+		6705FBB01B4CD1DD00D94D0C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6705FBB11B4CD1DD00D94D0C /* PHFDelegateChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHFDelegateChain.h; sourceTree = "<group>"; };
+		6705FBB21B4CD1DD00D94D0C /* PHFDelegateChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHFDelegateChain.m; sourceTree = "<group>"; };
+		6705FBB31B4CD1DD00D94D0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6713A64E1B45414A00E3D2B5 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		6713A6511B4620E300E3D2B5 /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
 		6713A6521B4620E300E3D2B5 /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
@@ -289,6 +296,17 @@
 				6705FBAD1B4BDE4E00D94D0C /* JKSearchTableViewController.m */,
 			);
 			name = SearchView;
+			sourceTree = "<group>";
+		};
+		6705FBAF1B4CD1DD00D94D0C /* PHFDelegateChain */ = {
+			isa = PBXGroup;
+			children = (
+				6705FBB01B4CD1DD00D94D0C /* LICENSE */,
+				6705FBB11B4CD1DD00D94D0C /* PHFDelegateChain.h */,
+				6705FBB21B4CD1DD00D94D0C /* PHFDelegateChain.m */,
+				6705FBB31B4CD1DD00D94D0C /* README.md */,
+			);
+			path = PHFDelegateChain;
 			sourceTree = "<group>";
 		};
 		6713A6501B4620E300E3D2B5 /* KLCPopup */ = {
@@ -539,6 +557,7 @@
 		67E12E9A1B31221700761D69 /* Joka */ = {
 			isa = PBXGroup;
 			children = (
+				6705FBAF1B4CD1DD00D94D0C /* PHFDelegateChain */,
 				6713A7291B4672BA00E3D2B5 /* SDWebImage */,
 				6713A68C1B46540100E3D2B5 /* Joka.xcdatamodeld */,
 				6713A64E1B45414A00E3D2B5 /* LaunchScreen.xib */,
@@ -773,6 +792,7 @@
 				67273C8A1B39469200DAECDF /* Joka.entitlements in Resources */,
 				67E12EA71B31221700761D69 /* Main.storyboard in Resources */,
 				67E12EA91B31221700761D69 /* Images.xcassets in Resources */,
+				6705FBB41B4CD1DD00D94D0C /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,6 +814,7 @@
 				67273CC11B3D329E00DAECDF /* JKActivityControlView.m in Sources */,
 				67D9F59B1B429C1C00D000DF /* JKCommentViewController.m in Sources */,
 				67E12ED81B31234B00761D69 /* LoginViewController.m in Sources */,
+				6705FBB61B4CD1DD00D94D0C /* README.md in Sources */,
 				6713A6951B46724700E3D2B5 /* HXAppUtility.m in Sources */,
 				6713A7581B4672BA00E3D2B5 /* UIImageView+HighlightedWebCache.m in Sources */,
 				6713A6701B4645A300E3D2B5 /* ChatUtil.m in Sources */,
@@ -833,6 +854,7 @@
 				6713A7601B4A6A1600E3D2B5 /* HXImageDetailViewController.m in Sources */,
 				6713A75A1B4672BA00E3D2B5 /* UIView+WebCacheOperation.m in Sources */,
 				6713A7531B4672BA00E3D2B5 /* SDWebImagePrefetcher.m in Sources */,
+				6705FBB51B4CD1DD00D94D0C /* PHFDelegateChain.m in Sources */,
 				67F7C7B51B37FF3E0026E344 /* JKEnterUserInfoViewController.m in Sources */,
 				6713A67A1B46460200E3D2B5 /* HXChat+Additions.m in Sources */,
 				67E12EA11B31221700761D69 /* AppDelegate.m in Sources */,

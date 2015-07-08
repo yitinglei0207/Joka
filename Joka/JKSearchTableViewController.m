@@ -7,7 +7,7 @@
 //
 
 #import "JKSearchTableViewController.h"
-
+#import "JKLightspeedManager.h"
 @interface JKSearchTableViewController ()
 
 @end
@@ -30,19 +30,42 @@
 }
 
 #pragma mark - Table view data source
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//#warning Potentially incomplete method implementation.
+//    // Return the number of sections.
+//    return 0;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//#warning Incomplete method implementation.
+//    // Return the number of rows in the section.
+//    return 0;
+//}
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+
+
+-(void)updateUserProfile{
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"updatetestuser" forKey:@"username"];
+    [params setObject:@"544254bdd0c16c2410000001" forKey:@"user_id"];
+    
+    
+        [params setObject:@"image/png" forKey:@"mime_type"];
+    
+    [[JKLightspeedManager manager] sendRequest:@"users/update.json" method:AnSocialManagerPOST params:params success:^
+     (NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+     } failure:^(NSDictionary *response) {
+         for (id key in response)
+         {
+             NSLog(@"key: %@ ,value: %@",key,[response objectForKey:key]);
+         }
+     }];
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
-}
-
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

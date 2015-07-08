@@ -10,11 +10,11 @@
 #import "JokaCredentials.h"
 #import "AnSocial.h"
 #import "AnIM.h"
+#import "MessageUtil.h"
 
 
 
-
-@interface JKLightspeedManager () <AnIMDelegate>
+@interface JKLightspeedManager () <AnIMDelegate,JKLightspeedManagerChatDelegate>
 @property (strong, nonatomic) AnIM *anIM;
 @property (strong, nonatomic) AnSocial *anSocial;
 @property BOOL imConnecting;
@@ -70,22 +70,22 @@
 
 
 // it is for receiving message
-- (void)anIM:(AnIM *)anIM didReceiveMessage:(NSString *)message customData:(NSDictionary *)customData from:(NSString *)from parties:(NSSet *)parties messageId:(NSString *)messageId at:(NSNumber *)timestamp
-{
-    NSLog(@"the message is: %@", message);
-    NSLog(@"the messageId is: %@", messageId);
-    NSLog(@"the sender is: %@", from);
-    //NSLog(@"all recipients, including the sender: %@", [parties componentsJoinedByString:@","]);
-    
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"co.herxun.Joka.didReceiveMessage"
-                                                        object:@{@"message": message,
-                                                                 @"customData": customData ? customData : @"",
-                                                                 @"from": from,
-                                                                 @"parties": parties,
-                                                                 @"messageId": messageId,
-                                                                 @"timestamp": timestamp}];
-}
+//- (void)anIM:(AnIM *)anIM didReceiveMessage:(NSString *)message customData:(NSDictionary *)customData from:(NSString *)from parties:(NSSet *)parties messageId:(NSString *)messageId at:(NSNumber *)timestamp
+//{
+//    NSLog(@"the message is: %@", message);
+//    NSLog(@"the messageId is: %@", messageId);
+//    NSLog(@"the sender is: %@", from);
+//    //NSLog(@"all recipients, including the sender: %@", [parties componentsJoinedByString:@","]);
+//    
+//    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"co.herxun.Joka.didReceiveMessage"
+//                                                        object:@{@"message": message,
+//                                                                 @"customData": customData ? customData : @"",
+//                                                                 @"from": from,
+//                                                                 @"parties": parties,
+//                                                                 @"messageId": messageId,
+//                                                                 @"timestamp": timestamp}];
+//}
 
 + (JKLightspeedManager *)manager
 {
@@ -98,22 +98,215 @@
 }
 
 
+#pragma mark - AnIM Chat Delgate
+
+- (void)anIM:(AnIM *)anIM didAddClientsWithException:(ArrownockException *)exception
+{
+    if ([self.chatDelegate respondsToSelector:@selector(anIMDidAddClientsWithException:)])
+    {
+        [self.chatDelegate anIMDidAddClientsWithException:exception.message];
+    }
+}
+
 - (void)anIM:(AnIM *)anIM messageSent:(NSString *)messageId
 {
-    NSLog(@"Message sent");
-    [self.chatDelegate messageSent:messageId];
+    if ([self.chatDelegate respondsToSelector:@selector(anIMMessageSent:)])
+    {
+        [self.chatDelegate anIMMessageSent:messageId];
+    }
 }
+
+- (void)anIM:(AnIM *)anIM sendReturnedException:(ArrownockException *)exception messageId:(NSString *)messageId
+{
+    
+    if ([self.chatDelegate respondsToSelector:@selector(anIMSendReturnedException:messageId:)])
+    {
+        [self.chatDelegate anIMSendReturnedException:exception.message messageId:messageId];
+    }
+}
+
+- (void)anIM:(AnIM *)anIM didReceiveMessage:(NSString *)message customData:(NSDictionary *)customData from:(NSString *)from parties:(NSSet *)parties messageId:(NSString *)messageId at:(NSNumber *)timestamp
+{
+    
+    /* configure location or text */
+    NSString *fileType = [MessageUtil configureTextMessageType:customData];
+    
+    AnIMMessage *customMessage = [[AnIMMessage alloc]initWithType:AnIMTextMessage
+                                                            msgId:messageId
+                                                          topicId:@""
+                                                          message:message
+                                                          content:nil
+                                                         fileType:fileType
+                                                             from:from
+                                                       customData:customData
+                                                        timestamp:timestamp];
+    
+    HXMessage *hxCustomMessage = [MessageUtil anIMMessageToHXMessage:customMessage];
+    
+    if ([self.chatDelegate respondsToSelector:@selector(anIMDidReceiveMessage:customData:from:topicId:messageId:at:customMessage:)])
+    {
+        [self.chatDelegate anIMDidReceiveMessage:message
+                                      customData:customData
+                                            from:from
+                                         topicId:@""
+                                       messageId:messageId
+                                              at:timestamp
+                                   customMessage:hxCustomMessage];
+    }
+    [MessageUtil saveChatMessageIntoDB:@[customMessage] withTargetClientId:hxCustomMessage.from];
+}
+
+- (void)anIM:(AnIM *)anIM didReceiveMessage:(NSString *)message customData:(NSDictionary *)customData from:(NSString *)from topicId:(NSString *)topicId messageId:(NSString *)messageId at:(NSNumber *)timestamp
+{
+    
+    /* configure location or text */
+    NSString *fileType = [MessageUtil configureTextMessageType:customData];
+    
+    AnIMMessage *customMessage = [[AnIMMessage alloc]initWithType:AnIMTextMessage
+                                                            msgId:messageId
+                                                          topicId:topicId
+                                                          message:message
+                                                          content:nil
+                                                         fileType:fileType
+                                                             from:from
+                                                       customData:customData
+                                                        timestamp:timestamp];
+    
+    if ([self.chatDelegate respondsToSelector:@selector(anIMDidReceiveMessage:customData:from:topicId:messageId:at:customMessage:)])
+    {
+        [self.chatDelegate anIMDidReceiveMessage:message
+                                      customData:customData
+                                            from:from
+                                         topicId:topicId
+                                       messageId:messageId
+                                              at:timestamp
+                                   customMessage:[MessageUtil anIMMessageToHXMessage:customMessage]];
+    }
+    [MessageUtil saveTopicMessageIntoDB:@[customMessage]];
+}
+
+- (void)anIM:(AnIM *)anIM didReceiveBinary:(NSData *)data fileType:(NSString *)fileType customData:(NSDictionary *)customData from:(NSString *)from parties:(NSSet *)parties messageId:(NSString *)messageId at:(NSNumber *)timestamp
+{
+    if ([fileType isEqualToString:@"send"]) {
+        if ([customData[@"type"] isEqualToString:@"approve"]) {
+            
+//            NSLog(@"received approve message");
+//            HXUser *friend = [UserUtil getHXUserByClientId:from];
+//            [UserUtil updatedUserFriendsWithCurrentUser:[HXUserAccountManager manager].userInfo targetUser:friend];
+//            
+//            /* show toast*/
+//            UIWindow *displayWindow = [[[UIApplication sharedApplication] delegate] window];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [displayWindow makeImppToast:NSLocalizedString(@"好友邀請同意", nil) navigationBarHeight:0];
+//            });
+//            
+//            
+//            [[NSNotificationCenter defaultCenter]postNotificationName:RefreshFriendList object:nil];
+            
+        }else if ([customData[@"type"] isEqualToString:@"send"]){
+            
+//            NSLog(@"received friend request ");
+//            /* show toast*/
+//            UIWindow *displayWindow = [[[UIApplication sharedApplication] delegate] window];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [displayWindow makeImppToast:NSLocalizedString(@"收到好友邀請", nil) navigationBarHeight:0];
+//            });
+//            NSNumber *unreadCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"unreadFriendRequestCount"];
+//            [[NSUserDefaults standardUserDefaults] setObject:@([unreadCount intValue]+1) forKey:@"unreadFriendRequestCount"];
+//            [[NSNotificationCenter defaultCenter]postNotificationName:RefreshFriendList object:nil];
+        }else{
+            
+//            NSNumber *unreadCount = [[NSUserDefaults standardUserDefaults] objectForKey:@"unreadSocialNoticeCount"];
+//            [[NSUserDefaults standardUserDefaults] setObject:@([unreadCount intValue]+1) forKey:@"unreadSocialNoticeCount"];
+//            [[NSNotificationCenter defaultCenter]postNotificationName:UpdateFriendCircleBadge object:nil];
+//            
+//            UIWindow *displayWindow = [[[UIApplication sharedApplication] delegate] window];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [displayWindow makeImppToast:customData[@"notification_alert"] navigationBarHeight:0];
+//            });
+        }
+        
+        return;
+    }
+    
+    AnIMMessage *customMessage = [[AnIMMessage alloc]initWithType:AnIMBinaryMessage
+                                                            msgId:messageId
+                                                          topicId:@""
+                                                          message:@""
+                                                          content:data
+                                                         fileType:fileType
+                                                             from:from
+                                                       customData:customData
+                                                        timestamp:timestamp];
+    
+    HXMessage *hxCustomMessage = [MessageUtil anIMMessageToHXMessage:customMessage];
+    
+    if ([self.chatDelegate respondsToSelector:@selector(anIMDidReceiveBinaryData:fileType:customData:from:topicId:messageId:at:customMessage:)])
+    {
+        [self.chatDelegate anIMDidReceiveBinaryData:data
+                                           fileType:fileType
+                                         customData:customData
+                                               from:from
+                                            topicId:@""
+                                          messageId:messageId
+                                                 at:timestamp
+                                      customMessage:[MessageUtil anIMMessageToHXMessage:customMessage]];
+    }
+    [MessageUtil saveChatMessageIntoDB:@[customMessage] withTargetClientId:hxCustomMessage.from];
+}
+
+- (void)anIM:(AnIM *)anIM didReceiveBinary:(NSData *)data fileType:(NSString *)fileType customData:(NSDictionary *)customData from:(NSString *)from topicId:(NSString *)topicId messageId:(NSString *)messageId at:(NSNumber *)timestamp
+{
+    
+    AnIMMessage *customMessage = [[AnIMMessage alloc]initWithType:AnIMBinaryMessage
+                                                            msgId:messageId
+                                                          topicId:topicId
+                                                          message:@""
+                                                          content:data
+                                                         fileType:fileType
+                                                             from:from
+                                                       customData:customData
+                                                        timestamp:timestamp];
+    
+    if ([self.chatDelegate respondsToSelector:@selector(anIMDidReceiveBinaryData:fileType:customData:from:topicId:messageId:at:customMessage:)])
+    {
+        [self.chatDelegate anIMDidReceiveBinaryData:data
+                                           fileType:fileType
+                                         customData:customData
+                                               from:from
+                                            topicId:topicId
+                                          messageId:messageId
+                                                 at:timestamp
+                                      customMessage:[MessageUtil anIMMessageToHXMessage:customMessage]];
+    }
+    [MessageUtil saveTopicMessageIntoDB:@[customMessage]];
+    
+}
+
+- (void)anIM:(AnIM *)anIM didReceiveNotice:(NSString *)notice customData:(NSDictionary *)customData from:(NSString *)from topicId:(NSString *)topicId messageId:(NSString *)messageId at:(NSNumber *)timestamp
+{
+    
+//    if (self.noticeDelegate) {
+//        [self.noticeDelegate anIMDidReceiveNotice:notice customData:customData from:from topicId:topicId messageId:messageId at:timestamp];
+//    }
+}
+
+- (void)anIM:(AnIM *)anIM messageRead:(NSString *)messageId from:(NSString *)from
+{
+    [MessageUtil updateRemoteMessageReadAckByMessageId:messageId];
+    //add notificaiton update badge
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"ReceiveRemoteReadAck" object:messageId];
+}
+
+
+
 // it is for receiving message receive acknowledgment
 - (void)anIM:(AnIM *)anIM messageReceived:(NSString *)messageId
 {
     NSLog(@"it means the message with this messageId is already delivered to the recipient");
 }
 
-// it is for receiving message read acknowledgment
-- (void)anIM:(AnIM *)anIM messageRead:(NSString *)messageId from:(NSString *)from
-{
-    NSLog(@"it means the message with this messageId is already read by the recipient(from)");
-}
+
 
 - (void)sendRequest:(NSString *)path
              method:(AnSocialManagerMethod)method
@@ -138,9 +331,6 @@
 - (void)anIM:(AnIM *)anIM messageSent:(NSString *)messageId at:(NSNumber *)timestamp {
     NSLog(@"message %@ is sent at %@",messageId,timestamp);
     [self.chatDelegate messageSent:messageId];
-}
-- (void)anIM:(AnIM *)anIM sendReturnedException:(ArrownockException *)exception messageId:(NSString *)messageId {
-    NSLog(@"message %@ failed",messageId);
 }
 
 
